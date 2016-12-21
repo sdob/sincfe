@@ -1,0 +1,12 @@
+exports[`test Some assertion 1`] = `
+<li
+  className="sinc-sidebar__menu-item undefined">
+  <a
+    onClick={[Function]}
+    style={Object {}}>
+    <i
+      className="sinc-sidebar__icon fa fa-fw fa-undefined" />
+    Content
+  </a>
+</li>
+`;
