@@ -2,5 +2,9 @@ language: node_js
 node_js:
   - "6"
 cache: yarn
+before_script:
+  - "yarn add coveralls"
 script:
   - "yarn test"
+after_success:
+  - "cat .coverage/lvoc.info | ./node_modules/coveralls/bin/coveralls.js"
