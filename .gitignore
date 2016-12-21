@@ -1,6 +1,7 @@
 # Environment variables
 .env
 
+
 # Dependency directories
 node_modules
 
@@ -15,6 +16,7 @@ npm-debug.log
 # Coverage
 lib-cov
 coverage
+.coverage/
 
 # VIM swap files
 .*.sw[op]
