@@ -1,4 +1,5 @@
 # sinc-fe
+![Build status](https://travis-ci.org/sdob/sincfe.svg)
 
 This is the frontend for SINC.
 
