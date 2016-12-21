@@ -1,0 +1,20 @@
+# Environment variables
+.env
+
+# Dependency directories
+node_modules
+
+# Builds
+build
+
+# Logs
+logs
+*.log
+npm-debug.log
+
+# Coverage
+lib-cov
+coverage
+
+# VIM swap files
+.*.sw[op]

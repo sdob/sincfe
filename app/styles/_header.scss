@@ -1,0 +1,28 @@
+@import 'colors';
+
+
+.header {
+  background: $cft-blue-bg;
+  margin-bottom: 1rem;
+  padding-top: 0.5em;
+}
+
+.header-text {
+  color: #ffffff;
+  font-family: 'Gentium Book Basic', sans-serif;
+}
+
+.header-title {
+  font-size: 1.4rem;
+}
+
+.header-subtitle {
+  display: block;
+  font-size: 70%;
+}
+
+@media (min-width: 768px) {
+  .header-title {
+    font-size: 2.0rem;
+  }
+}

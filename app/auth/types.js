@@ -1,0 +1,8 @@
+export const LOGIN_USER = 'LOGIN_USER';
+export const LOGOUT_USER = 'LOGOUT_USER';
+export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
+export const LOGIN_FAILURE = 'LOGIN_FAILURE';
+
+export const AUTH_UNAUTHORIZED = 'AUTH_UNAUTHORIZED';
+
+export const PROFILE_RECEIVED = 'PROFILE_RECEIVED';

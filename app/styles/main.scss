@@ -1,0 +1,37 @@
+@import 'bootstrap-overrides';
+@import 'colors';
+
+@import 'faq';
+@import 'forms';
+@import 'help';
+@import 'header';
+@import 'qualifications';
+@import 'navbar';
+@import 'sidebar';
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Gentium Book Basic', Georgia, 'Times New Roman', sans-serif;
+}
+
+p.form-control-static {
+  margin-bottom: 0;
+}
+
+.sinc-page-header {
+  border-bottom: solid 1px $cft-blue-bg;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+.sinc-section-header {
+  background: $cft-blue-bg;
+  color: #fff;
+  padding: 0.25rem 0.5rem;
+  &--minor {
+    font-size: 1.5rem;
+  }
+}
+
+.sinc-not-implemented-yet {
+  margin-top: 2rem;
+}

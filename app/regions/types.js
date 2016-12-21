@@ -1,0 +1,2 @@
+export const REGIONS_RECEIVED = 'REGIONS_RECEIVED';
+export const REGIONS_ERROR = 'REGIONS_ERROR';

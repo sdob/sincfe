@@ -1,0 +1,2 @@
+export const COURSES_RECEIVED = 'COURSES_RECEIVED';
+export const COURSES_ERROR = 'COURSES_ERROR';
