@@ -3,24 +3,29 @@ import { connect } from 'react-redux';
 
 import { LOGIN_ROUTE } from '../constants';
 
-// This is a wrapper component that will redirect
+// This is a higher-order component that will redirect
 // to the login route instead of its child component
 // if we're not authenticated.
 export default function (ComposedComponent) {
   class Authentication extends Component {
 
+    // When the component mounts, if we're not authenticated,
+    // redirect the user to the login page
     componentWillMount() {
       if (!this.props.authenticated) {
         this.context.router.push(LOGIN_ROUTE);
       }
     }
 
+    // When the props update, check to see whether we're still authenticated;
+    // if we're logged out, then redirect the user to the login page
     componentWillUpdate(nextProps) {
       if (!nextProps.authenticated) {
         this.context.router.push(LOGIN_ROUTE);
       }
     }
 
+    // Render: return the component that we're wrapping
     render() {
       return <ComposedComponent {...this.props} />;
     }

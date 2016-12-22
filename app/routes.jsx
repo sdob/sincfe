@@ -1,21 +1,22 @@
 import React from 'react';
 import { IndexRoute, Redirect, Route } from 'react-router';
 
-// Root app
+// Our base app component
 import App from './App';
 
-// Other components
+// The logout component
 import Logout from './auth/Logout';
 
-// Import path strings
+// Path strings, used across modules
 import * as paths from './paths';
 
-// Static pages
+// Login page
 import Login from './pages/Login';
+
+// Static landing page for authenticated users
 import Main from './pages/Main';
 
-// Imported components; imports in alphabetical order, please
-
+// Other components; imports in alphabetical order, please
 import AddMember from './add-member/AddMember';
 import ContactUs from './contact-us/ContactUs';
 import ClubDetails from './club-details/ClubDetails';
@@ -36,15 +37,22 @@ import ViewCourses from './view-courses/ViewCourses';
 // Define and export app routes
 export default (
   <Route path="/" component={App}>
+    {/*
+      * Default to the main page
+      */}
     <IndexRoute component={RequireAuth(Main)} />
-    {/* Authentication routes */}
+    {/*
+      * Authentication routes
+      */}
     <Route path={paths.LOGIN} component={Login} />
     <Route path={paths.LOGOUT} component={Logout} />
-    {/* Static top-nav routes */}
+    {/*
+      * Static top-nav routes
+      */}
     <Route path={paths.HELP_PAGE} component={RequireAuth(HelpPage)} />
     <Route path={paths.CONTACT_US} component={RequireAuth(ContactUs)} />
     {/*
-      * Dive Officer options. These should be listed in the same order in which
+      * Dive Officer options. These should be listed in this file in the same order in which
       * they appear in the rendered sidebar.
       */}
     <Route path={paths.SEARCH_CURRENT_MEMBERS} component={RequireAuth(SearchCurrentMembers)} />
@@ -53,7 +61,7 @@ export default (
     <Route path={paths.CLUB_QUALIFICATIONS} component={RequireAuth(ClubQualifications)} />
     <Route path={paths.CLUB_DETAILS} component={RequireAuth(ClubDetails)} />
     {/*
-      * Member options. These should be listed in the same order in which
+      * Member options. These should be listed in this file in the same order in which
       * they appear in the rendered sidebar.
       */}
     <Route path={paths.DOCUMENTS} component={RequireAuth(Documents)} />

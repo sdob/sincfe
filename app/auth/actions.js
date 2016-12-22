@@ -17,11 +17,16 @@ export {
  */
 function handleError(dispatch, error) {
   if (error.response) {
+    // If we have a response from the server, then there should be a
+    // status code that will tell us what went wrong
     const { status } = error.response;
     switch (status) {
-      // If the server responded with an HTTP 401, that means that
+      // If the server responded with HTTP 401, that means that
       // the user is unauthenticated (possibly with a stale token),
-      // so we can easily handle that here
+      // so we can easily handle that here. (The UI should never
+      // allow a good-faith user to send a request when unauthorized,
+      // but it can happen if the server rotates tokens without
+      // notifying the user while they're logged in.)
       case HTTP.UNAUTHORIZED:
         // We can treat this exactly as if the user were logging out
         logoutUser();
@@ -38,37 +43,50 @@ function handleError(dispatch, error) {
   }
 }
 
+/*
+ * Try to log the user in with a username and password.
+ */
 function loginUser({ username, password }) {
   return (dispatch) => {
+    // Post the username/password combination to the API server's login URL
+    // and handle the response
     axios.post(API_LOGIN_URL, { username, password })
     .then((response) => {
-      // Store the authentication token
+      // If we're here, then the server responded with a 2xx response and a
+      // token. Start by storing the authentication token as a cookie
       cookie.save('token', response.data.token, { path: '/' });
-      window.location.href = '/main';
-      // Set default header
+      // Redirect to the main page
+      window.location.href = '/';
+      // Set the authorization header for all outgoing requests
       axios.defaults.headers.common.Authorization = `Token ${response.data.token}`;
       // Dispatch the login success event
       dispatch({ type: types.LOGIN_SUCCESS });
     })
     .catch((error) => {
+      // If we're here, then the server responded with an error of some sort
+      // (4xx or 5xx). Let our error handler take care of it
       handleError(dispatch, error);
     });
   };
 }
 
+/*
+ * Retrieve the user's profile information.
+ */
 function fetchProfile() {
   return (dispatch) => {
+    // Make a GET request to the API server's own-profile URL
+    // and handle the response
     axios.get(API_PROFILE_URL)
     .then((response) => {
-      console.info('profile returned');
-      console.info(response.data);
+      // If we're here, then the server responded with a 2xx and we should have
+      // the profile data; dispatch an event
       const profile = response.data;
       dispatch({ type: types.PROFILE_RECEIVED, payload: profile });
-      // Don't save the user info in a cookie;
-      // TODO: have some better cookie management
-      // cookie.save(`user`, user);
     })
     .catch((error) => {
+      // If we're here, then the server responded with an error of some sort;
+      // let the error handler take care of it
       handleError(error);
     });
   };

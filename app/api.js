@@ -1,5 +1,10 @@
 import { API_URL } from './constants';
 
+/*
+ * This defines the API. These functions take zero or more arguments and return
+ * URLs for resources on the API server.
+ */
+
 function clubQualificationsUrl(cid) {
   return `${API_URL}/clubs/${cid}/qualifications/`;
 }
