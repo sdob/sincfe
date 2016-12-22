@@ -1,4 +1,2 @@
-SINC is not COMS
-===============
-
-*It is not!*
+This is the root directory for the
+public-facing stuff.
