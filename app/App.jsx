@@ -19,14 +19,14 @@ function renderLoginPage() {
 // If the user is authenticated, we'll show them
 // the top nav, the sidebar, and whatever component
 // the route has sent them to
-function renderAuthenticated() {
+function renderAuthenticated(props) {
   return (
     <div className="container-fluid">
       <div className="col-sm-4 col-md-3">
         <Sidebar />
       </div>
       <div className="col-sm-8 col-md-9">
-        {this.props.children}
+        {props.children}
       </div>
     </div>
   );
@@ -44,11 +44,14 @@ class App extends Component {
     }
   }
 
+  // Render the app. We're rendering either of two things here: the
+  // main app (if the user is authenticated), or the login page
+  // (if not)
   render() {
     return (
       <div>
         <Header />
-        { this.props.authenticated ? renderAuthenticated() : renderLoginPage() }
+        { this.props.authenticated ? renderAuthenticated(this.props) : renderLoginPage() }
       </div>
     );
   }
