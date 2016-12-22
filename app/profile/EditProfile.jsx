@@ -12,10 +12,21 @@ const form = reduxForm({
   form: 'editProfile',
 });
 
+/*
+ * TODO: we need to handle the logic for actually updating the form (currently
+ * the submit button does nothing).
+ */
+
+/*
+ * This is the presentational component; it should return either
+ * the form, a loading indicator, or an error message.
+ */
 function EditProfile(props) {
   const { profile } = props;
 
   if (!profile) {
+    // TODO: check whether we've experienced an error and let the user
+    // know.
     return (<PageLoading />);
   }
 
