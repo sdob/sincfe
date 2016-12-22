@@ -1,21 +1,27 @@
-@import 'bootstrap-overrides';
+/*
+ * Variables that everybody needs
+ */
 @import 'colors';
 
+/*
+ * Override Bootstrap defaults
+ */
+@import 'bootstrap-overrides';
+
+/*
+ * Import our SASS submodules
+ */
 @import 'faq';
-@import 'forms';
 @import 'help';
 @import 'header';
 @import 'qualifications';
 @import 'navbar';
 @import 'sidebar';
 
-h1, h2, h3, h4, h5, h6 {
-  font-family: 'Gentium Book Basic', Georgia, 'Times New Roman', sans-serif;
-}
-
-p.form-control-static {
-  margin-bottom: 0;
-}
+/*
+ * TODO: Find somewhere else for these to live; there shouldn't be any
+ * rules in this file.
+ */
 
 .sinc-page-header {
   border-bottom: solid 1px $cft-blue-bg;

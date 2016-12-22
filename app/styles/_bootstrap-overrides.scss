@@ -1,8 +1,22 @@
 /* General stylistic overrides to Bootstraps' defaults */
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Gentium Book Basic', Georgia, 'Times New Roman', sans-serif;
+}
+
 .btn {
   border-radius: 0;
 }
+
 .form-control {
+  border-radius: 0;
+}
+
+.form-control-static {
+  margin-bottom: 0;
+}
+
+.form-control {
+  border-color: $cft-blue-bg;
   border-radius: 0;
 }
