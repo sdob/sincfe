@@ -11,8 +11,11 @@ export {
   logoutUser,
 };
 
+
+/*
+ * Handle all authentication errors in this function.
+ */
 function handleError(dispatch, error) {
-  console.error('handling error...');
   if (error.response) {
     const { status } = error.response;
     switch (status) {
@@ -20,14 +23,13 @@ function handleError(dispatch, error) {
       // the user is unauthenticated (possibly with a stale token),
       // so we can easily handle that here
       case HTTP.UNAUTHORIZED:
-        cookie.remove('token');
-        window.location.href = '/';
+        // We can treat this exactly as if the user were logging out
+        logoutUser();
         return;
 
       // HTTP 400 means that the user/password combination is wrong;
       // just dispatch the error
       case HTTP.BAD_REQUEST:
-        console.error('dispatching bad request');
         dispatch({ type: types.LOGIN_FAILURE, payload: error.response });
         break;
       default:
