@@ -1,11 +1,11 @@
 import React from 'react';
-import SidebarItem from './SidebarItem';
 import renderer from 'react-test-renderer';
+import SidebarItem from './SidebarItem';
 
 test('Some assertion', () => {
   const component = renderer.create(
     <SidebarItem to="/path" text="Content" />
   );
-  let tree = component.toJSON();
+  const tree = component.toJSON();
   expect(tree).toMatchSnapshot();
 });
