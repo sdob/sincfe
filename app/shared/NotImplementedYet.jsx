@@ -1,5 +1,9 @@
 import React from 'react';
 
+/*
+ * A presentational component that just lets the user know that the
+ * functionality they're expecting hasn't been implemented yet.
+ */
 export default function NotImplementedYet() {
   return (
     <div className="sinc-not-implemented-yet text-xs-center">
