@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import { fetchQualifications } from './actions';
+import fetchQualifications from './actions';
 import PageLoading from '../shared/PageLoading';
 
 class Qualifications extends Component {
