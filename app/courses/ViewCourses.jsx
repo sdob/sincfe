@@ -1,11 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router';
 
+import * as paths from '../paths';
 import PageLoading from '../shared/PageLoading';
 import fetchRegions from '../regions/actions';
-import fetchCourses from './actions';
+import { fetchCourses, hideRegion, showRegion } from './actions';
 
 class ViewCourses extends Component {
+
+  constructor(props) {
+    super(props);
+    this.handleRegionToggle = this.handleRegionToggle.bind(this);
+  }
 
   componentDidMount() {
     // We need to grab the regions from the API server
@@ -15,8 +22,24 @@ class ViewCourses extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.info('viewcourses gets props');
-    console.info(nextProps);
+    // console.info('viewcourses gets props');
+    // console.info(nextProps);
+  }
+
+  getVisibleCourses() {
+    const { courses, hiddenRegions } = this.props;
+    const visibleCourses = courses.filter(course => !hiddenRegions.includes(course.region.id));
+    return visibleCourses;
+  }
+
+  handleRegionToggle(evt, region) {
+    const { id } = region;
+    const shouldBeVisible = evt.target.checked;
+    if (!shouldBeVisible) {
+      this.props.hideRegion(region);
+    } else {
+      this.props.showRegion(region);
+    }
   }
 
   render() {
@@ -31,11 +54,17 @@ class ViewCourses extends Component {
         <div className="row">
           { this.props.regions.regions ? (
             <div>
-              {this.props.regions.regions.map((x, i) => (
+              {this.props.regions.regions.map((region, i) => (
                 <div className="col-xs-4 col-md-3" key={i + 1}>
                   <div className="checkbox">
-                    <label htmlFor={`region-${x.id}`}>
-                      <input name={`region-${x.id}`} type="checkbox" defaultChecked /> {x.name}
+                    <label htmlFor={`region-${region.id}`}>
+                      <input
+                        name={`region-${region.id}`}
+                        type="checkbox"
+                        defaultChecked
+                        onChange={(evt) => this.handleRegionToggle(evt, region)}
+                      />
+                        {region.name}
                     </label>
                   </div>
                 </div>
@@ -48,7 +77,7 @@ class ViewCourses extends Component {
           Filter by name
         </h2>
 
-        {this.props.courses.courses ? (
+        {this.props.courses ? (
           <table className="table">
             <thead>
               <tr>
@@ -60,9 +89,13 @@ class ViewCourses extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.courses.courses.map((c, i) => (
+              {this.getVisibleCourses().map((c, i) => (
                 <tr key={i + 1}>
-                  <td>{c.id}</td>
+                  <td>
+                    <Link to={paths.VIEW_COURSES + '/' + c.id}>
+                      {c.id}
+                    </Link>
+                  </td>
                   <td>{c.certificate.name}</td>
                   <td>{c.date || 'Open'}</td>
                   <td>{c.organizer.first_name} {c.organizer.last_name}</td>
@@ -79,11 +112,14 @@ class ViewCourses extends Component {
 }
 
 function mapStateToProps(state) {
+  // console.info('mapStateToProps');
+  // console.info(state);
   return {
-    courses: state.courses,
+    courses: state.courses.courses,
     profile: state.auth.profile,
     regions: state.regions,
+    hiddenRegions: state.courses.hiddenRegions,
   };
 }
 
-export default connect(mapStateToProps, { fetchCourses, fetchRegions })(ViewCourses);
+export default connect(mapStateToProps, { fetchCourses, fetchRegions, hideRegion, showRegion })(ViewCourses);
