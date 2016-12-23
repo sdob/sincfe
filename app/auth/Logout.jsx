@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './actions';
+import PageLoading from '../shared/PageLoading';
 
 class Logout extends Component {
   componentDidMount() {
@@ -8,7 +9,9 @@ class Logout extends Component {
   }
 
   render() {
-    return (<div>logging out</div>);
+    return (
+      <PageLoading message="Logging out..." />
+    );
   }
 }
 
