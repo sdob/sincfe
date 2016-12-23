@@ -1,6 +1,18 @@
 import axios from 'axios';
 import * as types from './types';
-import { courseDetailUrl, coursesListUrl } from '../api';
+import { certificateListUrl, courseDetailUrl, coursesListUrl } from '../api';
+
+function fetchCertificateList() {
+  return function fetch(dispatch) {
+    axios.get(certificateListUrl())
+    .then((response) => {
+      dispatch({ type: types.CERTIFICATE_LIST_RECEIVED, payload: response.data });
+    })
+    .catch((error) => {
+      handleError(dispatch, error);
+    });
+  }
+}
 
 function fetchCourseDetail(cid) {
   return function fetch(dispatch) {
@@ -44,6 +56,7 @@ function handleError(dispatch, error) {
 }
 
 export {
+  fetchCertificateList,
   fetchCourseDetail,
   fetchCourseList,
   hideRegion,

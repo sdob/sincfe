@@ -5,13 +5,14 @@ import { Link } from 'react-router';
 import * as paths from '../paths';
 import PageLoading from '../shared/PageLoading';
 import fetchRegions from '../regions/actions';
-import { fetchCourseList, hideRegion, showRegion } from './actions';
+import { fetchCertificateList, fetchCourseList, hideRegion, showRegion } from './actions';
 
 class ViewCourses extends Component {
 
   constructor(props) {
     super(props);
     this.handleRegionToggle = this.handleRegionToggle.bind(this);
+    this.handleCertificateSelect = this.handleCertificateSelect.bind(this);
   }
 
   componentDidMount() {
@@ -19,6 +20,8 @@ class ViewCourses extends Component {
     this.props.fetchRegions();
     // We also need the courses
     this.props.fetchCourseList();
+    // And we need the certificate types!
+    this.props.fetchCertificateList();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,6 +33,14 @@ class ViewCourses extends Component {
     const { courses, hiddenRegions } = this.props;
     const visibleCourses = courses.filter(course => !hiddenRegions.includes(course.region.id));
     return visibleCourses;
+  }
+
+  handleCertificateSelect(evt) {
+    // TODO: Find a more elegant way to access the <select> element's
+    // option (this way isn't necessarily terrible, but it's ugly).
+    const certId = evt.target[evt.target.selectedIndex].value;
+    // TODO: Implement an action->reducer->props chain to hide
+    // courses that don't have this certificate ID
   }
 
   handleRegionToggle(evt, region) {
@@ -50,7 +61,6 @@ class ViewCourses extends Component {
         <h2 className="sinc-section-header sinc-section-header--minor">
           Filter by area
         </h2>
-
         <div className="row">
           { this.props.regions.regions ? (
             <div>
@@ -77,6 +87,22 @@ class ViewCourses extends Component {
           Filter by name
         </h2>
 
+        <div className="col-xs-6 col-sm-3">
+          Course name
+        </div>
+        <select onChange={(evt) => this.handleCertificateSelect(evt)}>
+          <option />
+          {this.props.certificates && this.props.certificates.map((certificate, i) => (
+            <option
+              value={certificate.id}
+              key={i+1}
+              >{certificate.name}</option>
+          ))}
+        </select>
+
+        <h2 className="sinc-section-header sinc-section-header-minor">
+          Results
+        </h2>
         {this.props.courses ? (
           <table className="table">
             <thead>
@@ -112,9 +138,10 @@ class ViewCourses extends Component {
 }
 
 function mapStateToProps(state) {
-  // console.info('mapStateToProps');
-  // console.info(state);
+  console.info('mapStateToProps');
+  console.info(state);
   return {
+    certificates: state.courses.certificates,
     courses: state.courses.courses,
     profile: state.auth.profile,
     regions: state.regions,
@@ -122,4 +149,12 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchCourseList, fetchRegions, hideRegion, showRegion })(ViewCourses);
+const actionList = {
+  fetchCertificateList,
+  fetchCourseList,
+  fetchRegions,
+  hideRegion,
+  showRegion,
+};
+
+export default connect(mapStateToProps, actionList)(ViewCourses);
