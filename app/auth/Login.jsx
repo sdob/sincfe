@@ -18,7 +18,7 @@ class Login extends Component {
   componentWillReceiveProps(nextProps) {
     const { errorObj } = this.props;
     if (nextProps.error !== errorObj) {
-      console.error('error is changing');
+      // We have an error of some sort
     }
   }
 
@@ -31,7 +31,7 @@ class Login extends Component {
 
     return (
       <div className="sinc-sidebar__section">
-        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
           <div className="sinc-sidebar__header">
             <h2>Login</h2>
           </div>
