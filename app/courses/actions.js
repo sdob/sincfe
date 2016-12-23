@@ -14,7 +14,7 @@ function fetchCourseDetail(cid) {
   }
 }
 
-function fetchCourses() {
+function fetchCourseList() {
   return function fetch(dispatch) {
     axios.get(coursesListUrl())
     .then((response) => {
@@ -45,7 +45,7 @@ function handleError(dispatch, error) {
 
 export {
   fetchCourseDetail,
-  fetchCourses,
+  fetchCourseList,
   hideRegion,
   showRegion,
 };

@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import * as paths from '../paths';
 import PageLoading from '../shared/PageLoading';
 import fetchRegions from '../regions/actions';
-import { fetchCourses, hideRegion, showRegion } from './actions';
+import { fetchCourseList, hideRegion, showRegion } from './actions';
 
 class ViewCourses extends Component {
 
@@ -18,7 +18,7 @@ class ViewCourses extends Component {
     // We need to grab the regions from the API server
     this.props.fetchRegions();
     // We also need the courses
-    this.props.fetchCourses();
+    this.props.fetchCourseList();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -122,4 +122,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchCourses, fetchRegions, hideRegion, showRegion })(ViewCourses);
+export default connect(mapStateToProps, { fetchCourseList, fetchRegions, hideRegion, showRegion })(ViewCourses);
