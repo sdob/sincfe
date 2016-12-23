@@ -38,7 +38,7 @@ class App extends Component {
   // When the main app component mounts,
   // if the user is authenticated, retrieve
   // their profile from the back-end
-  componentWillMount() {
+  componentDidMount() {
     if (this.props.authenticated) {
       this.props.fetchProfile();
     }
