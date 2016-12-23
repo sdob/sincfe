@@ -19,6 +19,7 @@ import Main from './pages/Main';
 // Other components; imports in alphabetical order, please
 import AddMember from './add-member/AddMember';
 import ContactUs from './contact-us/ContactUs';
+import CourseDetail from './courses/CourseDetail';
 import ClubDetails from './club-details/ClubDetails';
 import ClubRenewalOrders from './club-renewal-orders/ClubRenewalOrders';
 import ClubQualifications from './qualifications/ClubQualifications';
@@ -70,6 +71,7 @@ export default (
     <Route path={paths.MEMBER_QUALIFICATIONS} component={RequireAuth(MemberQualifications)} />
     <Route path={paths.MEMBERSHIP_HISTORY} component={RequireAuth(MembershipHistory)} />
     <Route path={paths.VIEW_COURSES} component={RequireAuth(ViewCourses)} />
+    <Route path={paths.VIEW_COURSES + '/:id'} component={RequireAuth(CourseDetail)}/>
     <Route path={paths.ORGANIZE_COURSES} component={RequireAuth(OrganizeCourses)} />
     <Route path={paths.TEACH_COURSES} component={RequireAuth(TeachCourses)} />
     <Redirect path="*" to="/" />
