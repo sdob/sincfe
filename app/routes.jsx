@@ -23,16 +23,16 @@ import ClubDetails from './club-details/ClubDetails';
 import ClubRenewalOrders from './club-renewal-orders/ClubRenewalOrders';
 import ClubQualifications from './club-qualifications/ClubQualifications';
 import Documents from './documents/Documents';
-import EditProfile from './profile/EditProfile';
+import EditProfile from './profiles/EditProfile';
 import HelpPage from './help-page/HelpPage';
 import MemberQualifications from './member-qualifications/MemberQualifications';
 import MedicalDisclaimer from './medical-disclaimer/MedicalDisclaimer';
 import MembershipHistory from './membership-history/MembershipHistory';
-import OrganizeCourses from './organize-courses/OrganizeCourses';
+import OrganizeCourses from './courses/OrganizeCourses';
 import RequireAuth from './auth/RequireAuth';
 import SearchCurrentMembers from './search-current-members/SearchCurrentMembers';
-import TeachCourses from './teach-courses/TeachCourses';
-import ViewCourses from './view-courses/ViewCourses';
+import TeachCourses from './courses/TeachCourses';
+import ViewCourses from './courses/ViewCourses';
 
 // Define and export app routes
 export default (
