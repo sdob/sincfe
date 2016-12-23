@@ -11,10 +11,9 @@ import { reducer as formReducer } from 'redux-form';
 // Import reducers from submodules
 import authReducer from './auth/reducers';
 import coursesReducer from './courses/reducers';
-import clubQualificationsReducer from './club-qualifications/reducers';
 import currentMembersReducer from './search-current-members/reducers';
 import currentMembershipStatusReducer from './membership-history/reducers';
-import qualificationsReducer from './member-qualifications/reducers';
+import qualificationsReducer from './qualifications/reducers';
 import regionsReducer from './regions/reducers';
 
 // import authentication action types (in case we're authenticated at
@@ -31,12 +30,11 @@ import styles from './styles/main.scss'; // eslint-disable-line
 // Combine our submodule reducers
 const rootReducer = combineReducers({
   auth: authReducer,
-  clubQualifications: clubQualificationsReducer,
+  qualifications: qualificationsReducer,
   courses: coursesReducer,
   currentMembers: currentMembersReducer,
   currentMembershipStatus: currentMembershipStatusReducer,
   form: formReducer,
-  memberQualifications: qualificationsReducer,
   regions: regionsReducer,
 });
 

@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
-import fetchQualifications from './actions';
+import { fetchMemberQualifications } from './actions';
 import PageLoading from '../shared/PageLoading';
 
 class Qualifications extends Component {
 
   componentDidMount() {
     if (this.props.profile && this.props.profile.id) {
-      this.props.fetchQualifications(this.props.profile.id);
+      this.props.fetchMemberQualifications(this.props.profile.id);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     // If we have a profile ID, then go get qualifications
     if (nextProps.profile !== this.props.profile) {
-      this.props.fetchQualifications(nextProps.profile.id);
+      this.props.fetchMemberQualifications(nextProps.profile.id);
     }
   }
 
@@ -56,8 +56,8 @@ class Qualifications extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.auth.profile,
-    qualifications: state.memberQualifications,
+    qualifications: state.qualifications,
   };
 }
 
-export default connect(mapStateToProps, { fetchQualifications })(Qualifications);
+export default connect(mapStateToProps, { fetchMemberQualifications })(Qualifications);

@@ -22,7 +22,7 @@ class ClubQualifications extends Component {
 
   render() {
     const { profile, qualifications } = this.props;
-    if (!(profile && qualifications.qualifications)) {
+    if (!(profile && qualifications)) {
       return (<PageLoading />);
     }
     return (
@@ -56,7 +56,7 @@ class ClubQualifications extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.auth.profile,
-    qualifications: state.clubQualifications,
+    qualifications: state.qualifications,
   };
 }
 

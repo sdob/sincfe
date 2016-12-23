@@ -87,7 +87,7 @@ function fetchProfile() {
     .catch((error) => {
       // If we're here, then the server responded with an error of some sort;
       // let the error handler take care of it
-      handleError(error);
+      handleError(dispatch, error);
     });
   };
 }

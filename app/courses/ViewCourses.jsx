@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import PageLoading from '../shared/PageLoading';
-import { fetchRegions } from '../regions/actions';
-import { fetchCourses } from '../courses/actions';
+import fetchRegions from '../regions/actions';
+import fetchCourses from './actions';
 
 class ViewCourses extends Component {
 
