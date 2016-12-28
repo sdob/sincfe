@@ -5,10 +5,8 @@ import PageLoading from '../shared/PageLoading';
 
 class ActiveInstructors extends Component {
   componentDidMount() {
-    console.info('ActiveInstructors mounted');
     const { profile } = this.props;
     if (profile) {
-      console.info('profile loaded');
       this.props.fetchActiveInstructors();
     }
   }
