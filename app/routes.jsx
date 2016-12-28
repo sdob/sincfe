@@ -17,6 +17,7 @@ import Login from './pages/Login';
 import Main from './pages/Main';
 
 // Other components; imports in alphabetical order, please
+import ActiveInstructors from './active-instructors/ActiveInstructors';
 import AddMember from './add-member/AddMember';
 import ContactUs from './contact-us/ContactUs';
 import CourseDetail from './courses/CourseDetail';
@@ -61,6 +62,7 @@ export default (
     <Route path={paths.CLUB_RENEWAL_ORDERS} component={RequireAuth(ClubRenewalOrders)} />
     <Route path={paths.CLUB_QUALIFICATIONS} component={RequireAuth(ClubQualifications)} />
     <Route path={paths.CLUB_DETAILS} component={RequireAuth(ClubDetails)} />
+    <Route path={paths.ACTIVE_INSTRUCTORS} component={RequireAuth(ActiveInstructors)} />
     {/*
       * Member options. These should be listed in this file in the same order in which
       * they appear in the rendered sidebar.

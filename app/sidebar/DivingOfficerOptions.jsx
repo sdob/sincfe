@@ -19,6 +19,7 @@ export default function DivingOfficerOptions() {
         <SidebarItem icon="money" to={paths.CLUB_RENEWAL_ORDERS} text="Renewal orders" />
         <SidebarItem icon="certificate" to={paths.CLUB_QUALIFICATIONS} text="Qualifications" />
         <SidebarItem icon="institution" to={paths.CLUB_DETAILS} text="Club details" />
+        <SidebarItem icon="mortar-board" to={paths.ACTIVE_INSTRUCTORS} text="Active instructors" />
       </ul>
     </div>
   );

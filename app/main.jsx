@@ -9,6 +9,7 @@ import reduxThunk from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form';
 
 // Import reducers from submodules
+import activeInstructorsReducer from './active-instructors/reducers';
 import authReducer from './auth/reducers';
 import coursesReducer from './courses/reducers';
 import currentMembersReducer from './search-current-members/reducers';
@@ -29,6 +30,7 @@ import styles from './styles/main.scss'; // eslint-disable-line
 
 // Combine our submodule reducers
 const rootReducer = combineReducers({
+  activeInstructors: activeInstructorsReducer,
   auth: authReducer,
   qualifications: qualificationsReducer,
   courses: coursesReducer,

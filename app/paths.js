@@ -11,6 +11,7 @@
  * (3) the string values are lower-case, with words connected by hyphens.
  */
 
+export const ACTIVE_INSTRUCTORS = '/active-instructors';
 export const ADD_MEMBER = '/add-member';
 export const CLUB_DETAILS = '/club-details';
 export const CLUB_QUALIFICATIONS = '/club-qualifications';
