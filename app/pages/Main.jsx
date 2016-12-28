@@ -17,8 +17,8 @@ function Main(props) {
           // Be mindful of JSX's painful handling of whitespace...
         }
         Welcome to the new CFT Online Membership System.
-        You are logged in as
-        {props.profile.first_name} {props.profile.last_name} CFT# {props.profile.id}.
+        You are logged in
+        as {props.profile.first_name} {props.profile.last_name} CFT# {props.profile.id}.
       </p>
       <p>
         We hope you are enjoying being being part of Ireland&apos;s largest diving
