@@ -11,7 +11,7 @@ export default function TreasurerOptions() {
       </div>
       <ul className="nav sinc-sidebar__menu">
         <SidebarItem icon="search" to={paths.SEARCH_CURRENT_MEMBERS} text="Search current members" />
-        <SidebarItem icon="money" to="RenewalOrders" text="Renewal orders" />
+        <SidebarItem icon="money" to={paths.CLUB_RENEWAL_ORDERS} text="Renewal orders" />
       </ul>
     </div>
   );
