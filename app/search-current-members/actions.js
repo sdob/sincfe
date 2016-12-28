@@ -1,8 +1,8 @@
 import axios from 'axios';
 import { currentMembersUrl } from '../api';
-import { CURRENT_MEMBERS_RECEIVED } from './types';
+import { CURRENT_MEMBERS_ERROR, CURRENT_MEMBERS_RECEIVED } from './types';
 
-function fetchCurrentMembers(cid) {
+export default function fetchCurrentMembers(cid) {
   return function fetch(dispatch) {
     const url = currentMembersUrl(cid);
     axios.get(url)
@@ -12,8 +12,7 @@ function fetchCurrentMembers(cid) {
     })
     .catch((error) => {
       console.error(error);
+      dispatch({ type: CURRENT_MEMBERS_ERROR, payload: error });
     });
   };
 }
-
-export default fetchCurrentMembers;

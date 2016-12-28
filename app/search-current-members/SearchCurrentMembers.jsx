@@ -3,20 +3,21 @@ import { connect } from 'react-redux';
 import PageError from '../shared/PageError';
 import PageLoading from '../shared/PageLoading';
 import NotImplementedYet from '../shared/NotImplementedYet';
-import { fetchCurrentMembers } from './actions';
+import fetchCurrentMembers from './actions';
 
 class SearchCurrentMembers extends Component {
 
   componentDidMount() {
     const { profile } = this.props;
     if (profile && profile.club) {
-      this.props.fetchCurrentMembers(profile.club);
+      this.props.fetchCurrentMembers(profile.club.id);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.profile !== this.props.profile) {
-      this.props.fetchCurrentMembers(nextProps.profile.club);
+      const { profile } = nextProps;
+      this.props.fetchCurrentMembers(profile.club.id);
     }
   }
 
@@ -28,10 +29,44 @@ class SearchCurrentMembers extends Component {
     if (!(profile && currentMembers.currentMembers)) {
       return (<PageLoading />);
     }
+
+    const members = currentMembers.currentMembers;
+
+    // TODO: Set 'scope' to whatever scope the user is viewing
+    // (e.g., club, region, etc.)
+    const scope = profile.club.name;
+
     return (
       <div>
-        <h1 className="sinc-page-header">Search current members</h1>
-        <NotImplementedYet />
+        <h1 className="sinc-page-header">Search current members ({scope})</h1>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>CFT #</th>
+              <th>First name</th>
+              <th>Last name</th>
+              <th>Position</th>
+            </tr>
+          </thead>
+          <tbody>
+            {members.map((member, i) => (
+                <tr key={i}>
+                  <td>
+                    {member.id}
+                  </td>
+                  <td>
+                    {member.first_name}
+                  </td>
+                  <td>
+                    {member.last_name}
+                  </td>
+                  <td>
+                    {member.readable_committee_positions.join(', ')}
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
       </div>
     );
   }
