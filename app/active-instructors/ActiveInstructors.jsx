@@ -20,14 +20,35 @@ class ActiveInstructors extends Component {
   }
 
   render() {
-    const { instructors } = this.props;
+    const { instructors, profile } = this.props;
     if (!instructors) {
       return <PageLoading />;
     }
 
+    // TODO: Set this to the appropriate scope (club, region, etc.)
+    const scope = profile.club.name;
+
     return (
       <div>
-        Page loaded!;
+        <h1>Active Instructors ({scope})</h1>
+        <table className="table">
+          <thead>
+            <tr>
+              <th>CFT #</th>
+              <th>First name</th>
+              <th>Last name</th>
+            </tr>
+          </thead>
+          <tbody>
+            {instructors.map((instructor, i) => (
+              <tr key={i}>
+                <td>{instructor.id}</td>
+                <td>{instructor.first_name}</td>
+                <td>{instructor.last_name}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     );
   }
@@ -35,6 +56,7 @@ class ActiveInstructors extends Component {
 
 function mapStateToProps(state) {
   return {
+    instructors: state.activeInstructors.instructors,
     profile: state.auth.profile,
   };
 }
