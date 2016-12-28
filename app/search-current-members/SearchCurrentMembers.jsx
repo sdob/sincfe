@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PageError from '../shared/PageError';
 import PageLoading from '../shared/PageLoading';
 import NotImplementedYet from '../shared/NotImplementedYet';
-import { fetchCurrentMembers } from './actions';
+import fetchCurrentMembers from './actions';
 
 class SearchCurrentMembers extends Component {
 
@@ -16,7 +16,8 @@ class SearchCurrentMembers extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.profile !== this.props.profile) {
-      this.props.fetchCurrentMembers(nextProps.profile.club);
+      const { profile } = nextProps;
+      this.props.fetchCurrentMembers(profile.club);
     }
   }
 
