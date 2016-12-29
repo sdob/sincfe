@@ -85,18 +85,22 @@ class ViewCourses extends Component {
           Filter by name
         </h2>
 
-        <div className="col-xs-6 col-sm-3">
-          Course name
+        <div className="form-group row">
+          <label className="col-xs-6 col-sm-3 col-form-label">
+            Course name
+          </label>
+          <div className="col-xs-6 col-sm-3">
+            <select className="form-control" onChange={(evt) => this.handleCertificateSelect(evt)}>
+              <option>Select</option>
+              {this.props.certificates && this.props.certificates.map((certificate, i) => (
+                <option
+                  value={certificate.id}
+                  key={i+1}
+                  >{certificate.name}</option>
+              ))}
+            </select>
+          </div>
         </div>
-        <select onChange={(evt) => this.handleCertificateSelect(evt)}>
-          <option />
-          {this.props.certificates && this.props.certificates.map((certificate, i) => (
-            <option
-              value={certificate.id}
-              key={i+1}
-              >{certificate.name}</option>
-          ))}
-        </select>
 
         <h2 className="sinc-section-header sinc-section-header-minor">
           Results
