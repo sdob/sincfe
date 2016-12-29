@@ -48,13 +48,13 @@ class ViewCourses extends Component {
         <h1 className="sinc-page-header">View courses</h1>
 
         <h2 className="sinc-section-header sinc-section-header--minor">
-          Filter by area
+          Filter by region
         </h2>
         <div className="row">
           { this.props.regions.regions ? (
             <div>
               {this.props.regions.regions.map((region, i) => (
-                <div className="col-xs-4 col-md-3" key={i + 1}>
+                <div className="col-xs-6 col-md-3" key={i + 1}>
                   <div className="checkbox">
                     <label htmlFor={`region-${region.id}`}>
                       <input
@@ -73,15 +73,15 @@ class ViewCourses extends Component {
         </div>
 
         <h2 className="sinc-section-header sinc-section-header--minor">
-          Filter by name
+          Filter by course
         </h2>
 
         <div className="form-group row">
-          <label className="col-xs-6 col-sm-3 col-form-label">
+          <label className="col-sm-6 col-md-3 col-form-label">
             Course name
           </label>
-          <div className="col-xs-6 col-sm-3">
-            <select onChange={evt => this.handleCertificateSelect(evt)}>
+          <div className="col-sm-6 col-md-4 col-lg-3">
+            <select className="form-control" onChange={evt => this.handleCertificateSelect(evt)}>
               <option />
               {this.props.certificates && this.props.certificates.map((certificate, i) => (
                 <option
