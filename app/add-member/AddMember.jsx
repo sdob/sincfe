@@ -1,6 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
+import 'style!css!react-datepicker/dist/react-datepicker.css';
 
 const form = reduxForm({
   form: 'addMember',
@@ -45,10 +49,26 @@ function AddMember() {
 
         <div className="form-group row">
           <label htmlFor="date_of_birth" className="col-sm-3 col-form-label">Date of birth</label>
+          <div className="col-sm-4">
+            <Field name="date_of_birth" className="form-control" component={renderDatePicker} />
+          </div>
         </div>
 
       </form>
     </div>
+  );
+}
+
+function renderDatePicker({ input, placeholder, defaultValue, meta: { touched, error } }) {
+  return (
+      <DatePicker
+        {...input}
+        className="form-control"
+        dateFormat="DD MMMM YYYY"
+        showMonthDropdown={true}
+        showYearDropdown={true}
+        selected={input.value ? moment(input.value) : null}
+      />
   );
 }
 
