@@ -73,7 +73,7 @@ export default (
     <Route path={paths.MEMBER_QUALIFICATIONS} component={RequireAuth(MemberQualifications)} />
     <Route path={paths.MEMBERSHIP_HISTORY} component={RequireAuth(MembershipHistory)} />
     <Route path={paths.VIEW_COURSES} component={RequireAuth(ViewCourses)} />
-    <Route path={paths.VIEW_COURSES + '/:id'} component={RequireAuth(CourseDetail)}/>
+    <Route path={`${paths.VIEW_COURSES}/:id`} component={RequireAuth(CourseDetail)} />
     <Route path={paths.ORGANIZE_COURSES} component={RequireAuth(OrganizeCourses)} />
     <Route path={paths.TEACH_COURSES} component={RequireAuth(TeachCourses)} />
     <Redirect path="*" to="/" />

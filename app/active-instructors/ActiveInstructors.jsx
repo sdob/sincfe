@@ -12,7 +12,7 @@ class ActiveInstructors extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.profile != this.props.profile) {
+    if (nextProps.profile !== this.props.profile) {
       this.props.fetchActiveInstructors();
     }
   }
