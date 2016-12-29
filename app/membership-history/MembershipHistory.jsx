@@ -1,7 +1,7 @@
 import moment from 'moment';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { fetchCurrentMembershipStatus } from './actions';
+import fetchCurrentMembershipStatus from './actions';
 import NotImplementedYet from '../shared/NotImplementedYet';
 
 class MembershipHistory extends Component {
