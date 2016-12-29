@@ -36,7 +36,7 @@ class CourseDetail extends Component {
 
         <h2 className="sinc-section-header">Organizational details</h2>
         {course.location && <CourseDetailRow label="Location" value={course.location} />}
-        <CourseDetailRow label="Date" value={course.date || 'Ongoing' } />
+        <CourseDetailRow label="Date" value={course.date || 'Ongoing'} />
         {course.time && <CourseDetailRow label="Time" value={course.time} />}
         <CourseDetailRow label="Maximum participants" value={course.maximum_participants || 'Unlimited'} />
         {course.comments && (
