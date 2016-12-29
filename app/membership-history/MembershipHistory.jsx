@@ -24,8 +24,7 @@ class MembershipHistory extends Component {
     }
 
     const status = this.props.currentMembershipStatus;
-    console.log('STATUS');
-    console.log(status);
+
     return (
       <div>
         <h1 className="sinc-page-header">Membership history</h1>
