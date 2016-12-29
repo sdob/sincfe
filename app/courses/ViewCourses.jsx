@@ -25,8 +25,6 @@ class ViewCourses extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // console.info('viewcourses gets props');
-    // console.info(nextProps);
   }
 
   getVisibleCourses() {
@@ -138,8 +136,6 @@ class ViewCourses extends Component {
 }
 
 function mapStateToProps(state) {
-  console.info('mapStateToProps');
-  console.info(state);
   return {
     certificates: state.courses.certificates,
     courses: state.courses.courses,
