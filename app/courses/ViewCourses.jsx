@@ -12,7 +12,6 @@ class ViewCourses extends Component {
   constructor(props) {
     super(props);
     this.handleRegionToggle = this.handleRegionToggle.bind(this);
-    this.handleCertificateSelect = this.handleCertificateSelect.bind(this);
   }
 
   componentDidMount() {
@@ -24,25 +23,13 @@ class ViewCourses extends Component {
     this.props.fetchCertificateList();
   }
 
-  componentWillReceiveProps(nextProps) {
-  }
-
   getVisibleCourses() {
     const { courses, hiddenRegions } = this.props;
     const visibleCourses = courses.filter(course => !hiddenRegions.includes(course.region.id));
     return visibleCourses;
   }
 
-  handleCertificateSelect(evt) {
-    // TODO: Find a more elegant way to access the <select> element's
-    // option (this way isn't necessarily terrible, but it's ugly).
-    const certId = evt.target[evt.target.selectedIndex].value;
-    // TODO: Implement an action->reducer->props chain to hide
-    // courses that don't have this certificate ID
-  }
-
   handleRegionToggle(evt, region) {
-    const { id } = region;
     const shouldBeVisible = evt.target.checked;
     if (!shouldBeVisible) {
       this.props.hideRegion(region);
@@ -70,9 +57,9 @@ class ViewCourses extends Component {
                         name={`region-${region.id}`}
                         type="checkbox"
                         defaultChecked
-                        onChange={(evt) => this.handleRegionToggle(evt, region)}
+                        onChange={evt => this.handleRegionToggle(evt, region)}
                       />
-                        {region.name}
+                      {region.name}
                     </label>
                   </div>
                 </div>
@@ -88,13 +75,15 @@ class ViewCourses extends Component {
         <div className="col-xs-6 col-sm-3">
           Course name
         </div>
-        <select onChange={(evt) => this.handleCertificateSelect(evt)}>
+        <select onChange={evt => this.handleCertificateSelect(evt)}>
           <option />
           {this.props.certificates && this.props.certificates.map((certificate, i) => (
             <option
               value={certificate.id}
-              key={i+1}
-              >{certificate.name}</option>
+              key={i + 1}
+            >
+              {certificate.name}
+            </option>
           ))}
         </select>
 
@@ -116,7 +105,7 @@ class ViewCourses extends Component {
               {this.getVisibleCourses().map((c, i) => (
                 <tr key={i + 1}>
                   <td>
-                    <Link to={paths.VIEW_COURSES + '/' + c.id}>
+                    <Link to={`${paths.VIEW_COURSES}/${c.id}`}>
                       {c.id}
                     </Link>
                   </td>

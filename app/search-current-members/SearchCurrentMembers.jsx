@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PageError from '../shared/PageError';
 import PageLoading from '../shared/PageLoading';
-import NotImplementedYet from '../shared/NotImplementedYet';
 import fetchCurrentMembers from './actions';
 
 class SearchCurrentMembers extends Component {
@@ -50,20 +49,20 @@ class SearchCurrentMembers extends Component {
           </thead>
           <tbody>
             {members.map((member, i) => (
-                <tr key={i}>
-                  <td>
-                    {member.id}
-                  </td>
-                  <td>
-                    {member.first_name}
-                  </td>
-                  <td>
-                    {member.last_name}
-                  </td>
-                  <td>
-                    {member.readable_committee_positions.join(', ')}
-                  </td>
-                </tr>
+              <tr key={i}>
+                <td>
+                  {member.id}
+                </td>
+                <td>
+                  {member.first_name}
+                </td>
+                <td>
+                  {member.last_name}
+                </td>
+                <td>
+                  {member.readable_committee_positions.join(', ')}
+                </td>
+              </tr>
               ))}
           </tbody>
         </table>
