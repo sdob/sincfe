@@ -12,7 +12,7 @@ class Login extends Component {
 
   constructor(props, ctx) {
     super(props, ctx);
-    this.handleFormSubmit.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -31,7 +31,7 @@ class Login extends Component {
 
     return (
       <div className="sinc-sidebar__section">
-        <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
+        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           <div className="sinc-sidebar__header">
             <h2>Login</h2>
           </div>

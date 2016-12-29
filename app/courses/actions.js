@@ -11,7 +11,7 @@ function fetchCertificateList() {
     .catch((error) => {
       handleError(dispatch, error);
     });
-  }
+  };
 }
 
 function fetchCourseDetail(cid) {
@@ -23,7 +23,7 @@ function fetchCourseDetail(cid) {
     .catch((error) => {
       handleError(dispatch, error);
     });
-  }
+  };
 }
 
 function fetchCourseList() {
@@ -42,13 +42,13 @@ function hideRegion(region) {
   console.info(`hiding region ID ${region.id}`);
   return function hide(dispatch) {
     dispatch({ type: types.REGION_HIDE, payload: region });
-  }
+  };
 }
 
 function showRegion(region) {
   return function show(dispatch) {
     dispatch({ type: types.REGION_SHOW, payload: region });
-  }
+  };
 }
 
 function handleError(dispatch, error) {
