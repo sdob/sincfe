@@ -56,8 +56,9 @@ function EditProfile(props) {
           >
             Title
           </label>
-          <div className="col-sm-6 col-md-4">
+          <div className="col-sm-6 col-md-4 col-lg-3">
             <select className="form-control">
+              <option>Select title</option>
               <option>Dr</option>
               <option>Miss</option>
               <option>Mr</option>
@@ -71,8 +72,8 @@ function EditProfile(props) {
         <FormRow field={fields.LAST_NAME} label="Last name" />
 
         <div className="form-group row">
-          <label htmlFor={fields.GENDER} className="col-md-3 col-form-label">Gender</label>
-          <div className="col-sm-4">
+          <label htmlFor={fields.GENDER} className="col-sm-6 col-md-3 col-form-label">Gender</label>
+          <div className="col-sm-6 col-md-4 col-lg-3">
             <select className="form-control">
               <option>Male</option>
               <option>Female</option>
