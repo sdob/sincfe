@@ -22,10 +22,10 @@ function renderLoginPage() {
 function renderAuthenticated(props) {
   return (
     <div className="container-fluid">
-      <div className="col-sm-4 col-md-3">
+      <div className="col-md-4 col-lg-3">
         <Sidebar />
       </div>
-      <div className="col-sm-8 col-md-9">
+      <div className="col-md-8 col-lg-9">
         {props.children}
       </div>
     </div>
