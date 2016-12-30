@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import SidebarItem from './SidebarItem';
 import * as paths from '../paths';
 
-export default function MenuOptions() {
+export default function MemberOptions() {
   return (
     <div className="sinc-sidebar__section">
       <div className="sinc-sidebar__header">
