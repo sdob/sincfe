@@ -16,6 +16,10 @@
 
 .sinc-sidebar__collapse-button {
   // Always hide on medium or larger screens
+  color: rgba(255, 255, 255, .5);
+  &:hover, &:focus {
+    color: rgba(255, 255, 255, .75);
+  }
   @media (min-width: 768px) {
     display: none !important;
   }
