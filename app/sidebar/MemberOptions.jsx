@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import SidebarItem from './SidebarItem';
 import * as paths from '../paths';
 
@@ -6,9 +6,19 @@ export default function MenuOptions() {
   return (
     <div className="sinc-sidebar__section">
       <div className="sinc-sidebar__header">
-        <h2>Member options</h2>
+        <h2>
+          Member options
+          <a
+            className="float-xs-right"
+            data-target="#js-memberOptionsMenu"
+            data-toggle="collapse"
+            href="#"
+          >
+            <i className="fa fa-chevron-down" />
+          </a>
+        </h2>
       </div>
-      <ul className="nav sinc-sidebar__menu">
+      <ul id="js-memberOptionsMenu" className="collapse nav sinc-sidebar__menu">
         <SidebarItem icon="file" to={paths.DOCUMENTS} text="Documents" />
         <SidebarItem icon="user" to={paths.PROFILE} text="Edit profile" />
         <SidebarItem
