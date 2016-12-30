@@ -9,7 +9,7 @@ export default function MenuOptions() {
         <h2>
           Member options
           <a
-            className="float-xs-right"
+            className="float-xs-right sinc-sidebar__collapse-button"
             data-target="#js-memberOptionsMenu"
             data-toggle="collapse"
             href="#"
