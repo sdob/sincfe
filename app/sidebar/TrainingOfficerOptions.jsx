@@ -3,13 +3,12 @@ import NotImplementedYet from '../shared/NotImplementedYet';
 import SidebarMenu from './SidebarMenu';
 
 export default function TrainingOfficerOptions() {
-  return null;
-}
-/*
+  return (
     <SidebarMenu
       menuTitle="Training Officer options"
       menuId="js-trainingOfficerOptions"
     >
       <NotImplementedYet />
     </SidebarMenu>
-    */
+  );
+}
