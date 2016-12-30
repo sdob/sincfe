@@ -1,15 +1,15 @@
 import React from 'react';
 import NotImplementedYet from '../shared/NotImplementedYet';
+import SidebarMenu from './SidebarMenu';
 
 export default function TrainingOfficerOptions() {
-  return (
-    <div className="sinc-sidebar__section">
-      <div className="sinc-sidebar__header">
-        <h2>Training Officer options</h2>
-      </div>
-      <div className="sinc-sidebar__menu">
-        <NotImplementedYet />
-      </div>
-    </div>
-  );
+  return null;
 }
+/*
+    <SidebarMenu
+      menuTitle="Training Officer options"
+      menuId="js-trainingOfficerOptions"
+    >
+      <NotImplementedYet />
+    </SidebarMenu>
+    */
