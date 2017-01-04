@@ -163,20 +163,22 @@ function EditProfile(props) {
               Committee positions
             </h2>
 
-            <div className="offset-sm-5 offset-md-3">
-              <ul className="list-group">
-                {profile.readable_committee_positions.map((p, i) => (
-                  <li key={i + 1} className="list-group-item">
-                    {p}
-                  </li>
-                ))}
-              </ul>
+            <div className="form-group row">
+              <div className="offset-sm-5 offset-md-3 col-sm-7 col-md-9">
+                <ul className="list-group">
+                  {profile.readable_committee_positions.map((p, i) => (
+                    <li key={i + 1} className="list-group-item">
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         )}
 
         <div className="form-group row">
-          <div className="col-sm-5 text-xs-right">
+          <div className="col-xs-12 sinc-form__submit-row">
             <button type="button" className="btn btn-primary">Save</button>
           </div>
         </div>
