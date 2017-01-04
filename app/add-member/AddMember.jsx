@@ -55,6 +55,14 @@ function AddMember() {
           </div>
         </div>
 
+        <div className="form-group row">
+          <div className="col-xs-12 sinc-form__submit-row">
+            <button className="btn btn-primary" type="button">
+              Save
+            </button>
+          </div>
+        </div>
+
       </form>
     </div>
   );
