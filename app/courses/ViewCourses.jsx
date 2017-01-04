@@ -11,8 +11,8 @@ class ViewCourses extends Component {
 
   constructor(props) {
     super(props);
-    this.handleRegionToggle = this.handleRegionToggle.bind(this);
     this.handleCertificateSelect = this.handleCertificateSelect.bind(this);
+    this.handleRegionToggle = this.handleRegionToggle.bind(this);
   }
 
   componentDidMount() {
@@ -24,9 +24,7 @@ class ViewCourses extends Component {
     this.props.fetchCertificateList();
   }
 
-  componentWillReceiveProps(nextProps) {
-    // console.info('viewcourses gets props');
-    // console.info(nextProps);
+  handleCertificateSelect() {
   }
 
   getVisibleCourses() {
@@ -35,16 +33,7 @@ class ViewCourses extends Component {
     return visibleCourses;
   }
 
-  handleCertificateSelect(evt) {
-    // TODO: Find a more elegant way to access the <select> element's
-    // option (this way isn't necessarily terrible, but it's ugly).
-    const certId = evt.target[evt.target.selectedIndex].value;
-    // TODO: Implement an action->reducer->props chain to hide
-    // courses that don't have this certificate ID
-  }
-
   handleRegionToggle(evt, region) {
-    const { id } = region;
     const shouldBeVisible = evt.target.checked;
     if (!shouldBeVisible) {
       this.props.hideRegion(region);
@@ -59,22 +48,22 @@ class ViewCourses extends Component {
         <h1 className="sinc-page-header">View courses</h1>
 
         <h2 className="sinc-section-header sinc-section-header--minor">
-          Filter by area
+          Filter by region
         </h2>
         <div className="row">
           { this.props.regions.regions ? (
             <div>
               {this.props.regions.regions.map((region, i) => (
-                <div className="col-xs-4 col-md-3" key={i + 1}>
+                <div className="col-xs-6 col-md-3" key={i + 1}>
                   <div className="checkbox">
                     <label htmlFor={`region-${region.id}`}>
                       <input
                         name={`region-${region.id}`}
                         type="checkbox"
                         defaultChecked
-                        onChange={(evt) => this.handleRegionToggle(evt, region)}
+                        onChange={evt => this.handleRegionToggle(evt, region)}
                       />
-                        {region.name}
+                      {region.name}
                     </label>
                   </div>
                 </div>
@@ -84,21 +73,27 @@ class ViewCourses extends Component {
         </div>
 
         <h2 className="sinc-section-header sinc-section-header--minor">
-          Filter by name
+          Filter by course
         </h2>
 
-        <div className="col-xs-6 col-sm-3">
-          Course name
+        <div className="form-group row">
+          <label className="col-sm-6 col-md-3 col-form-label">
+            Course name
+          </label>
+          <div className="col-sm-6 col-md-4 col-lg-3">
+            <select className="form-control" onChange={evt => this.handleCertificateSelect(evt)}>
+              <option />
+              {this.props.certificates && this.props.certificates.map((certificate, i) => (
+                <option
+                  value={certificate.id}
+                  key={i + 1}
+                >
+                  {certificate.name}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
-        <select onChange={(evt) => this.handleCertificateSelect(evt)}>
-          <option />
-          {this.props.certificates && this.props.certificates.map((certificate, i) => (
-            <option
-              value={certificate.id}
-              key={i+1}
-              >{certificate.name}</option>
-          ))}
-        </select>
 
         <h2 className="sinc-section-header sinc-section-header-minor">
           Results
@@ -118,7 +113,7 @@ class ViewCourses extends Component {
               {this.getVisibleCourses().map((c, i) => (
                 <tr key={i + 1}>
                   <td>
-                    <Link to={paths.VIEW_COURSES + '/' + c.id}>
+                    <Link to={`${paths.VIEW_COURSES}/${c.id}`}>
                       {c.id}
                     </Link>
                   </td>
@@ -138,8 +133,6 @@ class ViewCourses extends Component {
 }
 
 function mapStateToProps(state) {
-  console.info('mapStateToProps');
-  console.info(state);
   return {
     certificates: state.courses.certificates,
     courses: state.courses.courses,

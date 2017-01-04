@@ -13,7 +13,7 @@ export default function FormRow(props) {
       <label htmlFor={props.field} className="col-md-3 col-form-label">
         {props.label}
       </label>
-      <div className="col-md-9">
+      <div className="col-md-9 col-lg-6">
         <Field name={props.field} className="form-control" component={props.component || 'input'} rows={props.rows} type="text" />
       </div>
     </div>

@@ -14,9 +14,27 @@
   padding: 0.5rem;
 }
 
+.sinc-sidebar__collapse-button {
+  // Always hide on medium or larger screens
+  color: rgba(255, 255, 255, 1);
+  display: block;
+  &:hover, &:focus {
+    color: rgba(255, 255, 255, .75);
+    text-decoration: none;
+  }
+  @media (min-width: 768px) {
+    display: none !important;
+  }
+  text-decoration: none;
+}
+
 .sinc-sidebar__menu {
   border: solid 1px #b1aebf;
   background: #f5f5f5;
+  // Always show menus on medium or larger screens
+  @media (min-width: 768px) {
+    display: block !important;
+  }
 }
 
 .sinc-sidebar__icon {
