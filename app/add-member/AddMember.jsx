@@ -1,8 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import DatePicker from 'react-datepicker';
 import moment from 'moment';
+
+import renderDatePicker from '../shared/datepicker';
 
 import 'style!css!react-datepicker/dist/react-datepicker.css';
 
@@ -56,21 +57,6 @@ function AddMember() {
 
       </form>
     </div>
-  );
-}
-
-function renderDatePicker({ input, placeholder, defaultValue, meta: { touched, error } }) {
-  const dateFormat = 'DD/MM/YYYY';
-  return (
-      <DatePicker
-        {...input}
-        className="form-control"
-        dateFormat={dateFormat}
-        placeholderText={dateFormat}
-        showMonthDropdown={true}
-        showYearDropdown={true}
-        selected={input.value ? moment(input.value, dateFormat) : null}
-      />
   );
 }
 
