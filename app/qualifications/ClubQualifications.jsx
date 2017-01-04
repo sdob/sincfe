@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
+import GenericErrorMessage from '../shared/GenericErrorMessage';
 import PageLoading from '../shared/PageLoading';
 import { fetchClubQualifications } from './actions';
 
@@ -21,11 +22,15 @@ class ClubQualifications extends Component {
   }
 
   render() {
-    const { profile, qualifications } = this.props;
+    const { errorMsg, profile, qualifications } = this.props;
+
+    if (errorMsg) {
+      return <GenericErrorMessage error={errorMsg} />;
+    }
 
     // Display a spinner while we're loading
     if (!(profile && qualifications)) {
-      return (<PageLoading />);
+      return <PageLoading />;
     }
 
     return (
@@ -60,6 +65,7 @@ function mapStateToProps(state) {
   return {
     profile: state.auth.profile,
     qualifications: state.qualifications.qualifications,
+    errorMsg: state.qualifications.errorMsg,
   };
 }
 
