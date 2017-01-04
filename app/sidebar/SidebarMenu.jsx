@@ -6,15 +6,18 @@ export default function SidebarMenu(props) {
     <div className="sinc-sidebar__section">
       <div className="sinc-sidebar__header">
         <h2>
-          {props.menuTitle}
           <a
-            className="float-xs-right sinc-sidebar__collapse-button"
+            className="hidden-md-up sinc-sidebar__collapse-button"
             data-target={`#${props.menuId}`}
             data-toggle="collapse"
             href="#"
           >
-            <i className="fa fa-chevron-down" />
+            {props.menuTitle}
+            <i className="fa fa-chevron-down float-xs-right" />
           </a>
+          <span className="hidden-sm-down">
+            {props.menuTitle}
+          </span>
         </h2>
       </div>
       <ul id={props.menuId} className="collapse nav sinc-sidebar__menu">
