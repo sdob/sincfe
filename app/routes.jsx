@@ -18,7 +18,7 @@ import Main from './pages/Main';
 
 // Other components; imports in alphabetical order, please
 import ActiveInstructors from './active-instructors/ActiveInstructors';
-import AddMember from './add-member/AddMember';
+import AddMember from './profiles/AddMember';
 import ContactUs from './contact-us/ContactUs';
 import CourseDetail from './courses/CourseDetail';
 import ClubDetails from './club-details/ClubDetails';

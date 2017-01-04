@@ -4,6 +4,8 @@ import { Field, reduxForm } from 'redux-form';
 import moment from 'moment';
 
 import renderDatePicker from '../shared/datepicker';
+import * as fields from './fields';
+import FormRow from './FormRow';
 
 import 'style!css!react-datepicker/dist/react-datepicker.css';
 
@@ -52,6 +54,25 @@ function AddMember() {
           <label htmlFor="date_of_birth" className="col-sm-3 col-form-label">Date of birth</label>
           <div className="col-sm-4">
             <Field name="date_of_birth" className="form-control" component={renderDatePicker} />
+          </div>
+        </div>
+
+        <h2 className="sinc-section-header">Contact details</h2>
+
+        <FormRow field={fields.EMAIL} label="Email" />
+        <FormRow field={fields.PHONE_HOME} label="Phone (home)" />
+        <FormRow field={fields.PHONE_MOBILE} label="Phone (mobile)" />
+        <FormRow field={fields.ADDRESS} component="textarea" rows="3" label="Address" />
+        <FormRow field={fields.NEXT_OF_KIN_NAME} label="Next of kin" />
+        <FormRow field={fields.NEXT_OF_KIN_PHONE} label="Next of kin (phone)" />
+
+        <h2 className="sinc-section-header">Mailing</h2>
+
+        <div className="offset-sm-5 offset-md-3">
+          <div className="checkbox">
+            <label htmlFor={fields.MAILING}>
+              <Field name={fields.MAILING} component="input" type="checkbox" /> Subsea Magazine
+            </label>
           </div>
         </div>
 
