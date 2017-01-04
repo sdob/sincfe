@@ -68,7 +68,7 @@ export default (
       * they appear in the rendered sidebar.
       */}
     <Route path={paths.DOCUMENTS} component={RequireAuth(Documents)} />
-    <Route path={paths.PROFILE} component={RequireAuth(EditProfile)} />
+    <Route path={paths.EDIT_PROFILE} component={RequireAuth(EditProfile)} />
     <Route path={paths.MEDICAL_DISCLAIMER} component={RequireAuth(MedicalDisclaimer)} />
     <Route path={paths.MEMBER_QUALIFICATIONS} component={RequireAuth(MemberQualifications)} />
     <Route path={paths.MEMBERSHIP_HISTORY} component={RequireAuth(MembershipHistory)} />
