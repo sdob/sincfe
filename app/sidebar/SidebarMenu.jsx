@@ -13,7 +13,7 @@ export default function SidebarMenu(props) {
             href="#"
           >
             {props.menuTitle}
-            <i className="fa fa-chevron-down float-xs-right" />
+            <i className="fa fa-bars float-xs-right" />
           </a>
           <span className="hidden-sm-down">
             {props.menuTitle}
