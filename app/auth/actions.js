@@ -29,7 +29,7 @@ function handleError(dispatch, error) {
       // notifying the user while they're logged in.)
       case HTTP.UNAUTHORIZED:
         // We can treat this exactly as if the user were logging out
-        logoutUser();
+        logoutUser()(dispatch);
         return;
 
       // HTTP 400 means that the user/password combination is wrong;
