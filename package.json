@@ -55,7 +55,6 @@
     "eslint-plugin-import": "latest",
     "eslint-plugin-jsx-a11y": "2.x",
     "eslint-plugin-react": "latest",
-    "ghooks": "^1.0.3",
     "node-sass": "^3.13.0",
     "open-browser-webpack-plugin": "0.0.2",
     "sass-loader": "^4.0.2",
@@ -74,8 +73,6 @@
   "author": "sdob",
   "license": "closed",
   "config": {
-    "ghooks": {
-    },
     "validate-commit-msg": {
       "types": [
         "feat",
