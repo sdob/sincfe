@@ -5,6 +5,10 @@ import { API_URL } from './constants';
  * URLs for resources on the API server.
  */
 
+function addMemberUrl() {
+  return `${API_URL}/users/`;
+}
+
 function activeInstructorsUrl() {
   return `${API_URL}/users/active-instructors/`;
 }
@@ -42,6 +46,7 @@ function regionsListUrl() {
 }
 
 export {
+  addMemberUrl,
   activeInstructorsUrl,
   certificateListUrl,
   clubQualificationsUrl,
