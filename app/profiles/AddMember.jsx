@@ -34,13 +34,6 @@ function AddMember() {
         </div>
 
         <div className="form-group row">
-          <label htmlFor="email" className="col-sm-3 col-form-label">Email</label>
-          <div className="col-sm-9">
-            <Field name="email" className="form-control" component="input" type="email" />
-          </div>
-        </div>
-
-        <div className="form-group row">
           <label htmlFor="gender" className="col-sm-3 col-form-label">Gender</label>
           <div className="col-sm-4">
             <select className="form-control">
