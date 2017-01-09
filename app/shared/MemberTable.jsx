@@ -96,4 +96,19 @@ export default class MemberTable extends Component {
       ],
     };
   }
+
+  sortedRows(rows, resolvedColumns, sortingColumns) {
+    return compose(
+      sort.sorter({
+        columns: resolvedColumns,
+        sortingColumns,
+        sort: orderBy,
+        strategy: sort.strategies.byProperty,
+      }),
+      resolve.resolve({
+        columns: resolvedColumns,
+        method: resolve.nested,
+      })
+    )(rows);
+  }
 }

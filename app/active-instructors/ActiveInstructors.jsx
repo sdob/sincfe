@@ -37,18 +37,7 @@ class ActiveInstructors extends MemberTable {
     const { columns, sortingColumns } = this.state;
     const resolvedColumns = resolve.columnChildren({ columns });
 
-    const sortedRows = compose(
-      sort.sorter({
-        columns: resolvedColumns,
-        sortingColumns,
-        sort: orderBy,
-        strategy: sort.strategies.byProperty,
-      }),
-      resolve.resolve({
-        columns: resolvedColumns,
-        method: resolve.nested,
-      })
-    )(rows);
+    const sortedRows = this.sortedRows(rows, resolvedColumns, sortingColumns);
 
     return (
       <div>

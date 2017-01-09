@@ -48,18 +48,7 @@ class SearchCurrentMembers extends MemberTable {
     const { columns, sortingColumns } = this.state;
     const resolvedColumns = resolve.columnChildren({ columns });
 
-    const sortedRows = compose(
-      sort.sorter({
-        columns: resolvedColumns,
-        sortingColumns,
-        sort: orderBy,
-        strategy: sort.strategies.byProperty,
-      }),
-      resolve.resolve({
-        columns: resolvedColumns,
-        method: resolve.nested,
-      })
-    )(rows);
+    const sortedRows = this.sortedRows(rows, resolvedColumns, sortingColumns);
 
     return (
       <div>
@@ -73,36 +62,6 @@ class SearchCurrentMembers extends MemberTable {
           />
           <Table.Body rows={sortedRows} rowKey="id" />
         </Table.Provider>
-        {/*
-        <table className="table">
-          <thead>
-            <tr>
-              <th>CFT #</th>
-              <th>First name</th>
-              <th>Last name</th>
-              <th>Position</th>
-            </tr>
-          </thead>
-          <tbody>
-            {members.map((member, i) => (
-              <tr key={i}>
-                <td>
-                  {member.id}
-                </td>
-                <td>
-                  {member.first_name}
-                </td>
-                <td>
-                  {member.last_name}
-                </td>
-                <td>
-                  {member.readable_committee_positions.join(', ')}
-                </td>
-              </tr>
-              ))}
-          </tbody>
-        </table>
-        */}
       </div>
     );
   }
