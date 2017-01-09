@@ -1,0 +1,25 @@
+.sort-order {
+  display: none;
+  //margin-right: 0.5em;
+}
+
+.sort {
+  cursor: pointer;
+  margin-left: 0.5em;
+}
+
+.sort.sort-asc:after {
+  content: "\f0dd";
+}
+.sort.sort-desc:after {
+  content: "\f0de";
+}
+.sort.sort-none:after {
+  content: "\f0dc";
+}
+
+.sort.sort-asc:after,
+.sort.sort-desc:after,
+.sort.sort-none:after {
+  font-family: FontAwesome;
+}

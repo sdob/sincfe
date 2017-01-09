@@ -123,7 +123,6 @@ class ActiveInstructors extends Component {
     // TODO: Set this to the appropriate scope (club, region, etc.)
     const scope = profile.club.region.name;
 
-
     const rows = instructors;
 
     const { columns, sortingColumns } = this.state;
