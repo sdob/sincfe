@@ -1,4 +1,5 @@
-import { API_URL } from './constants';
+// TODO: Use Webpack to set API_URL from an environment variable
+const API_URL = 'http://localhost:8000';
 
 /*
  * This defines the API. These functions take zero or more arguments and return
@@ -37,6 +38,10 @@ function currentMembershipStatusUrl(uid) {
   return `${API_URL}/users/${uid}/current_membership_status/`;
 }
 
+function loginUrl() {
+  return `${API_URL}/auth/login/`;
+}
+
 function ownProfileUrl() {
   return `${API_URL}/users/me/`;
 }
@@ -58,6 +63,7 @@ export {
   coursesListUrl,
   currentMembersUrl,
   currentMembershipStatusUrl,
+  loginUrl,
   ownProfileUrl,
   qualificationsUrl,
   regionsListUrl,

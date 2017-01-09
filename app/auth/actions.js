@@ -4,6 +4,7 @@ import cookie from 'react-cookie';
 import HTTP from 'http-status-codes';
 import * as types from './types';
 import { API_LOGIN_URL, API_PROFILE_URL } from '../constants';
+import { loginUrl } from '../api';
 
 export {
   loginUser,
@@ -49,7 +50,8 @@ function loginUser({ username, password }) {
   return (dispatch) => {
     // Post the username/password combination to the API server's login URL
     // and handle the response
-    axios.post(API_LOGIN_URL, { username, password })
+    const url = loginUrl();
+    axios.post(url, { username, password })
     .then((response) => {
       // If we're here, then the server responded with a 2xx response and a
       // token. Start by storing the authentication token as a cookie
