@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as Table from 'reactabular-table';
+
 import fetchActiveInstructors from './actions';
 import PageLoading from '../shared/PageLoading';
+
 
 class ActiveInstructors extends Component {
   componentDidMount() {
@@ -26,27 +29,38 @@ class ActiveInstructors extends Component {
     // TODO: Set this to the appropriate scope (club, region, etc.)
     const scope = profile.club.region.name;
 
+    const rows = instructors;
+    const columns = [
+      {
+        property: 'id',
+        header: {
+          label: 'CFT number',
+        },
+      },
+      {
+        property: 'first_name',
+        header: {
+          label: 'First name',
+        },
+      },
+      {
+        property: 'last_name',
+        header: {
+          label: 'Last name',
+        },
+      },
+    ];
+
     return (
       <div>
         <h1>Active Instructors ({scope})</h1>
-        <table className="table">
-          <thead>
-            <tr>
-              <th>CFT #</th>
-              <th>First name</th>
-              <th>Last name</th>
-            </tr>
-          </thead>
-          <tbody>
-            {instructors.map((instructor, i) => (
-              <tr key={i}>
-                <td>{instructor.id}</td>
-                <td>{instructor.first_name}</td>
-                <td>{instructor.last_name}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <Table.Provider
+          className="table pure-table pure-table-striped"
+          columns={columns}
+        >
+          <Table.Header />
+          <Table.Body rows={rows} rowKey="id" />
+        </Table.Provider>
       </div>
     );
   }
