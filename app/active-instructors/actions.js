@@ -3,9 +3,9 @@ import axios from 'axios';
 import { ACTIVE_INSTRUCTORS_RECEIVED } from './types';
 import { activeInstructorsUrl } from '../api';
 
-export default function fetchActiveInstructors() {
+export default function fetchActiveInstructors(rid) {
   return function fetch(dispatch) {
-    const url = activeInstructorsUrl();
+    const url = activeInstructorsUrl(rid);
     axios.get(url)
     .then((response) => {
       const instructors = response.data;
