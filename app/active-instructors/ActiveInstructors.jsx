@@ -8,9 +8,9 @@ import * as sort from 'sortabular';
 
 import fetchActiveInstructors from './actions';
 import PageLoading from '../shared/PageLoading';
+import MemberTable from '../shared/MemberTable';
 
-
-class ActiveInstructors extends Component {
+class ActiveInstructors extends MemberTable {
   componentDidMount() {
     const { profile } = this.props;
     if (profile) {
@@ -22,97 +22,6 @@ class ActiveInstructors extends Component {
     if (nextProps.profile !== this.props.profile) {
       this.props.fetchActiveInstructors(nextProps.profile.club.region.id);
     }
-  }
-
-  constructor(props) {
-    super(props);
-
-    const getSortingColumns = () => this.state.sortingColumns || {};
-
-    const resetable = sort.reset({
-      event: 'onDoubleClick',
-      getSortingColumns,
-      onReset: ({ sortingColumns }) => this.setState({ sortingColumns }),
-      strategy: sort.strategies.byProperty,
-    });
-
-    const sortable = sort.sort({
-      getSortingColumns,
-
-      onSort: selectedColumn => {
-        this.setState({
-          sortingColumns: sort.byColumn({
-            sortingColumns: this.state.sortingColumns,
-            selectedColumn
-          }),
-        });
-      },
-
-      strategy: sort.strategies.byProperty,
-    });
-
-    this.state = {
-      sortingColumns: {
-        'id': {
-          direction: 'asc',
-          position: 0,
-        },
-        'first_name': {
-          direction: 'none',
-          position: 1,
-        },
-        'last_name': {
-          direction: 'none',
-          position: 2,
-        },
-      },
-
-      columns: [
-        {
-          property: 'id',
-          header: {
-            label: 'CFT number',
-            transforms: [resetable],
-            formatters: [
-              sort.header({
-                sortable,
-                getSortingColumns,
-                strategy: sort.strategies.byProperty,
-              }),
-            ],
-          },
-        },
-        {
-          property: 'first_name',
-          header: {
-            label: 'First name',
-            transforms: [resetable],
-            formatters: [
-              sort.header({
-                sortable,
-                getSortingColumns,
-                strategy: sort.strategies.byProperty,
-              }),
-            ],
-          },
-        },
-        {
-          property: 'last_name',
-          header: {
-            label: 'Last name',
-            transforms: [resetable],
-            formatters: [
-              sort.header({
-                sortable,
-                getSortingColumns,
-                strategy: sort.strategies.byProperty,
-              }),
-            ],
-          },
-        },
-      ],
-    };
-
   }
 
   render() {
