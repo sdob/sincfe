@@ -10,8 +10,8 @@ export default function coursesReducer(state = { hiddenRegions: [] }, action) {
       return { ...state, courses: action.payload };
     case types.REGION_HIDE:
       {
-        const hiddenRegions = state.hiddenRegions || [];
-        return { ...state, hiddenRegions: [...state.hiddenRegions, action.payload.id]};
+        const hiddenRegions = [...state.hiddenRegions, action.payload.id];
+        return { ...state, hiddenRegions };
       }
     case types.REGION_SHOW:
       {

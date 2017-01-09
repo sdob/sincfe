@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
+import GenericErrorMessage from '../shared/GenericErrorMessage';
 import PageLoading from '../shared/PageLoading';
 import { fetchClubQualifications } from './actions';
 
@@ -10,21 +11,28 @@ class ClubQualifications extends Component {
   componentDidMount() {
     const { profile } = this.props;
     if (profile && profile.club) {
-      this.props.fetchClubQualifications(profile.club);
+      this.props.fetchClubQualifications(profile.club.id);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.profile !== this.props.profile) {
-      this.props.fetchClubQualifications(nextProps.profile.club);
+      this.props.fetchClubQualifications(nextProps.profile.club.id);
     }
   }
 
   render() {
-    const { profile, qualifications } = this.props;
-    if (!(profile && qualifications)) {
-      return (<PageLoading />);
+    const { errorMsg, profile, qualifications } = this.props;
+
+    if (errorMsg) {
+      return <GenericErrorMessage error={errorMsg} />;
     }
+
+    // Display a spinner while we're loading
+    if (!(profile && qualifications)) {
+      return <PageLoading />;
+    }
+
     return (
       <div>
         <h1 className="sinc-page-header">Club qualifications</h1>
@@ -38,7 +46,7 @@ class ClubQualifications extends Component {
             </tr>
           </thead>
           <tbody>
-            {qualifications.qualifications.map((qual, i) => (
+            {qualifications.map((qual, i) => (
               <tr key={i + 1}>
                 <td className="sinc-club-qualifications__user-id">{qual.user.id}</td>
                 <td>{qual.user.first_name} {qual.user.last_name}</td>
@@ -55,8 +63,9 @@ class ClubQualifications extends Component {
 
 function mapStateToProps(state) {
   return {
-    profile: state.auth.profile,
-    qualifications: state.qualifications,
+    profile: state.profiles.profile,
+    qualifications: state.qualifications.qualifications,
+    errorMsg: state.qualifications.errorMsg,
   };
 }
 

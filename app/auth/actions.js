@@ -3,10 +3,9 @@ import cookie from 'react-cookie';
 // import STATUS_CODES from 'http';
 import HTTP from 'http-status-codes';
 import * as types from './types';
-import { API_LOGIN_URL, API_PROFILE_URL } from '../constants';
+import { loginUrl } from '../api';
 
 export {
-  fetchProfile,
   loginUser,
   logoutUser,
 };
@@ -29,7 +28,7 @@ function handleError(dispatch, error) {
       // notifying the user while they're logged in.)
       case HTTP.UNAUTHORIZED:
         // We can treat this exactly as if the user were logging out
-        logoutUser();
+        logoutUser()(dispatch);
         return;
 
       // HTTP 400 means that the user/password combination is wrong;
@@ -50,7 +49,8 @@ function loginUser({ username, password }) {
   return (dispatch) => {
     // Post the username/password combination to the API server's login URL
     // and handle the response
-    axios.post(API_LOGIN_URL, { username, password })
+    const url = loginUrl();
+    axios.post(url, { username, password })
     .then((response) => {
       // If we're here, then the server responded with a 2xx response and a
       // token. Start by storing the authentication token as a cookie
@@ -65,28 +65,6 @@ function loginUser({ username, password }) {
     .catch((error) => {
       // If we're here, then the server responded with an error of some sort
       // (4xx or 5xx). Let our error handler take care of it
-      handleError(dispatch, error);
-    });
-  };
-}
-
-/*
- * Retrieve the user's profile information.
- */
-function fetchProfile() {
-  return (dispatch) => {
-    // Make a GET request to the API server's own-profile URL
-    // and handle the response
-    axios.get(API_PROFILE_URL)
-    .then((response) => {
-      // If we're here, then the server responded with a 2xx and we should have
-      // the profile data; dispatch an event
-      const profile = response.data;
-      dispatch({ type: types.PROFILE_RECEIVED, payload: profile });
-    })
-    .catch((error) => {
-      // If we're here, then the server responded with an error of some sort;
-      // let the error handler take care of it
       handleError(dispatch, error);
     });
   };

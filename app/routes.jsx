@@ -18,7 +18,7 @@ import Main from './pages/Main';
 
 // Other components; imports in alphabetical order, please
 import ActiveInstructors from './active-instructors/ActiveInstructors';
-import AddMember from './add-member/AddMember';
+import AddMember from './profiles/AddMember';
 import ContactUs from './contact-us/ContactUs';
 import CourseDetail from './courses/CourseDetail';
 import ClubDetails from './club-details/ClubDetails';
@@ -68,12 +68,12 @@ export default (
       * they appear in the rendered sidebar.
       */}
     <Route path={paths.DOCUMENTS} component={RequireAuth(Documents)} />
-    <Route path={paths.PROFILE} component={RequireAuth(EditProfile)} />
+    <Route path={paths.EDIT_PROFILE} component={RequireAuth(EditProfile)} />
     <Route path={paths.MEDICAL_DISCLAIMER} component={RequireAuth(MedicalDisclaimer)} />
     <Route path={paths.MEMBER_QUALIFICATIONS} component={RequireAuth(MemberQualifications)} />
     <Route path={paths.MEMBERSHIP_HISTORY} component={RequireAuth(MembershipHistory)} />
     <Route path={paths.VIEW_COURSES} component={RequireAuth(ViewCourses)} />
-    <Route path={paths.VIEW_COURSES + '/:id'} component={RequireAuth(CourseDetail)}/>
+    <Route path={`${paths.VIEW_COURSES}/:id`} component={RequireAuth(CourseDetail)} />
     <Route path={paths.ORGANIZE_COURSES} component={RequireAuth(OrganizeCourses)} />
     <Route path={paths.TEACH_COURSES} component={RequireAuth(TeachCourses)} />
     <Redirect path="*" to="/" />

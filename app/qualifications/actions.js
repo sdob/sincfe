@@ -1,7 +1,13 @@
 import axios from 'axios';
 
 import { clubQualificationsUrl, qualificationsUrl } from '../api';
-import { CLUB_QUALIFICATIONS_RECEIVED, MEMBER_QUALIFICATIONS_RECEIVED } from './types';
+//import { CLUB_QUALIFICATIONS_RECEIVED, MEMBER_QUALIFICATIONS_RECEIVED } from './types';
+import * as types from './types';
+
+function handleError(dispatch, error, type=types.GENERIC_QUALIFICATIONS_ERROR) {
+  console.error(error);
+  dispatch({ type, payload: error });
+}
 
 function fetchClubQualifications(cid) {
   return function fetch(dispatch) {
@@ -9,10 +15,10 @@ function fetchClubQualifications(cid) {
     axios.get(url)
     .then((response) => {
       const qualifications = response.data;
-      dispatch({ type: CLUB_QUALIFICATIONS_RECEIVED, payload: qualifications });
+      dispatch({ type: types.CLUB_QUALIFICATIONS_RECEIVED, payload: qualifications });
     })
     .catch((error) => {
-      console.error(error);
+      handleError(dispatch, error, types.CLUB_QUALIFICATIONS_ERROR);
     });
   };
 }
@@ -23,10 +29,10 @@ function fetchMemberQualifications(uid) {
     axios.get(url)
     .then((response) => {
       const qualifications = response.data;
-      dispatch({ type: MEMBER_QUALIFICATIONS_RECEIVED, payload: qualifications });
+      dispatch({ type: types.MEMBER_QUALIFICATIONS_RECEIVED, payload: qualifications });
     })
     .catch((error) => {
-      console.error(error);
+      handleError(dispatch, error, types.MEMBER_QUALIFICATIONS_ERROR);
     });
   };
 }

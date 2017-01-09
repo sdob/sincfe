@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { LOGIN_ROUTE } from '../constants';
+import { LOGIN } from '../paths';
 
 // This is a higher-order component that will redirect
 // to the login route instead of its child component
@@ -13,7 +13,7 @@ export default function (ComposedComponent) {
     // redirect the user to the login page
     componentWillMount() {
       if (!this.props.authenticated) {
-        this.context.router.push(LOGIN_ROUTE);
+        this.context.router.push(LOGIN);
       }
     }
 
@@ -21,7 +21,7 @@ export default function (ComposedComponent) {
     // if we're logged out, then redirect the user to the login page
     componentWillUpdate(nextProps) {
       if (!nextProps.authenticated) {
-        this.context.router.push(LOGIN_ROUTE);
+        this.context.router.push(LOGIN);
       }
     }
 

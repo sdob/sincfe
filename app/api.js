@@ -1,12 +1,17 @@
-import { API_URL } from './constants';
+// TODO: Use Webpack to set API_URL from an environment variable
+const API_URL = 'http://localhost:8000';
 
 /*
  * This defines the API. These functions take zero or more arguments and return
  * URLs for resources on the API server.
  */
 
-function activeInstructorsUrl() {
-  return `${API_URL}/users/active-instructors/`;
+function addMemberUrl() {
+  return `${API_URL}/users/`;
+}
+
+function activeInstructorsUrl(rid) {
+  return `${API_URL}/regions/${rid}/active-instructors/`;
 }
 
 function certificateListUrl() {
@@ -33,6 +38,14 @@ function currentMembershipStatusUrl(uid) {
   return `${API_URL}/users/${uid}/current_membership_status/`;
 }
 
+function loginUrl() {
+  return `${API_URL}/auth/login/`;
+}
+
+function ownProfileUrl() {
+  return `${API_URL}/users/me/`;
+}
+
 function qualificationsUrl(uid) {
   return `${API_URL}/users/${uid}/qualifications/`;
 }
@@ -42,6 +55,7 @@ function regionsListUrl() {
 }
 
 export {
+  addMemberUrl,
   activeInstructorsUrl,
   certificateListUrl,
   clubQualificationsUrl,
@@ -49,6 +63,8 @@ export {
   coursesListUrl,
   currentMembersUrl,
   currentMembershipStatusUrl,
+  loginUrl,
+  ownProfileUrl,
   qualificationsUrl,
   regionsListUrl,
 };

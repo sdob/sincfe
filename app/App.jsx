@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchProfile } from './auth/actions';
+import { fetchProfile } from './profiles/actions';
 
 import Header from './header/Header';
 import Login from './pages/Login';
@@ -22,10 +22,10 @@ function renderLoginPage() {
 function renderAuthenticated(props) {
   return (
     <div className="container-fluid">
-      <div className="col-sm-4 col-md-3">
+      <div className="col-md-4 col-lg-3">
         <Sidebar />
       </div>
-      <div className="col-sm-8 col-md-9">
+      <div className="col-md-8 col-lg-9">
         {props.children}
       </div>
     </div>
@@ -60,7 +60,7 @@ class App extends Component {
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
-    profile: state.auth.profile,
+    profile: state.profiles.profile,
   };
 }
 

@@ -7,13 +7,13 @@ class ActiveInstructors extends Component {
   componentDidMount() {
     const { profile } = this.props;
     if (profile) {
-      this.props.fetchActiveInstructors();
+      this.props.fetchActiveInstructors(profile.club.region.id);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.profile != this.props.profile) {
-      this.props.fetchActiveInstructors();
+    if (nextProps.profile !== this.props.profile) {
+      this.props.fetchActiveInstructors(nextProps.profile.club.region.id);
     }
   }
 
@@ -24,7 +24,7 @@ class ActiveInstructors extends Component {
     }
 
     // TODO: Set this to the appropriate scope (club, region, etc.)
-    const scope = profile.club.name;
+    const scope = profile.club.region.name;
 
     return (
       <div>
@@ -55,7 +55,7 @@ class ActiveInstructors extends Component {
 function mapStateToProps(state) {
   return {
     instructors: state.activeInstructors.instructors,
-    profile: state.auth.profile,
+    profile: state.profiles.profile,
   };
 }
 

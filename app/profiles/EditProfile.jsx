@@ -56,8 +56,9 @@ function EditProfile(props) {
           >
             Title
           </label>
-          <div className="col-sm-6 col-md-4">
+          <div className="col-sm-6 col-md-4 col-lg-3">
             <select className="form-control">
+              <option>Select title</option>
               <option>Dr</option>
               <option>Miss</option>
               <option>Mr</option>
@@ -71,8 +72,8 @@ function EditProfile(props) {
         <FormRow field={fields.LAST_NAME} label="Last name" />
 
         <div className="form-group row">
-          <label htmlFor={fields.GENDER} className="col-md-3 col-form-label">Gender</label>
-          <div className="col-sm-4">
+          <label htmlFor={fields.GENDER} className="col-sm-6 col-md-3 col-form-label">Gender</label>
+          <div className="col-sm-6 col-md-4 col-lg-3">
             <select className="form-control">
               <option>Male</option>
               <option>Female</option>
@@ -162,20 +163,22 @@ function EditProfile(props) {
               Committee positions
             </h2>
 
-            <div className="offset-sm-5 offset-md-3">
-              <ul className="list-group">
-                {profile.readable_committee_positions.map((p, i) => (
-                  <li key={i + 1} className="list-group-item">
-                    {p}
-                  </li>
-                ))}
-              </ul>
+            <div className="form-group row">
+              <div className="offset-sm-5 offset-md-3 col-sm-7 col-md-9">
+                <ul className="list-group">
+                  {profile.readable_committee_positions.map((p, i) => (
+                    <li key={i + 1} className="list-group-item">
+                      {p}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
           </div>
         )}
 
         <div className="form-group row">
-          <div className="col-sm-5 text-xs-right">
+          <div className="col-xs-12 sinc-form__submit-row">
             <button type="button" className="btn btn-primary">Save</button>
           </div>
         </div>
@@ -187,8 +190,8 @@ function EditProfile(props) {
 
 function mapStateToProps(state) {
   return {
-    profile: state.auth.profile,
-    initialValues: state.auth.profile,
+    profile: state.profiles.profile,
+    initialValues: state.profiles.profile,
   };
 }
 

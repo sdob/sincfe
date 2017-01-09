@@ -3,7 +3,7 @@ import { currentMembershipStatusUrl } from '../api';
 
 import { CMS_RECEIVED } from './types';
 
-function fetchCurrentMembershipStatus(uid) {
+export default function fetchCurrentMembershipStatus(uid) {
   return function fetch(dispatch) {
     const url = currentMembershipStatusUrl(uid);
     axios.get(url)
@@ -15,5 +15,3 @@ function fetchCurrentMembershipStatus(uid) {
     });
   };
 }
-
-export default fetchCurrentMembershipStatus;

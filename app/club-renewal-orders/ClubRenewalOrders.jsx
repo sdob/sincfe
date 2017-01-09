@@ -13,7 +13,7 @@ function ClubRenewalOrders() {
 
 function mapStateToProps(state) {
   return {
-    profile: state.auth.profile,
+    profile: state.profiles.profile,
   };
 }
 

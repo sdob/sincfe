@@ -9,7 +9,7 @@ export default function TopNavItem(props) {
         {props.icon && (
           <i className={`fa fa-fw fa-${props.icon}`} />
         )}
-        <span className="">{props.text}</span>
+        <span className="sinc-top-nav__menu-text">{props.text}</span>
       </Link>
     </li>
   );
