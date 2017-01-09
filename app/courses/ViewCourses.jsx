@@ -136,7 +136,7 @@ function mapStateToProps(state) {
   return {
     certificates: state.courses.certificates,
     courses: state.courses.courses,
-    profile: state.auth.profile,
+    profile: state.profiles.profile,
     regions: state.regions,
     hiddenRegions: state.courses.hiddenRegions,
   };

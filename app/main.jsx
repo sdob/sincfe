@@ -14,6 +14,7 @@ import authReducer from './auth/reducers';
 import coursesReducer from './courses/reducers';
 import currentMembersReducer from './search-current-members/reducers';
 import currentMembershipStatusReducer from './membership-history/reducers';
+import profileReducer from './profiles/reducers';
 import qualificationsReducer from './qualifications/reducers';
 import regionsReducer from './regions/reducers';
 
@@ -37,6 +38,7 @@ const rootReducer = combineReducers({
   currentMembers: currentMembersReducer,
   currentMembershipStatus: currentMembershipStatusReducer,
   form: formReducer,
+  profiles: profileReducer,
   regions: regionsReducer,
 });
 

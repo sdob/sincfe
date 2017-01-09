@@ -6,7 +6,6 @@ import * as types from './types';
 import { API_LOGIN_URL, API_PROFILE_URL } from '../constants';
 
 export {
-  fetchProfile,
   loginUser,
   logoutUser,
 };
@@ -65,28 +64,6 @@ function loginUser({ username, password }) {
     .catch((error) => {
       // If we're here, then the server responded with an error of some sort
       // (4xx or 5xx). Let our error handler take care of it
-      handleError(dispatch, error);
-    });
-  };
-}
-
-/*
- * Retrieve the user's profile information.
- */
-function fetchProfile() {
-  return (dispatch) => {
-    // Make a GET request to the API server's own-profile URL
-    // and handle the response
-    axios.get(API_PROFILE_URL)
-    .then((response) => {
-      // If we're here, then the server responded with a 2xx and we should have
-      // the profile data; dispatch an event
-      const profile = response.data;
-      dispatch({ type: types.PROFILE_RECEIVED, payload: profile });
-    })
-    .catch((error) => {
-      // If we're here, then the server responded with an error of some sort;
-      // let the error handler take care of it
       handleError(dispatch, error);
     });
   };

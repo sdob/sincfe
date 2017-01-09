@@ -73,7 +73,7 @@ class SearchCurrentMembers extends Component {
 
 function mapStateToProps(state) {
   return {
-    profile: state.auth.profile,
+    profile: state.profiles.profile,
     currentMembers: state.currentMembers,
   };
 }

@@ -63,7 +63,7 @@ class ClubQualifications extends Component {
 
 function mapStateToProps(state) {
   return {
-    profile: state.auth.profile,
+    profile: state.profiles.profile,
     qualifications: state.qualifications.qualifications,
     errorMsg: state.qualifications.errorMsg,
   };

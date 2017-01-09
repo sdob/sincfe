@@ -37,6 +37,10 @@ function currentMembershipStatusUrl(uid) {
   return `${API_URL}/users/${uid}/current_membership_status/`;
 }
 
+function ownProfileUrl() {
+  return `${API_URL}/users/me/`;
+}
+
 function qualificationsUrl(uid) {
   return `${API_URL}/users/${uid}/qualifications/`;
 }
@@ -54,6 +58,7 @@ export {
   coursesListUrl,
   currentMembersUrl,
   currentMembershipStatusUrl,
+  ownProfileUrl,
   qualificationsUrl,
   regionsListUrl,
 };

@@ -93,7 +93,7 @@ class MembershipHistory extends Component {
 
 function mapStateToProps(state) {
   return {
-    profile: state.auth.profile,
+    profile: state.profiles.profile,
     currentMembershipStatus: state.currentMembershipStatus,
   };
 }

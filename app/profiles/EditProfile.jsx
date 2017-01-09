@@ -190,8 +190,8 @@ function EditProfile(props) {
 
 function mapStateToProps(state) {
   return {
-    profile: state.auth.profile,
-    initialValues: state.auth.profile,
+    profile: state.profiles.profile,
+    initialValues: state.profiles.profile,
   };
 }
 

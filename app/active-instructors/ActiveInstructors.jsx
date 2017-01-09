@@ -55,7 +55,7 @@ class ActiveInstructors extends Component {
 function mapStateToProps(state) {
   return {
     instructors: state.activeInstructors.instructors,
-    profile: state.auth.profile,
+    profile: state.profiles.profile,
   };
 }
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { fetchProfile } from './auth/actions';
+import { fetchProfile } from './profiles/actions';
 
 import Header from './header/Header';
 import Login from './pages/Login';
@@ -60,7 +60,7 @@ class App extends Component {
 function mapStateToProps(state) {
   return {
     authenticated: state.auth.authenticated,
-    profile: state.auth.profile,
+    profile: state.profiles.profile,
   };
 }
 

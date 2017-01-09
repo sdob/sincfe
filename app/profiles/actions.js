@@ -1,8 +1,9 @@
 import axios from 'axios';
 import HTTP from 'http-status-codes';
 
-import { addMemberUrl } from '../api';
+import { addMemberUrl, ownProfileUrl } from '../api';
 import { logoutUser } from '../auth/actions';
+import * as types from './types';
 
 /*
  * Handle profile errors here
@@ -47,6 +48,30 @@ function addMember(user) {
   };
 }
 
+/*
+ * Retrieve the user's profile information.
+ */
+function fetchProfile() {
+  return (dispatch) => {
+    // Make a GET request to the API server's own-profile URL
+    // and handle the response
+    const url = ownProfileUrl();
+    axios.get(url)
+    .then((response) => {
+      // If we're here, then the server responded with a 2xx and we should have
+      // the profile data; dispatch an event
+      const profile = response.data;
+      dispatch({ type: types.PROFILE_RECEIVED, payload: profile });
+    })
+    .catch((error) => {
+      // If we're here, then the server responded with an error of some sort;
+      // let the error handler take care of it
+      handleError(dispatch, error);
+    });
+  };
+}
+
 export {
   addMember,
+  fetchProfile,
 };
