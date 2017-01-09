@@ -10,8 +10,8 @@ function addMemberUrl() {
   return `${API_URL}/users/`;
 }
 
-function activeInstructorsUrl() {
-  return `${API_URL}/users/active-instructors/`;
+function activeInstructorsUrl(rid) {
+  return `${API_URL}/regions/${rid}/active-instructors/`;
 }
 
 function certificateListUrl() {
