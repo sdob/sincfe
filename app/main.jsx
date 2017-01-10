@@ -25,9 +25,10 @@ import * as authActionTypes from './auth/types';
 // Import routes
 import routes from './routes';
 
-// Require styles to be bundled; linting is disabled on this line because
+// Require styles to be bundled; linting is disabled because
 // eslint thinks that we're defining something that's never used
 import styles from './styles/main.scss'; // eslint-disable-line
+import 'style!css!react-widgets/dist/css/react-widgets.css'; // eslint-disable-line
 
 // Combine our submodule reducers
 const rootReducer = combineReducers({
