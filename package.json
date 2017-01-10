@@ -19,6 +19,7 @@
     "axios": "^0.15.3",
     "babel-jest": "^18.0.0",
     "babel-runtime": "6.x",
+    "file-loader": "^0.9.0",
     "findup": "^0.1.5",
     "http-status-codes": "^1.0.6",
     "jest": "^18.0.0",
@@ -39,7 +40,8 @@
     "redux-form": "^6.2.1",
     "redux-thunk": "^2.1.0",
     "sortabular": "^1.1.0",
-    "table-resolver": "^2.0.3"
+    "table-resolver": "^2.0.3",
+    "url-loader": "^0.5.7"
   },
   "devDependencies": {
     "babel-core": "6.x",
