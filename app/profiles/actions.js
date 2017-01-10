@@ -9,18 +9,19 @@ import * as types from './types';
 /*
  * Handle profile errors here
  */
-function handleError(dispatch, error) {
+function handleError(dispatch, error, type) {
   const { response } = error;
   // If we have a response, then the request reached the server and
   // was denied for some reason.
   if (response) {
-    console.error(response);
     switch (error.status) {
       // HTTP 401 means the user simply isn't logged in; as usual we
       // can treat this by just logging the user out.
       case HTTP.UNAUTHORIZED:
         return logoutUser()(dispatch);
       default:
+        // Dispatch an error
+        dispatch({ type, payload: error });
     }
   } else {
     // No response means a client error: the request never reached the
@@ -39,14 +40,18 @@ function addMember(user) {
     const url = addMemberUrl();
     // Format the date of birth to meet Django's expectations
     const request = { ...user, date_of_birth: formatDateOfBirth(user.date_of_birth) };
+    // Dispatch a 'sending' action
+    dispatch({ type: types.PROFILE_CREATE_SENDING });
     // Make the request
     axios.post(url, request)
     .then((response) => {
       const data = response.data;
       // What to do with the data?
+      dispatch({ type: types.PROFILE_CREATE_SUCCESS, payload: data });
     })
     .catch((error) => {
       console.error(error);
+      handleError(dispatch, error, types.PROFILE_CREATE_ERROR);
     });
   };
 
