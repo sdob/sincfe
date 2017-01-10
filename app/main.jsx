@@ -25,13 +25,19 @@ import * as authActionTypes from './auth/types';
 // Import routes
 import routes from './routes';
 
-/*
- * Require styles to be bundled; linting is disabled because
- * eslint thinks that we're defining something that's never used.
- */
+/* JS and CSS dependencies */
+/* eslint-disable */
+import 'script-loader!jquery/dist/jquery.min.js';
+import 'script-loader!tether/dist/js/tether.min.js';
+import 'script-loader!bootstrap/dist/js/bootstrap.min.js';
+
+import 'style!css!bootstrap/dist/css/bootstrap.css'; // eslint-disable-line
+import 'style!css!font-awesome/css/font-awesome.css'; // eslint-disable-line
+import 'style!css!tether/dist/css/tether.css'; // eslint-disable-line
 import 'style!css!react-widgets/dist/css/react-widgets.css'; // eslint-disable-line
 // NOTE: import our own styles last (so that they'll correctly override third-party stuff
-import styles from './styles/main.scss'; // eslint-disable-line
+import './styles/main.scss'; // eslint-disable-line
+/* eslint-enable */
 
 // Combine our submodule reducers
 const rootReducer = combineReducers({
