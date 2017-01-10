@@ -1,5 +1,6 @@
 import axios from 'axios';
 import HTTP from 'http-status-codes';
+import moment from 'moment';
 
 import { addMemberUrl, ownProfileUrl } from '../api';
 import { logoutUser } from '../auth/actions';
@@ -34,10 +35,12 @@ function handleError(dispatch, error) {
  */
 function addMember(user) {
   return (dispatch) => {
+    // Get the API endpoint for adding the user
     const url = addMemberUrl();
-    console.info('user info:');
-    console.info(user);
-    axios.post(url, user)
+    // Format the date of birth to meet Django's expectations
+    const request = { ...user, date_of_birth: formatDateOfBirth(user.date_of_birth) };
+    // Make the request
+    axios.post(url, request)
     .then((response) => {
       const data = response.data;
       // What to do with the data?
@@ -46,7 +49,17 @@ function addMember(user) {
       console.error(error);
     });
   };
+
 }
+
+/*
+ * Helper function for formatting dates of birth to meet Django's
+ * expectations
+ */
+function formatDateOfBirth(dob) {
+  return moment(dob).format('YYYY-MM-DD');
+}
+
 
 /*
  * Retrieve the user's profile information.
