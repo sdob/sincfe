@@ -2,6 +2,7 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import fetchCurrentMembershipStatus from './actions';
+import GenericErrorMessage from '../shared/GenericErrorMessage';
 import NotImplementedYet from '../shared/NotImplementedYet';
 
 const CURRENT = 'Current';
@@ -29,7 +30,11 @@ class MembershipHistory extends Component {
   }
 
   render() {
-    const { status } = this.props;
+    const { errorMsg, status } = this.props;
+
+    if (errorMsg) {
+      return <GenericErrorMessage error={errorMsg} />;
+    }
 
     if (!status) {
       return null;
@@ -107,6 +112,7 @@ function mapStateToProps(state) {
   return {
     profile: state.profiles.profile,
     status: state.membershipStatus.currentStatus,
+    errorMsg: state.membershipStatus.errorMsg,
   };
 }
 
