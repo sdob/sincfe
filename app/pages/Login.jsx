@@ -14,7 +14,6 @@ function LoginPage() {
       </div>
       <div className="col-sm-7 col-md-8 col-lg-9">
         <h1>Welcome</h1>
-        {/* <img src="/img/login_image.jpg" className="float-right" /> */}
         <p>
           Welcome to the Irish Underwater Council (IUC) members&apos; login page.
         </p>
