@@ -35,6 +35,16 @@ class MembershipHistory extends Component {
       return null;
     }
 
+    // Destructure the status object, for brevity's sake
+    const {
+      current_membership_status,
+      member_since,
+      next_fitness_test_due_date,
+      next_medical_assessment_due_date,
+      next_medical_disclaimer_due_date,
+      next_renewal_due_date,
+    } = status;
+
     return (
       <div>
         <h1 className="sinc-page-header">Membership history</h1>
@@ -45,13 +55,13 @@ class MembershipHistory extends Component {
             Current membership status
           </p>
           <p className="col-xs-12 col-sm-2">
-            {status.current_membership_status} {this.showCurrentMembershipStatus(status.current_membership_status)}
+            {current_membership_status} {this.showCurrentMembershipStatus(current_membership_status)}
           </p>
           <p className="col-xs-12 col-sm-4 sinc-membership-status__key">
             Your water fitness test is due on
           </p>
           <p className="col-xs-12 col-sm-2">
-            {moment(status.next_fitness_test_due_date).format('D MMM YYYY')}
+            {moment(next_fitness_test_due_date).format('D MMM YYYY')}
           </p>
         </div>
 
@@ -60,13 +70,13 @@ class MembershipHistory extends Component {
             You have been a member since
           </p>
           <p className="col-xs-12 col-sm-2">
-            {moment(status.member_since).format('D MMM YYYY')}
+            {moment(member_since).format('D MMM YYYY')}
           </p>
           <p className="col-xs-12 col-sm-4 sinc-membership-status__key">
             Your next medical disclaimer is due on
           </p>
           <p className="col-xs-12 col-sm-2">
-            {moment(status.next_medical_disclaimer_due_date).format('D MMM YYYY')}
+            {moment(next_medical_disclaimer_due_date).format('D MMM YYYY')}
           </p>
         </div>
 
@@ -75,13 +85,13 @@ class MembershipHistory extends Component {
             Your next renewal is due on
           </p>
           <p className="col-xs-12 col-sm-2">
-            {moment(status.next_renewal_due_date).format('D MMM YYYY')}
+            {moment(next_renewal_due_date).format('D MMM YYYY')}
           </p>
           <p className="col-xs-12 col-sm-4 sinc-membership-status__key">
             Your next medical assessment is due on
           </p>
           <p className="col-xs-12 col-sm-2">
-            {moment(status.next_medical_assessment_due_date).format('D MMM YYYY')}
+            {moment(next_medical_assessment_due_date).format('D MMM YYYY')}
           </p>
         </div>
 
