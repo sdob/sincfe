@@ -93,6 +93,17 @@ export default class MemberTable extends Component {
             ],
           },
         },
+        {
+          property: 'email',
+          header: {
+            label: 'Email',
+          },
+          cell: {
+            formatters: [
+              (email) => <a href={`mailto:${email}`}>{email}</a>,
+            ],
+          },
+        }
       ],
     };
   }
