@@ -37,7 +37,7 @@ export default class MemberTable extends Component {
     this.state = {
       sortingColumns: {
         'id': {
-          direction: 'asc',
+          direction: 'desc',
           position: 0,
         },
         'first_name': {
