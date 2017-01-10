@@ -5,26 +5,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <title>Irish Underwater Council</title>
-        <!-- CSS -->
-        <link rel="stylesheet" href="/vendor/bootstrap/bootstrap.min.css">
-        <link rel="stylesheet" href="/vendor/tether/tether.min.css">
-        <link rel="stylesheet" href="/vendor/font-awesome/css/font-awesome.min.css">
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Gentium+Book+Basic" rel="stylesheet">
         <!-- Bootstrap JS and dependencies -->
+        <!--
         <script src="/vendor/jquery/jquery-3.1.1.min.js"></script>
         <script src="/vendor/tether/tether.min.js"></script>
         <script src="/vendor/bootstrap/bootstrap.min.js"></script>
+        -->
 
-        <script type="text/javascript">
-            // I am so ashamed of myself. I promise to put this somewhere else soon.
-            $(() => {
-                $('[data-toggle="tooltip"]').tooltip();}
-             );
-        </script>
     </head>
     <body>
         <div id="react-main"></div>
         <script type="text/javascript" src="/bundle.js"></script>
+        <script type="text/javascript">
+            // I am so ashamed of myself. I promise to put this somewhere else soon.
+            // We need to activate tooltips.
+            $(() => {
+                $('[data-toggle="tooltip"]').tooltip();
+             });
+        </script>
     </body>
 </html>
