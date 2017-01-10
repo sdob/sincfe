@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import moment from 'moment';
 
+import * as paths from '../paths';
+import InlineSpinner from '../shared/InlineSpinner';
 import { addMember } from './actions';
 import * as fields from './fields';
 import FormRow from './FormRow';
@@ -14,18 +16,30 @@ const form = reduxForm({
 
 class AddMember extends Component {
 
+  static contextTypes = {
+    router: React.PropTypes.object.isRequired,
+  };
+
   constructor(props, ctx) {
     super(props, ctx);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
-
   handleFormSubmit(formProps) {
     this.props.addMember(formProps);
   }
 
+  componentWillReceiveProps(nextProps) {
+    // If we've received a user object, it means that we've successfully
+    // added a user; redirect to the list page.
+    const { user } = nextProps.profiles;
+    if (user) {
+      this.context.router.push(paths.SEARCH_CURRENT_MEMBERS);
+    }
+  }
+
   render() {
-    const { handleSubmit } = this.props;
+    const { profiles, handleSubmit } = this.props;
 
     return (
       <div className="container">
@@ -56,8 +70,12 @@ class AddMember extends Component {
 
           <div className="form-group row">
             <div className="col-xs-12 sinc-form__submit-row">
-              <button className="btn btn-primary" type="submit">
-                Save
+              <button
+                className="btn btn-primary"
+                disabled={profiles.sending}
+                type="submit"
+              >
+                {profiles.sending ? <InlineSpinner /> : 'Save' }
               </button>
             </div>
           </div>
@@ -68,8 +86,9 @@ class AddMember extends Component {
   }
 }
 
-function mapStateToProps() {
+function mapStateToProps(state) {
   return {
+    profiles: state.profiles,
   };
 }
 
