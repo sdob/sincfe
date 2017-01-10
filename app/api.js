@@ -50,6 +50,10 @@ function qualificationsUrl(uid) {
   return `${API_URL}/users/${uid}/qualifications/`;
 }
 
+function regionDetailUrl(rid) {
+  return `${API_URL}/regions/${rid}/`;
+}
+
 function regionsListUrl() {
   return `${API_URL}/regions/`;
 }
@@ -66,5 +70,6 @@ export {
   loginUrl,
   ownProfileUrl,
   qualificationsUrl,
+  regionDetailUrl,
   regionsListUrl,
 };

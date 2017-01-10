@@ -1,17 +1,30 @@
 import axios from 'axios';
-import { regionsListUrl } from '../api';
-import { REGIONS_ERROR, REGIONS_RECEIVED } from './types';
+import { regionDetailUrl, regionsListUrl } from '../api';
+import * as types from './types';
 
 function handleError(dispatch, error) {
   // TODO: implement proper error-handling here.
-  return dispatch({ type: REGIONS_ERROR, payload: error });
+  return dispatch({ type: types.REGIONS_ERROR, payload: error });
+}
+
+function fetchRegionDetail(rid) {
+  console.info('fetching region detail');
+  return function fetch(dispatch) {
+    axios.get(regionDetailUrl(rid))
+    .then((response) => {
+      dispatch({ type: types.REGION_DETAIL_RECEIVED, payload: response.data });
+    })
+    .catch((error) => {
+      handleError(dispatch, error);
+    });
+  }
 }
 
 function fetchRegions() {
   return function fetch(dispatch) {
     axios.get(regionsListUrl())
     .then((response) => {
-      dispatch({ type: REGIONS_RECEIVED, payload: response.data });
+      dispatch({ type: types.REGIONS_RECEIVED, payload: response.data });
     })
     .catch((error) => {
       // There's been an error (4xx or 5xx); let the error handler
@@ -21,4 +34,7 @@ function fetchRegions() {
   };
 }
 
-export default fetchRegions;
+export {
+  fetchRegionDetail,
+  fetchRegions,
+};
