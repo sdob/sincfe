@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 
 import * as paths from '../paths';
 import PageLoading from '../shared/PageLoading';
-import fetchRegions from '../regions/actions';
+import { fetchRegions } from '../regions/actions';
 import { fetchCertificateList, fetchCourseList, hideRegion, showRegion } from './actions';
 
 class ViewCourses extends Component {
