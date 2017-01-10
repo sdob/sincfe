@@ -19,67 +19,68 @@ class MembershipHistory extends Component {
   }
 
   render() {
-    if (!this.props.currentMembershipStatus.currentMembershipStatus) {
+    const { status } = this.props;
+
+    if (!status) {
       return null;
     }
-
-    const status = this.props.currentMembershipStatus;
 
     return (
       <div>
         <h1 className="sinc-page-header">Membership history</h1>
         <h2 className="sinc-section-header">Current status</h2>
+
         <div className="row">
-          <p className="col-xs-12 col-sm-4">
+          <p className="col-xs-12 col-sm-4 sinc-membership-status__key">
             Next year membership status
           </p>
           <p className="col-xs-12 col-sm-2">
-            {status.currentMembershipStatus.next_year_membership_status}
+            {status.next_year_membership_status}
           </p>
         </div>
 
         <div className="row">
-          <p className="col-xs-12 col-sm-4">
+          <p className="col-xs-12 col-sm-4 sinc-membership-status__key">
             Current membership status
           </p>
           <p className="col-xs-12 col-sm-2">
-            {status.currentMembershipStatus.current_membership_status}
+            {status.current_membership_status}
           </p>
-          <p className="col-xs-12 col-sm-4">
+          <p className="col-xs-12 col-sm-4 sinc-membership-status__key">
             Your water fitness test is due on
           </p>
           <p className="col-xs-12 col-sm-2">
-            {moment(status.currentMembershipStatus.next_fitness_test_due_date).format('D MMM YYYY')}
+            {moment(status.next_fitness_test_due_date).format('D MMM YYYY')}
           </p>
         </div>
 
         <div className="row">
-          <p className="col-xs-12 col-sm-4">
+          <p className="col-xs-12 col-sm-4 sinc-membership-status__key">
             You have been a member since
           </p>
           <p className="col-xs-12 col-sm-2">
-            {moment(status.currentMembershipStatus.member_since).format('D MMM YYYY')}
+            {moment(status.member_since).format('D MMM YYYY')}
           </p>
-          <p className="col-xs-12 col-sm-4">
+          <p className="col-xs-12 col-sm-4 sinc-membership-status__key">
             Your next medical disclaimer is due on
           </p>
           <p className="col-xs-12 col-sm-2">
-            {moment(status.currentMembershipStatus.next_medical_disclaimer_due_date).format('D MMM YYYY')}
+            {moment(status.next_medical_disclaimer_due_date).format('D MMM YYYY')}
           </p>
         </div>
 
         <div className="row">
-          <p className="col-xs-12 col-sm-4">
+          <p className="col-xs-12 col-sm-4 sinc-membership-status__key">
             Your next renewal is due on
           </p>
           <p className="col-xs-12 col-sm-2">
-            {moment(status.currentMembershipStatus.next_renewal_due_date).format('D MMM YYYY')}
+            {moment(status.next_renewal_due_date).format('D MMM YYYY')}
           </p>
-          <p className="col-xs-12 col-sm-4">
+          <p className="col-xs-12 col-sm-4 sinc-membership-status__key">
             Your next medical assessment is due on
           </p>
           <p className="col-xs-12 col-sm-2">
-            {moment(status.currentMembershipStatus.next_medical_assessment_due_date).format('D MMM YYYY')}
+            {moment(status.next_medical_assessment_due_date).format('D MMM YYYY')}
           </p>
         </div>
 
@@ -94,7 +95,7 @@ class MembershipHistory extends Component {
 function mapStateToProps(state) {
   return {
     profile: state.profiles.profile,
-    currentMembershipStatus: state.currentMembershipStatus,
+    status: state.membershipStatus.currentStatus,
   };
 }
 

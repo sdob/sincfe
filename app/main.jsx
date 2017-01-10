@@ -46,7 +46,7 @@ const rootReducer = combineReducers({
   qualifications: qualificationsReducer,
   courses: coursesReducer,
   currentMembers: currentMembersReducer,
-  currentMembershipStatus: currentMembershipStatusReducer,
+  membershipStatus: currentMembershipStatusReducer,
   form: formReducer,
   profiles: profileReducer,
   regions: regionsReducer,
