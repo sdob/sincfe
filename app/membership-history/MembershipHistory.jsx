@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import fetchCurrentMembershipStatus from './actions';
 import NotImplementedYet from '../shared/NotImplementedYet';
 
+const CURRENT = 'Current';
+
 class MembershipHistory extends Component {
+
 
   componentDidMount() {
     if (this.props.profile && this.props.profile.id) {
@@ -16,6 +19,13 @@ class MembershipHistory extends Component {
     if (nextProps.profile !== this.props.profile) {
       this.props.fetchCurrentMembershipStatus(nextProps.profile.id);
     }
+  }
+
+  showCurrentMembershipStatus(status) {
+    if (status === CURRENT) {
+      return <i className="fa fa-fw fa-check-circle text-success" />;
+    }
+    return <i className="fa fa-fw fa-times-circle text-danger" />;
   }
 
   render() {
@@ -32,19 +42,10 @@ class MembershipHistory extends Component {
 
         <div className="row">
           <p className="col-xs-12 col-sm-4 sinc-membership-status__key">
-            Next year membership status
-          </p>
-          <p className="col-xs-12 col-sm-2">
-            {status.next_year_membership_status}
-          </p>
-        </div>
-
-        <div className="row">
-          <p className="col-xs-12 col-sm-4 sinc-membership-status__key">
             Current membership status
           </p>
           <p className="col-xs-12 col-sm-2">
-            {status.current_membership_status}
+            {status.current_membership_status} {this.showCurrentMembershipStatus(status.current_membership_status)}
           </p>
           <p className="col-xs-12 col-sm-4 sinc-membership-status__key">
             Your water fitness test is due on
