@@ -23,7 +23,7 @@
   border-color: $cft-blue-bg;
   border-radius: 0;
   &:hover {
-    border-color: inherit;
+    //border-color: inherit;
   }
 }
 
@@ -34,6 +34,11 @@
 
 /* Set calendar icon in DateTimePicker */
 .rw-i-calendar:before {
-  content: "\f073"; // fa-calendar
+  content: $fa-calendar;
 }
-
+.rw-i-caret-left:before {
+  content: $fa-caret-left;
+}
+.rw-i-caret-right:before {
+  content: $fa-caret-right;
+}
