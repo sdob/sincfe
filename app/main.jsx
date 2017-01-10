@@ -22,6 +22,10 @@ import regionsReducer from './regions/reducers';
 // startup)
 import * as authActionTypes from './auth/types';
 
+import moment from 'moment';
+import momentLocalizer from 'react-widgets/lib/localizers/moment';
+momentLocalizer(moment);
+
 // Import routes
 import routes from './routes';
 
