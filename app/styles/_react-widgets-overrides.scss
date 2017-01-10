@@ -1,0 +1,39 @@
+/*
+ * Override some of the default styles applied by react-widgets CSS
+ */
+
+/* Remove box shadows from rw widgets with focus */
+.rw-widget.rw-state-focus,
+.rw-widget.rw-state-selected {
+  box-shadow: none;
+  -webkit-box-shadow: none;
+  border-color: inherit;
+  &:hover,
+  &:active {
+    box-shadow: none;
+  }
+}
+
+.rw-datetimepicker input.rw-input {
+  box-shadow: none;
+}
+
+/* Set border colour and square border corners */
+.rw-widget {
+  border-color: $cft-blue-bg;
+  border-radius: 0;
+  &:hover {
+    border-color: inherit;
+  }
+}
+
+/* Use Font Awesome glyphs instead of default RWidgets */
+.rw-i {
+  font-family: FontAwesome;
+}
+
+/* Set calendar icon in DateTimePicker */
+.rw-i-calendar:before {
+  content: "\f073"; // fa-calendar
+}
+
