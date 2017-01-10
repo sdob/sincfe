@@ -39,8 +39,9 @@ class ClubQualifications extends Component {
         <table className="table">
           <thead>
             <tr>
-              <th>CFT #</th>
-              <th>Name</th>
+              <th>CFT number</th>
+              <th>First name</th>
+              <th>Last name</th>
               <th>Qualification</th>
               <th>Date granted</th>
             </tr>
@@ -48,8 +49,9 @@ class ClubQualifications extends Component {
           <tbody>
             {qualifications.map((qual, i) => (
               <tr key={i + 1}>
-                <td className="sinc-club-qualifications__user-id">{qual.user.id}</td>
-                <td>{qual.user.first_name} {qual.user.last_name}</td>
+                <td>{qual.user.id}</td>
+                <td>{qual.user.first_name}</td>
+                <td>{qual.user.last_name}</td>
                 <td>{qual.certificate.name}</td>
                 <td>{moment(qual.date_granted).format('D MMM YYYY')}</td>
               </tr>
