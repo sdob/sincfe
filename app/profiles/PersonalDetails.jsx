@@ -2,6 +2,7 @@ import React from 'react';
 import { Field } from 'redux-form';
 import DatePicker from '../shared/DatePicker';
 import * as fields from './fields';
+import * as genders from './genders';
 import FormRow from './FormRow';
 
 export default function PersonalDetails() {
@@ -11,13 +12,13 @@ export default function PersonalDetails() {
       <FormRow field={fields.LAST_NAME} label="Last name" />
 
       <div className="form-group row">
-        <label htmlFor="gender" className="col-sm-3 col-form-label">Gender</label>
+        <label htmlFor={fields.GENDER} className="col-sm-3 col-form-label">Gender</label>
         <div className="col-sm-4">
-          <select className="form-control">
+          <Field name={fields.GENDER} component="select" className="form-control">
             <option>Select a gender</option>
-            <option>Male</option>
-            <option>Female</option>
-          </select>
+            <option value={genders.MALE}>Male</option>
+            <option value={genders.MALE}>Female</option>
+          </Field>
         </div>
       </div>
 
