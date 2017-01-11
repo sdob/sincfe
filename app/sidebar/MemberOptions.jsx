@@ -4,8 +4,6 @@ import SidebarItem from './SidebarItem';
 import * as paths from '../paths';
 
 export default function MemberOptions(props) {
-  console.info('Rendering MemberOptions');
-  console.info(SidebarMenu);
   return (
     <SidebarMenu
       menuTitle="Member options"

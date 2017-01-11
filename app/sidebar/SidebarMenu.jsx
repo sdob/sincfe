@@ -1,7 +1,6 @@
 import React from 'react';
 
 export default function SidebarMenu(props) {
-  console.info('Rendering SidebarMenu');
   return (
     <div className="sinc-sidebar__section">
       <div className="sinc-sidebar__header">
