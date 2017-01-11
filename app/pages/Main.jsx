@@ -3,8 +3,6 @@ import { connect } from 'react-redux';
 import PageLoading from '../shared/PageLoading';
 
 function Main(props) {
-  console.log('Main props');
-  console.log(props);
   if (!props.profile) {
     return (<PageLoading />);
   }

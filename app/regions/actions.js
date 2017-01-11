@@ -8,7 +8,6 @@ function handleError(dispatch, error) {
 }
 
 function fetchRegionDetail(rid) {
-  console.info('fetching region detail');
   return function fetch(dispatch) {
     axios.get(regionDetailUrl(rid))
     .then((response) => {
