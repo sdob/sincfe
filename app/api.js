@@ -18,6 +18,10 @@ function certificateListUrl() {
   return `${API_URL}/certificates/`;
 }
 
+function clubDetailUrl(cid) {
+  return `${API_URL}/clubs/${cid}/`;
+}
+
 function clubQualificationsUrl(cid) {
   return `${API_URL}/clubs/${cid}/qualifications/`;
 }
@@ -62,6 +66,7 @@ export {
   addMemberUrl,
   activeInstructorsUrl,
   certificateListUrl,
+  clubDetailUrl,
   clubQualificationsUrl,
   courseDetailUrl,
   coursesListUrl,

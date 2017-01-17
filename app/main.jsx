@@ -11,6 +11,7 @@ import { reducer as formReducer } from 'redux-form';
 // Import reducers from submodules
 import activeInstructorsReducer from './active-instructors/reducers';
 import authReducer from './auth/reducers';
+import clubsReducer from './clubs/reducers';
 import coursesReducer from './courses/reducers';
 import currentMembersReducer from './search-current-members/reducers';
 import currentMembershipStatusReducer from './membership-history/reducers';
@@ -48,6 +49,7 @@ const rootReducer = combineReducers({
   activeInstructors: activeInstructorsReducer,
   auth: authReducer,
   qualifications: qualificationsReducer,
+  clubs: clubsReducer,
   courses: coursesReducer,
   currentMembers: currentMembersReducer,
   membershipStatus: currentMembershipStatusReducer,

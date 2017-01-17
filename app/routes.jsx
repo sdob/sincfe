@@ -21,7 +21,7 @@ import ActiveInstructors from './active-instructors/ActiveInstructors';
 import AddMember from './profiles/AddMember';
 import ContactUs from './contact-us/ContactUs';
 import CourseDetail from './courses/CourseDetail';
-import ClubDetails from './club-details/ClubDetails';
+import ClubDetails from './clubs/ClubDetails';
 import ClubRenewalOrders from './club-renewal-orders/ClubRenewalOrders';
 import ClubQualifications from './qualifications/ClubQualifications';
 import Documents from './documents/Documents';
