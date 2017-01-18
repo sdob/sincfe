@@ -2,10 +2,11 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { InlineNotification } from 'react-redux-notifications';
 
+/* eslint-disable jsx-a11y/href-no-hash */
 export default function FlashNotification(props) {
   const { message, status, trigger } = props;
 
-  const divClass = !!status ? `sinc-notification--${status}` : '';
+  const divClass = (status !== 'undefined') ? `sinc-notification--${status}` : '';
 
   return (
     <InlineNotification
@@ -15,7 +16,11 @@ export default function FlashNotification(props) {
       renderNotification={(notification, dismiss) => (
         <div className="notification" key={notification.key}>
           {notification.message}
-          {notification.showDismiss && <i className="notification_dismiss fa fa-fw fa-times" onClick={dismiss} />}
+          {notification.showDismiss && (
+            <a href="#" onClick={dismiss} className="notification_dismiss">
+              <i className="fa fa-fw fa-times" />
+            </a>
+          )}
         </div>
       )}
       renderContainer={notifications => (
@@ -32,4 +37,5 @@ export default function FlashNotification(props) {
       {...props}
     />
   );
- }
+}
+/* eslint-enable jsx-a11y/href-no-hash */

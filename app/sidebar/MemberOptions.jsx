@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import SidebarMenu from './SidebarMenu';
 import SidebarItem from './SidebarItem';
 import * as paths from '../paths';
 
-export default function MemberOptions(props) {
+export default function MemberOptions() {
   return (
     <SidebarMenu
       menuTitle="Member options"
-      menuId = "js-memberOptions"
+      menuId="js-memberOptions"
     >
       <SidebarItem icon="user" to={paths.EDIT_PROFILE} text="Edit profile" />
       <SidebarItem icon="certificate" to={paths.MEMBER_QUALIFICATIONS} text="View Qualifications" />

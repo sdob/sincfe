@@ -9,6 +9,9 @@ import { fetchCertificateList, fetchCourseList, hideRegion, showRegion } from '.
 
 class ViewCourses extends Component {
 
+  static handleCertificateSelect() {
+  }
+
   constructor(props) {
     super(props);
     this.handleCertificateSelect = this.handleCertificateSelect.bind(this);
@@ -22,9 +25,6 @@ class ViewCourses extends Component {
     this.props.fetchCourseList();
     // And we need the certificate types!
     this.props.fetchCertificateList();
-  }
-
-  handleCertificateSelect() {
   }
 
   getVisibleCourses() {
@@ -77,11 +77,15 @@ class ViewCourses extends Component {
         </h2>
 
         <div className="form-group row">
-          <label className="col-sm-6 col-md-3 col-form-label">
+          <label htmlFor="certificate" className="col-sm-6 col-md-3 col-form-label">
             Course name
           </label>
           <div className="col-sm-6 col-md-4 col-lg-3">
-            <select className="form-control" onChange={evt => this.handleCertificateSelect(evt)}>
+            <select
+              name="certificate"
+              className="form-control"
+              onChange={evt => ViewCourses.handleCertificateSelect(evt)}
+            >
               <option />
               {this.props.certificates && this.props.certificates.map((certificate, i) => (
                 <option

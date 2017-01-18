@@ -1,10 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { compose } from 'redux';
 import * as Table from 'reactabular-table';
 import * as resolve from 'table-resolver';
-import orderBy from 'lodash/orderBy';
-import * as sort from 'sortabular';
 
 import MemberTable from '../shared/MemberTable';
 import PageError from '../shared/PageError';
@@ -48,7 +45,7 @@ class SearchCurrentMembers extends MemberTable {
     const { columns, sortingColumns } = this.state;
     const resolvedColumns = resolve.columnChildren({ columns });
 
-    const sortedRows = this.sortedRows(rows, resolvedColumns, sortingColumns);
+    const sortedRows = MemberTable.sortedRows(rows, resolvedColumns, sortingColumns);
 
     return (
       <div>

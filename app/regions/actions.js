@@ -16,7 +16,7 @@ function fetchRegionDetail(rid) {
     .catch((error) => {
       handleError(dispatch, error);
     });
-  }
+  };
 }
 
 function fetchRegions() {

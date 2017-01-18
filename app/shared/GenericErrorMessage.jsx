@@ -15,7 +15,7 @@ export default function GenericErrorMessage(props) {
       <div>
         {error.message && (
           <p>
-            Here's what we know: <br />
+            Herei&rsquo;s what we know: <br />
             {error.message}
             </p>
         )}

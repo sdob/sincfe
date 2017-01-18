@@ -1,5 +1,6 @@
 import React from 'react';
 
+/* eslint-disable jsx-a11y/href-no-hash */
 export default function SidebarMenu(props) {
   return (
     <div className="sinc-sidebar__section">
@@ -25,3 +26,4 @@ export default function SidebarMenu(props) {
     </div>
   );
 }
+/* eslint-enable jsx-a11y/href-no-hash */
