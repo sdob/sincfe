@@ -24,7 +24,7 @@ function updateClub(club) {
     axios.put(url, club)
     .then((response) => {
       const { data } = response;
-      dispatch({ type: types.CLUB_DETAIL_RECEIVED, payload: data });
+      dispatch({ type: types.CLUB_UPDATE_SUCCESS, payload: data });
     })
     .catch((error) => {
       console.error(error);

@@ -68,8 +68,9 @@ class EditClubDetails extends Component {
         <InlineNotification
           defaultMessage="Update successful!"
           message="Changes saved!"
-          triggeredBy={types.CLUB_DETAIL_RECEIVED}
+          triggeredBy={types.CLUB_UPDATE_SUCCESS}
           showDismiss
+          hideAfter={500}
         />
         <div className="form-group row">
           <label className="col-xs-6 col-md-3 col-form-label">
