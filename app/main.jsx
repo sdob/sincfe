@@ -8,6 +8,10 @@ import { Router, browserHistory } from 'react-router';
 import reduxThunk from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form';
 
+// Import react-redux-notifications stuff
+import { reducer as notifications } from 'react-redux-notifications';
+import { middleware as NotificationMiddleware } from 'react-redux-notifications';
+
 // Import reducers from submodules
 import activeInstructorsReducer from './active-instructors/reducers';
 import authReducer from './auth/reducers';
@@ -46,6 +50,7 @@ import './styles/main.scss'; // eslint-disable-line
 
 // Combine our submodule reducers
 const rootReducer = combineReducers({
+  notifications,
   activeInstructors: activeInstructorsReducer,
   auth: authReducer,
   qualifications: qualificationsReducer,
@@ -59,7 +64,7 @@ const rootReducer = combineReducers({
 });
 
 // Create the store
-const createStoreWithMiddleware = applyMiddleware(reduxThunk)(createStore);
+const createStoreWithMiddleware = applyMiddleware(reduxThunk, NotificationMiddleware)(createStore);
 const store = createStoreWithMiddleware(rootReducer);
 
 // Check whether we're logged in at page load and dispatch an action
