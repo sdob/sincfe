@@ -7,7 +7,7 @@ import * as paths from '../paths';
 import InlineSpinner from '../shared/InlineSpinner';
 import { addMember } from './actions';
 import * as fields from './fields';
-import FormRow from './FormRow';
+import FormRow from '../shared/FormRow';
 import PersonalDetails from './PersonalDetails';
 
 const form = reduxForm({

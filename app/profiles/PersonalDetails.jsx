@@ -3,7 +3,7 @@ import { Field } from 'redux-form';
 import DatePicker from '../shared/DatePicker';
 import * as fields from './fields';
 import * as genders from './genders';
-import FormRow from './FormRow';
+import FormRow from '../shared/FormRow';
 
 export default function PersonalDetails() {
   return (

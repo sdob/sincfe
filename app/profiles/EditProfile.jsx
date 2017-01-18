@@ -5,7 +5,7 @@ import moment from 'moment';
 
 import PageLoading from '../shared/PageLoading';
 import UneditableProfileHelp from '../shared/UneditableProfileHelp';
-import FormRow from './FormRow';
+import FormRow from '../shared/FormRow';
 import * as fields from './fields';
 
 const form = reduxForm({
