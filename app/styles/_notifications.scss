@@ -1,6 +1,11 @@
+// We need access to the animate.css classes in order to have
+// the .alert-enter / .alert-leave selectors extend them
+// TODO: This dependency is brittle
+@import '../../node_modules/animate.css/animate';
+
 .notification {
   padding: 15px;
-  border: #000 1px solid;
+  border: 1px solid $cft-blue-bg;
 }
 
 .notification_dismiss {
@@ -17,6 +22,10 @@
 }
 
 .sinc-notification--success {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
   .notification {
     background: $brand-success;
   }
@@ -29,16 +38,11 @@
 }
 
 .alert-enter {
-  opacity: 0.01;
+  @extend .animated;
+  @extend .fadeInDown;
 }
-.alert-enter.alert-enter-active {
-  opacity: 1;
-  transition: opacity 120ms ease-in;
-}
+
 .alert-leave {
-  opacity: 1;
-}
-.alert-leave.alert-leave-active {
-  opacity: 0.01;
-  transition: opacity 500ms ease-out;
+  @extend .animated;
+  @extend .fadeOutUp;
 }
