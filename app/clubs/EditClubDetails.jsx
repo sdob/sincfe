@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import { InlineNotification } from 'react-redux-notifications';
 
+import FlashNotification from '../shared/FlashNotification';
 import PageLoading from '../shared/PageLoading';
 import NotImplementedYet from '../shared/NotImplementedYet';
 import { fetchClub, updateClub } from './actions';
@@ -63,57 +63,58 @@ class EditClubDetails extends Component {
     const regionName = region ? region.name : 'None assigned';
 
     return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-        <h1 className="sinc-page-header">Club details ({club.name})</h1>
-        <InlineNotification
-          defaultMessage="Update successful!"
-          message="Changes saved!"
-          triggeredBy={types.CLUB_UPDATE_SUCCESS}
-          showDismiss
-          hideAfter={500}
-        />
-        <div className="form-group row">
-          <label className="col-xs-6 col-md-3 col-form-label">
-            Club name
-          </label>
-          <div className="col-xs-6 col-md-9">
-            <p className="form-control-static">
-              {club.name}
-            </p>
+      <div>
+        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+          <FlashNotification
+            message="Changes saved!"
+            trigger={types.CLUB_UPDATE_SUCCESS}
+            status="success"
+          />
+          <h1 className="sinc-page-header">Club details ({club.name})</h1>
+
+          <div className="form-group row">
+            <label className="col-xs-6 col-md-3 col-form-label">
+              Club name
+            </label>
+            <div className="col-xs-6 col-md-9">
+              <p className="form-control-static">
+                {club.name}
+              </p>
+            </div>
           </div>
-        </div>
 
-        <div className="form-group row">
-          <label className="col-xs-6 col-md-3 col-form-label">
-            Region
-          </label>
-          <div className="col-xs-6 col-md-9">
-            <p className="form-control-static">
-              {regionName}
-            </p>
+          <div className="form-group row">
+            <label className="col-xs-6 col-md-3 col-form-label">
+              Region
+            </label>
+            <div className="col-xs-6 col-md-9">
+              <p className="form-control-static">
+                {regionName}
+              </p>
+            </div>
           </div>
-        </div>
 
-        <FormRow field={fields.DESCRIPTION} label="Description" component="textarea" rows="3" />
-        <FormRow field={fields.CONTACT_NAME} label="Contact name" />
-        <FormRow field={fields.CONTACT_EMAIL} label="Email address" />
-        <FormRow field={fields.CONTACT_PHONE} label="Phone number" />
-        <FormRow field={fields.LOCATION} label="Location" component="textarea" rows="3" />
-        <FormRow field={fields.TRAINING_TIMES} label="Training times" component="textarea" rows="3" />
+          <FormRow field={fields.DESCRIPTION} label="Description" component="textarea" rows="3" />
+          <FormRow field={fields.CONTACT_NAME} label="Contact name" />
+          <FormRow field={fields.CONTACT_EMAIL} label="Email address" />
+          <FormRow field={fields.CONTACT_PHONE} label="Phone number" />
+          <FormRow field={fields.LOCATION} label="Location" component="textarea" rows="3" />
+          <FormRow field={fields.TRAINING_TIMES} label="Training times" component="textarea" rows="3" />
 
-        <div className="row">
-          <div className="col-md-9 col-lg-6 offset-md-3 sinc-form__submit-row">
-            <button
-              className="btn btn-primary"
-              disabled={sending}
-              type="submit"
-            >
-              { sending ? <InlineSpinner /> : 'Save' }
-            </button>
+          <div className="row">
+            <div className="col-md-9 col-lg-6 offset-md-3 sinc-form__submit-row">
+              <button
+                className="btn btn-primary"
+                disabled={sending}
+                type="submit"
+              >
+                { sending ? <InlineSpinner /> : 'Save' }
+              </button>
+            </div>
           </div>
-        </div>
 
-      </form>
+        </form>
+      </div>
     );
   }
 }
