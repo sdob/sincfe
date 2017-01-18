@@ -1,20 +1,14 @@
 .notification {
   padding: 15px;
   border: #000 1px solid;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
 }
 
 .notification_dismiss {
   float: right;
   position: relative;
   font-size: 21px;
-  font-weight: 700;
   line-height: 1;
   color: #000;
-  text-shadow: 0 1px 0 #fff;
   cursor: pointer;
 }
 
