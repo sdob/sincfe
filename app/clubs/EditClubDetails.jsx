@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
+import { InlineNotification } from 'react-redux-notifications';
+
 import PageLoading from '../shared/PageLoading';
 import NotImplementedYet from '../shared/NotImplementedYet';
 import { fetchClub, updateClub } from './actions';
@@ -9,6 +11,7 @@ import FormRow from '../shared/FormRow';
 import InlineSpinner from '../shared/InlineSpinner';
 
 import * as fields from './fields';
+import * as types from './types';
 
 const form = reduxForm({
   form: 'editClubDetails',
@@ -62,6 +65,12 @@ class EditClubDetails extends Component {
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit)}>
         <h1 className="sinc-page-header">Club details ({club.name})</h1>
+        <InlineNotification
+          defaultMessage="Update successful!"
+          message="Changes saved!"
+          triggeredBy={types.CLUB_DETAIL_RECEIVED}
+          showDismiss
+        />
         <div className="form-group row">
           <label className="col-xs-6 col-md-3 col-form-label">
             Club name
