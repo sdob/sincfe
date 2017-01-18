@@ -38,8 +38,12 @@ class EditClubDetails extends Component {
   }
 
   handleFormSubmit(formProps) {
-    const { updateClub } = this.props;
-    updateClub(formProps);
+    const { clubs, updateClub } = this.props;
+    // Merge the existing (uneditable) data with the
+    // contents of our form; this prevents us from
+    // having to do a partial update.
+    const club = { ...clubs.club, ...formProps };
+    updateClub(club);
   }
 
   render() {
@@ -107,6 +111,7 @@ class EditClubDetails extends Component {
 function mapStateToProps(state) {
   return {
     clubs: state.clubs,
+    initialValues: state.clubs.club,
     profile: state.profiles.profile,
     regions: state.regions.regions,
   };
