@@ -3,7 +3,6 @@ import React from 'react';
 import { Link } from 'react-router';
 
 export default function TopNavItem(props) {
-
   const { className, icon, text, to } = props;
   const liClasses = generateClassString(className);
 
@@ -20,7 +19,7 @@ export default function TopNavItem(props) {
 function generateClassString(className) {
   // Every <li> gets '.nav-item'; if we were passed a props.className,
   // then add it too.
-  let classStrings = ['nav-item'];
+  const classStrings = ['nav-item'];
   if (typeof className !== 'undefined') {
     classStrings.push(className);
   }
