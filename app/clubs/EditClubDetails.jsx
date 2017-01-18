@@ -64,12 +64,14 @@ class EditClubDetails extends Component {
 
     return (
       <div>
+
+        <FlashNotification
+          message="Changes saved!"
+          trigger={types.CLUB_UPDATE_SUCCESS}
+          status="success"
+        />
+
         <form onSubmit={handleSubmit(this.handleFormSubmit)}>
-          <FlashNotification
-            message="Changes saved!"
-            trigger={types.CLUB_UPDATE_SUCCESS}
-            status="success"
-          />
           <h1 className="sinc-page-header">Club details ({club.name})</h1>
 
           <div className="form-group row">
