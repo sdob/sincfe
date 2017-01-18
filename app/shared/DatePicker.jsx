@@ -1,6 +1,7 @@
 import React from 'react';
 import { DateTimePicker } from 'react-widgets';
 
+// eslint-disable-next-line no-unused-vars
 export default function DatePicker({ input, meta, value, ...rest }) {
   return (
     <DateTimePicker
@@ -11,5 +12,5 @@ export default function DatePicker({ input, meta, value, ...rest }) {
       onBlur={() => input.onBlur(value)}
       {...rest}
     />
- );
+  );
 }

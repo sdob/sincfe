@@ -1,12 +1,25 @@
 import React, { Component } from 'react';
 import { compose } from 'redux';
-import { connect } from 'react-redux';
 import orderBy from 'lodash/orderBy';
-import * as Table from 'reactabular-table';
 import * as resolve from 'table-resolver';
 import * as sort from 'sortabular';
 
 export default class MemberTable extends Component {
+  static sortedRows(rows, resolvedColumns, sortingColumns) {
+    return compose(
+      sort.sorter({
+        columns: resolvedColumns,
+        sortingColumns,
+        sort: orderBy,
+        strategy: sort.strategies.byProperty,
+      }),
+      resolve.resolve({
+        columns: resolvedColumns,
+        method: resolve.nested,
+      })
+    )(rows);
+  }
+
   constructor(props) {
     super(props);
 
@@ -22,7 +35,7 @@ export default class MemberTable extends Component {
     const sortable = sort.sort({
       getSortingColumns,
 
-      onSort: selectedColumn => {
+      onSort: (selectedColumn) => {
         this.setState({
           sortingColumns: sort.byColumn({
             sortingColumns: this.state.sortingColumns,
@@ -36,15 +49,15 @@ export default class MemberTable extends Component {
 
     this.state = {
       sortingColumns: {
-        'id': {
+        id: {
           direction: 'desc',
           position: 0,
         },
-        'first_name': {
+        first_name: {
           direction: 'none',
           position: 1,
         },
-        'last_name': {
+        last_name: {
           direction: 'none',
           position: 2,
         },
@@ -100,25 +113,11 @@ export default class MemberTable extends Component {
           },
           cell: {
             formatters: [
-              (email) => <a href={`mailto:${email}`}>{email}</a>,
+              email => <a href={`mailto:${email}`}>{email}</a>,
             ],
           },
         }
       ],
     };
-  }
-  static sortedRows(rows, resolvedColumns, sortingColumns) {
-    return compose(
-      sort.sorter({
-        columns: resolvedColumns,
-        sortingColumns,
-        sort: orderBy,
-        strategy: sort.strategies.byProperty,
-      }),
-      resolve.resolve({
-        columns: resolvedColumns,
-        method: resolve.nested,
-      })
-    )(rows);
   }
 }
