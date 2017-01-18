@@ -11,7 +11,6 @@ export default function FlashNotification(props) {
     <InlineNotification
       defaultMessage={message}
       triggeredBy={trigger}
-      hideAfter={2000}
       showDismiss
       renderNotification={(notification, dismiss) => (
         <div className="notification" key={notification.key}>
@@ -23,13 +22,14 @@ export default function FlashNotification(props) {
         <div className={divClass}>
           <ReactCSSTransitionGroup
             transitionName="alert"
-            transitionEnterTimeout={80}
-            transitionLeaveTimeout={200}
+            transitionEnterTimeout={1000}
+            transitionLeaveTimeout={1000}
           >
             {notifications}
           </ReactCSSTransitionGroup>
         </div>
       )}
+      {...props}
     />
   );
  }
