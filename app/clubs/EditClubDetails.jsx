@@ -13,7 +13,7 @@ const form = reduxForm({
   form: 'editClubDetails',
 });
 
-class ClubDetails extends Component {
+class EditClubDetails extends Component {
 
   componentDidMount() {
     const { fetchClub, fetchRegions, profile } = this.props;
@@ -87,51 +87,6 @@ class ClubDetails extends Component {
 
       </div>
     );
-
-    /*
-
-    return (
-      <div>
-
-
-        <div className="form-group row">
-          <label htmlFor={fields.DESCRIPTION} className="col-xs-12 col-md-3 col-form-label">
-            Description
-          </label>
-          <div className="col-xs-12 col-md-9">
-            <textarea className="form-control" rows="3" />
-          </div>
-        </div>
-
-        <div className="form-group row">
-          <label className="col-xs-12 col-md-3 col-form-label">
-            Contact name
-          </label>
-          <div className="col-xs-12 col-md-9">
-            <Field name='contactName' component="input" className="form-control" />
-          </div>
-        </div>
-
-        <div className="form-group row">
-          <label className="col-xs-12 col-md-3 col-form-label">
-            Contact email
-          </label>
-          <div className="col-xs-12 col-md-9">
-            <Field name='contactName' component="input" className="form-control" />
-          </div>
-        </div>
-
-        <div className="form-group row">
-          <label className="col-xs-12 col-md-3 col-form-label">
-            Contact phone
-          </label>
-          <div className="col-xs-12 col-md-9">
-            <Field name='contactName' component="input" className="form-control" />
-          </div>
-        </div>
-      </div>
-    );
-    */
   }
 }
 
@@ -143,4 +98,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchClub, fetchRegions })(form(ClubDetails));
+export default connect(mapStateToProps, { fetchClub, fetchRegions })(form(EditClubDetails));
