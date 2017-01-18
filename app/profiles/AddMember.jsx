@@ -16,9 +16,11 @@ const form = reduxForm({
 
 class AddMember extends Component {
 
-  static contextTypes = {
-    router: React.PropTypes.object.isRequired,
-  };
+  /* eslint-disable */
+  //static contextTypes = {
+    //router: React.PropTypes.object.isRequired,
+  //};
+  /* eslint-enable */
 
   constructor(props, ctx) {
     super(props, ctx);
@@ -85,6 +87,11 @@ class AddMember extends Component {
     );
   }
 }
+
+/* We can't use static properties because eslint can't parse them. */
+AddMember.contextTypes = {
+  router: React.PropTypes.object.isRequired,
+};
 
 function mapStateToProps(state) {
   return {
