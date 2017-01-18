@@ -48,7 +48,7 @@ class SearchCurrentMembers extends MemberTable {
     const { columns, sortingColumns } = this.state;
     const resolvedColumns = resolve.columnChildren({ columns });
 
-    const sortedRows = this.sortedRows(rows, resolvedColumns, sortingColumns);
+    const sortedRows = MemberTable.sortedRows(rows, resolvedColumns, sortingColumns);
 
     return (
       <div>

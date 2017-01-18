@@ -107,8 +107,7 @@ export default class MemberTable extends Component {
       ],
     };
   }
-
-  sortedRows(rows, resolvedColumns, sortingColumns) {
+  static sortedRows(rows, resolvedColumns, sortingColumns) {
     return compose(
       sort.sorter({
         columns: resolvedColumns,
