@@ -3,9 +3,10 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import PageLoading from '../shared/PageLoading';
 import NotImplementedYet from '../shared/NotImplementedYet';
-import { fetchClub } from './actions';
+import { fetchClub, updateClub } from './actions';
 import { fetchRegions } from '../regions/actions';
 import FormRow from '../shared/FormRow';
+import InlineSpinner from '../shared/InlineSpinner';
 
 import * as fields from './fields';
 
@@ -23,6 +24,11 @@ class EditClubDetails extends Component {
     }
   }
 
+  constructor(props, ctx) {
+    super(props, ctx);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+  }
+
   componentWillReceiveProps(nextProps) {
     const { fetchClub, fetchRegions, profile } = this.props;
     if (nextProps.profile !== profile) {
@@ -31,11 +37,18 @@ class EditClubDetails extends Component {
     }
   }
 
+  handleFormSubmit(formProps) {
+    const { updateClub } = this.props;
+    updateClub(formProps);
+  }
+
   render() {
-    const { club, profile, regions } = this.props;
-    if (!(club && regions)) {
+    const { clubs, handleSubmit, profile, regions } = this.props;
+    if (!(clubs.club && regions)) {
       return <PageLoading />;
     }
+
+    const { club, sending } = clubs;
 
     // Try to find a region for this club; if it's missing, call it
     // 'None assigned'
@@ -43,7 +56,7 @@ class EditClubDetails extends Component {
     const regionName = region ? region.name : 'None assigned';
 
     return (
-      <div>
+      <form onSubmit={handleSubmit(this.handleFormSubmit)}>
         <h1 className="sinc-page-header">Club details ({club.name})</h1>
         <div className="form-group row">
           <label className="col-xs-6 col-md-3 col-form-label">
@@ -78,24 +91,25 @@ class EditClubDetails extends Component {
           <div className="col-md-9 col-lg-6 offset-md-3 sinc-form__submit-row">
             <button
               className="btn btn-primary"
-              type="button"
+              disabled={sending}
+              type="submit"
             >
-              Save
+              { sending ? <InlineSpinner /> : 'Save' }
             </button>
           </div>
         </div>
 
-      </div>
+      </form>
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    club: state.clubs.club,
+    clubs: state.clubs,
     profile: state.profiles.profile,
     regions: state.regions.regions,
   };
 }
 
-export default connect(mapStateToProps, { fetchClub, fetchRegions })(form(EditClubDetails));
+export default connect(mapStateToProps, { fetchClub, fetchRegions, updateClub })(form(EditClubDetails));
