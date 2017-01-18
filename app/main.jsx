@@ -9,8 +9,13 @@ import reduxThunk from 'redux-thunk';
 import { reducer as formReducer } from 'redux-form';
 
 // Import react-redux-notifications stuff
-import { reducer as notifications } from 'react-redux-notifications';
-import { middleware as NotificationMiddleware } from 'react-redux-notifications';
+import {
+  reducer as notifications,
+  middleware as NotificationMiddleware,
+} from 'react-redux-notifications';
+
+import moment from 'moment';
+import momentLocalizer from 'react-widgets/lib/localizers/moment';
 
 // Import reducers from submodules
 import activeInstructorsReducer from './active-instructors/reducers';
@@ -27,12 +32,9 @@ import regionsReducer from './regions/reducers';
 // startup)
 import * as authActionTypes from './auth/types';
 
-import moment from 'moment';
-import momentLocalizer from 'react-widgets/lib/localizers/moment';
-momentLocalizer(moment);
-
 // Import routes
 import routes from './routes';
+
 
 /* JS and CSS dependencies */
 /* eslint-disable */
@@ -47,6 +49,9 @@ import 'style!css!react-widgets/dist/css/react-widgets.css'; // eslint-disable-l
 // NOTE: import our own styles last (so that they'll correctly override third-party stuff
 import './styles/main.scss'; // eslint-disable-line
 /* eslint-enable */
+
+// Set up react-widget localization
+momentLocalizer(moment);
 
 // Combine our submodule reducers
 const rootReducer = combineReducers({

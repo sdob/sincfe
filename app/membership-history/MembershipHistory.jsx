@@ -9,6 +9,12 @@ const CURRENT = 'Current';
 
 class MembershipHistory extends Component {
 
+  static showCurrentMembershipStatus(status) {
+    if (status === CURRENT) {
+      return <i className="fa fa-fw fa-check-circle text-success" />;
+    }
+    return <i className="fa fa-fw fa-times-circle text-danger" />;
+  }
 
   componentDidMount() {
     if (this.props.profile && this.props.profile.id) {
@@ -20,13 +26,6 @@ class MembershipHistory extends Component {
     if (nextProps.profile !== this.props.profile) {
       this.props.fetchCurrentMembershipStatus(nextProps.profile.id);
     }
-  }
-
-  showCurrentMembershipStatus(status) {
-    if (status === CURRENT) {
-      return <i className="fa fa-fw fa-check-circle text-success" />;
-    }
-    return <i className="fa fa-fw fa-times-circle text-danger" />;
   }
 
   render() {
@@ -42,7 +41,7 @@ class MembershipHistory extends Component {
 
     // Destructure the status object, for brevity's sake
     const {
-      current_membership_status,
+      current_membership_status: currentMembershipStatus,
       member_since,
       next_fitness_test_due_date,
       next_medical_assessment_due_date,
@@ -60,7 +59,9 @@ class MembershipHistory extends Component {
             Current membership status
           </p>
           <p className="col-xs-12 col-sm-2">
-            {current_membership_status} {this.showCurrentMembershipStatus(current_membership_status)}
+            {currentMembershipStatus}
+            {' '}
+            {MembershipHistory.showCurrentMembershipStatus(currentMembershipStatus)}
           </p>
           <p className="col-xs-12 col-sm-4 sinc-membership-status__key">
             Your water fitness test is due on

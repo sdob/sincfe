@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Field, reduxForm } from 'redux-form';
+import { reduxForm } from 'redux-form';
 
 import FlashNotification from '../shared/FlashNotification';
 import PageLoading from '../shared/PageLoading';
-import NotImplementedYet from '../shared/NotImplementedYet';
 import { fetchClub, updateClub } from './actions';
 import { fetchRegions } from '../regions/actions';
 import FormRow from '../shared/FormRow';
@@ -19,38 +18,41 @@ const form = reduxForm({
 
 class EditClubDetails extends Component {
 
-  componentDidMount() {
-    const { fetchClub, fetchRegions, profile } = this.props;
-    if (profile && profile.club) {
-      fetchClub(profile.club.id);
-      fetchRegions();
-    }
-  }
-
   constructor(props, ctx) {
     super(props, ctx);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
+  componentDidMount() {
+    const { profile } = this.props;
+    if (profile && profile.club) {
+      this.retrieveData(profile);
+    }
+  }
+
   componentWillReceiveProps(nextProps) {
-    const { fetchClub, fetchRegions, profile } = this.props;
+    const { profile } = this.props;
     if (nextProps.profile !== profile) {
-      fetchClub(nextProps.profile.club.id);
-      fetchRegions();
+      this.retrieveData(nextProps.profile);
     }
   }
 
   handleFormSubmit(formProps) {
-    const { clubs, updateClub } = this.props;
+    const { clubs } = this.props;
     // Merge the existing (uneditable) data with the
     // contents of our form; this prevents us from
     // having to do a partial update.
     const club = { ...clubs.club, ...formProps };
-    updateClub(club);
+    this.props.updateClub(club);
+  }
+
+  retrieveData(profile) {
+    this.props.fetchClub(profile.club.id);
+    this.props.fetchRegions();
   }
 
   render() {
-    const { clubs, handleSubmit, profile, regions } = this.props;
+    const { clubs, handleSubmit, regions } = this.props;
     if (!(clubs.club && regions)) {
       return <PageLoading />;
     }
@@ -59,7 +61,7 @@ class EditClubDetails extends Component {
 
     // Try to find a region for this club; if it's missing, call it
     // 'None assigned'
-    const region = regions.filter(region => region.id === club.region)[0];
+    const region = regions.filter(x => x.id === club.region)[0];
     const regionName = region ? region.name : 'None assigned';
 
     return (
@@ -75,9 +77,9 @@ class EditClubDetails extends Component {
           <h1 className="sinc-page-header">Club details ({club.name})</h1>
 
           <div className="form-group row">
-            <label className="col-xs-6 col-md-3 col-form-label">
+            <div className="col-xs-6 col-md-3 col-form-label">
               Club name
-            </label>
+            </div>
             <div className="col-xs-6 col-md-9">
               <p className="form-control-static">
                 {club.name}
@@ -86,9 +88,9 @@ class EditClubDetails extends Component {
           </div>
 
           <div className="form-group row">
-            <label className="col-xs-6 col-md-3 col-form-label">
+            <div className="col-xs-6 col-md-3 col-form-label">
               Region
-            </label>
+            </div>
             <div className="col-xs-6 col-md-9">
               <p className="form-control-static">
                 {regionName}
@@ -101,7 +103,12 @@ class EditClubDetails extends Component {
           <FormRow field={fields.CONTACT_EMAIL} label="Email address" />
           <FormRow field={fields.CONTACT_PHONE} label="Phone number" />
           <FormRow field={fields.LOCATION} label="Location" component="textarea" rows="3" />
-          <FormRow field={fields.TRAINING_TIMES} label="Training times" component="textarea" rows="3" />
+          <FormRow
+            field={fields.TRAINING_TIMES}
+            label="Training times"
+            component="textarea"
+            rows="3"
+          />
 
           <div className="row">
             <div className="col-md-9 col-lg-6 offset-md-3 sinc-form__submit-row">
@@ -130,4 +137,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchClub, fetchRegions, updateClub })(form(EditClubDetails));
+export default connect(mapStateToProps, {
+  fetchClub, fetchRegions, updateClub
+})(form(EditClubDetails));

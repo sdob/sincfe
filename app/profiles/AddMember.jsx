@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import moment from 'moment';
 
 import * as paths from '../paths';
 import InlineSpinner from '../shared/InlineSpinner';
@@ -16,19 +15,9 @@ const form = reduxForm({
 
 class AddMember extends Component {
 
-  /* eslint-disable */
-  //static contextTypes = {
-    //router: React.PropTypes.object.isRequired,
-  //};
-  /* eslint-enable */
-
   constructor(props, ctx) {
     super(props, ctx);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-  }
-
-  handleFormSubmit(formProps) {
-    this.props.addMember(formProps);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,6 +27,10 @@ class AddMember extends Component {
     if (user) {
       this.context.router.push(paths.SEARCH_CURRENT_MEMBERS);
     }
+  }
+
+  handleFormSubmit(formProps) {
+    this.props.addMember(formProps);
   }
 
   render() {

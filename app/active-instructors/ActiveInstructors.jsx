@@ -1,10 +1,7 @@
-import React, { Component } from 'react';
-import { compose } from 'redux';
+import React from 'react';
 import { connect } from 'react-redux';
-import orderBy from 'lodash/orderBy';
 import * as Table from 'reactabular-table';
 import * as resolve from 'table-resolver';
-import * as sort from 'sortabular';
 
 import fetchActiveInstructors from './actions';
 import { fetchRegionDetail } from '../regions/actions';
@@ -15,22 +12,24 @@ class ActiveInstructors extends MemberTable {
   componentDidMount() {
     const { profile } = this.props;
     if (profile) {
-      const { region } = profile.club;
-      this.props.fetchActiveInstructors(region);
-      this.props.fetchRegionDetail(region);
+      this.retrieveData(profile);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.profile !== this.props.profile) {
-      const { region } = nextProps.profile.club;
-      this.props.fetchActiveInstructors(region);
-      this.props.fetchRegionDetail(region);
+      this.retrieveData(nextProps.profile);
     }
   }
 
+  retrieveData(profile) {
+    const { region } = profile.club;
+    this.props.fetchActiveInstructors(region);
+    this.props.fetchRegionDetail(region);
+  }
+
   render() {
-    const { instructors, profile, region } = this.props;
+    const { instructors, region } = this.props;
     if (!instructors) {
       return <PageLoading />;
     }
@@ -40,7 +39,7 @@ class ActiveInstructors extends MemberTable {
     const { columns, sortingColumns } = this.state;
     const resolvedColumns = resolve.columnChildren({ columns });
 
-    const sortedRows = this.sortedRows(rows, resolvedColumns, sortingColumns);
+    const sortedRows = MemberTable.sortedRows(rows, resolvedColumns, sortingColumns);
 
     return (
       <div>
@@ -67,4 +66,7 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchActiveInstructors, fetchRegionDetail })(ActiveInstructors);
+export default connect(mapStateToProps, {
+  fetchActiveInstructors,
+  fetchRegionDetail
+})(ActiveInstructors);

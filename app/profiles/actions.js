@@ -18,7 +18,8 @@ function handleError(dispatch, error, type) {
       // HTTP 401 means the user simply isn't logged in; as usual we
       // can treat this by just logging the user out.
       case HTTP.UNAUTHORIZED:
-        return logoutUser()(dispatch);
+        logoutUser()(dispatch);
+        return;
       default:
         // Dispatch an error
         dispatch({ type, payload: error });
@@ -54,7 +55,6 @@ function addMember(user) {
       handleError(dispatch, error, types.PROFILE_CREATE_ERROR);
     });
   };
-
 }
 
 /*

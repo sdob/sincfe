@@ -1,10 +1,9 @@
 import axios from 'axios';
 
 import { clubQualificationsUrl, qualificationsUrl } from '../api';
-//import { CLUB_QUALIFICATIONS_RECEIVED, MEMBER_QUALIFICATIONS_RECEIVED } from './types';
 import * as types from './types';
 
-function handleError(dispatch, error, type=types.GENERIC_QUALIFICATIONS_ERROR) {
+function handleError(dispatch, error, type = types.GENERIC_QUALIFICATIONS_ERROR) {
   console.error(error);
   dispatch({ type, payload: error });
 }

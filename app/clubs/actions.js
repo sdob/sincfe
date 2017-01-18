@@ -30,7 +30,7 @@ function updateClub(club) {
       console.error(error);
       throw error;
     });
-  }
+  };
 }
 
 export {
