@@ -5,8 +5,10 @@
 @import 'fa-glyphs';
 
 /*
- * Override Bootstrap defaults
+ * Import Bootstrap variables and override them
  */
+@import 'bootstrap-variables';
+@import 'variables';
 @import 'bootstrap-overrides';
 @import 'react-widgets-overrides';
 
