@@ -38,12 +38,9 @@ class EditClubDetails extends Component {
   }
 
   handleFormSubmit(formProps) {
-    const { clubs } = this.props;
-    // Merge the existing (uneditable) data with the
-    // contents of our form; this prevents us from
-    // having to do a partial update.
-    const club = { ...clubs.club, ...formProps };
-    this.props.updateClub(club);
+    // Don't send the users list
+    const { users, ...rest } = formProps;
+    this.props.updateClub(rest);
   }
 
   retrieveData(profile) {
