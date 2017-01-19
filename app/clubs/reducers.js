@@ -10,7 +10,6 @@ export default function clubsReducer(initialState = {}, action) {
     case types.CLUB_UPDATE_SUCCESS:
       return { ...state, club: action.payload };
     case types.CURRENT_MEMBERS_RECEIVED:
-      console.info('CURRENT_MEMBER_RECEIVED');
       return { ...state, memberList: action.payload };
     default:
       return initialState;
