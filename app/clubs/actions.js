@@ -22,11 +22,11 @@ function fetchClubMemberList(cid) {
     axios.get(url)
     .then((response) => {
       const { data } = response;
-      dispatch({ type: types.CURRENT_MEMBERS_RECEIVED, payload: data });
+      dispatch({ type: types.MEMBER_LIST_RECEIVED, payload: data });
     })
     .catch((error) => {
       console.error(error);
-      dispatch({ type: types.CURRENT_MEMBERS_ERROR, payload: error });
+      dispatch({ type: types.MEMBER_LIST_ERROR, payload: error });
     });
   };
 }

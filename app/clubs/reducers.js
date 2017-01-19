@@ -9,7 +9,7 @@ export default function clubsReducer(initialState = {}, action) {
       return { ...state, club: action.payload };
     case types.CLUB_UPDATE_SUCCESS:
       return { ...state, club: action.payload };
-    case types.CURRENT_MEMBERS_RECEIVED:
+    case types.MEMBER_LIST_RECEIVED:
       return { ...state, memberList: action.payload };
     default:
       return initialState;
