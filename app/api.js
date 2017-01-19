@@ -34,7 +34,7 @@ function coursesListUrl() {
   return `${API_URL}/courses/`;
 }
 
-function currentMembersUrl(cid) {
+function clubMemberListUrl(cid) {
   return `${API_URL}/clubs/${cid}/users/`;
 }
 
@@ -72,9 +72,9 @@ export {
   certificateListUrl,
   clubDetailUrl,
   clubQualificationsUrl,
+  clubMemberListUrl,
   courseDetailUrl,
   coursesListUrl,
-  currentMembersUrl,
   currentMembershipStatusUrl,
   loginUrl,
   memberDetailUrl,
