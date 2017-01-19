@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { currentMembersUrl } from '../api';
+import { clubMemberListUrl } from '../api';
 import { CURRENT_MEMBERS_ERROR, CURRENT_MEMBERS_RECEIVED } from './types';
 
 export default function fetchCurrentMembers(cid) {
   return function fetch(dispatch) {
-    const url = currentMembersUrl(cid);
+    const url = clubMemberListUrl(cid);
     axios.get(url)
     .then((response) => {
       const currentMembers = response.data;
