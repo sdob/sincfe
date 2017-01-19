@@ -19,7 +19,7 @@ export default function authReducer(initialState = {}, action) {
     // Profile updates
     case types.PROFILE_UPDATE_SENDING:
       return { ...state, sending: true };
-    case types.PROFILE_UPDATE_SENDING:
+    case types.PROFILE_UPDATE_SUCCESS:
       return { ...state, profile: action.payload };
     case types.PROFILE_UPDATE_ERROR:
       return { ...state, errorMsg: action.payload };
