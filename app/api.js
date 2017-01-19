@@ -46,6 +46,10 @@ function loginUrl() {
   return `${API_URL}/auth/login/`;
 }
 
+function memberDetailUrl(uid) {
+  return `${API_URL}/users/${uid}/`;
+}
+
 function ownProfileUrl() {
   return `${API_URL}/users/me/`;
 }
@@ -73,6 +77,7 @@ export {
   currentMembersUrl,
   currentMembershipStatusUrl,
   loginUrl,
+  memberDetailUrl,
   ownProfileUrl,
   qualificationsUrl,
   regionDetailUrl,
