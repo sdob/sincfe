@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
-import SortedTable from './SortedTable';
 import * as sort from 'sortabular';
+import SortedTable from './SortedTable';
 
 // Handle state and sorting for SortableTable
 export default class NewMemberTable extends Component {
@@ -89,6 +89,10 @@ export default class NewMemberTable extends Component {
     }
   }
 
+  getSortingColumns() {
+    return this.state.sortingColumns || {};
+  }
+
   render() {
     const { rows } = this.props;
     const { columns, sortingColumns } = this.state;
@@ -101,7 +105,4 @@ export default class NewMemberTable extends Component {
     );
   }
 
-  getSortingColumns() {
-    return this.state.sortingColumns || {};
-  }
 }
