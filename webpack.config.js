@@ -1,6 +1,9 @@
 var webpack = require('webpack');
 var path = require('path');
 
+// Load environment variables
+require('dotenv').config();
+
 module.exports = {
   devServer: {
     historyApiFallback: true,
@@ -35,5 +38,8 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
+    new webpack.DefinePlugin({
+      API_URL: `'${process.env.API_URL}'`,
+    }),
   ]
 };

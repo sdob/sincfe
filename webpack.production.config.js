@@ -3,6 +3,9 @@ var path = require('path');
 var uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 var CopyWebpackPlugin = require('copy-webpack-plugin');
 
+// Load environment variables
+require('dotenv').config();
+
 module.exports = {
   devtool: 'cheap-source-map',
   entry: [
@@ -31,6 +34,7 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env': {
+        API_URL: `'${process.env.API_URL}'`,
         NODE_ENV: JSON.stringify('production')
       }
     }),
