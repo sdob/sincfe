@@ -1,6 +1,3 @@
-// TODO: Use Webpack to set API_URL from an environment variable
-const API_URL = 'http://localhost:8000';
-
 /*
  * This defines the API. These functions take zero or more arguments and return
  * URLs for resources on the API server.
