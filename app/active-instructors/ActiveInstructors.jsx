@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Table from 'reactabular-table';
 import * as resolve from 'table-resolver';
@@ -8,7 +8,7 @@ import { fetchRegionDetail } from '../regions/actions';
 import PageLoading from '../shared/PageLoading';
 import MemberTable from '../shared/MemberTable';
 
-class ActiveInstructors extends MemberTable {
+class ActiveInstructors extends Component {
   componentDidMount() {
     const { profile } = this.props;
     if (profile) {
@@ -30,29 +30,14 @@ class ActiveInstructors extends MemberTable {
 
   render() {
     const { instructors, region } = this.props;
-    if (!instructors) {
+    if (!(instructors && region)) {
       return <PageLoading />;
     }
 
-    const rows = instructors;
-
-    const { columns, sortingColumns } = this.state;
-    const resolvedColumns = resolve.columnChildren({ columns });
-
-    const sortedRows = MemberTable.sortedRows(rows, resolvedColumns, sortingColumns);
-
     return (
       <div>
-        <h1>Active Instructors ({region && region.name})</h1>
-        <Table.Provider
-          className="table pure-table pure-table-striped"
-          columns={columns}
-        >
-          <Table.Header
-            headerRows={resolve.headerRows({ columns })}
-          />
-          <Table.Body rows={sortedRows} rowKey="id" />
-        </Table.Provider>
+        <h1>Active Instructors ({region.name} region)</h1>
+        <MemberTable rows={instructors} />
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as Table from 'reactabular-table';
 import * as resolve from 'table-resolver';
@@ -8,7 +8,7 @@ import PageError from '../shared/PageError';
 import PageLoading from '../shared/PageLoading';
 import { fetchClubMemberList } from './actions';
 
-class ClubMemberList extends MemberTable {
+class ClubMemberList extends Component {
 
   componentDidMount() {
     const { profile } = this.props;
@@ -37,27 +37,13 @@ class ClubMemberList extends MemberTable {
       return (<PageLoading />);
     }
 
-    // TODO: Set 'scope' to whatever scope the user is viewing
-    // (e.g., club, region, etc.)
+    // TODO: Set 'scope' to whatever scope the user is viewing (e.g., club, region, etc.)
     const scope = profile.club.name;
-
-    const { columns, sortingColumns } = this.state;
-    const resolvedColumns = resolve.columnChildren({ columns });
-
-    const sortedRows = MemberTable.sortedRows(members, resolvedColumns, sortingColumns);
 
     return (
       <div>
         <h1 className="sinc-page-header">Search current members ({scope})</h1>
-        <Table.Provider
-          className="table pure-table pure-table-striped"
-          columns={columns}
-        >
-          <Table.Header
-            headerRows={resolve.headerRows({ columns })}
-          />
-          <Table.Body rows={sortedRows} rowKey="id" />
-        </Table.Provider>
+        <MemberTable rows={members} />
       </div>
     );
   }
