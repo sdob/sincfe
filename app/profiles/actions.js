@@ -2,7 +2,7 @@ import axios from 'axios';
 import HTTP from 'http-status-codes';
 import moment from 'moment';
 
-import { addMemberUrl, ownProfileUrl } from '../api';
+import { addMemberUrl, memberDetailUrl, ownProfileUrl } from '../api';
 import { logoutUser } from '../auth/actions';
 import * as types from './types';
 
@@ -89,7 +89,25 @@ function fetchProfile() {
   };
 }
 
+function updateProfile(user) {
+  return function update(dispatch) {
+    const { id } = user;
+    // Get the API endpoint
+    const url = memberDetailUrl(id);
+    dispatch({ type: types.PROFILE_UPDATE_SENDING });
+    axios.patch(url, user)
+    .then((response) => {
+      const { data } = response;
+      dispatch({ type: types.PROFILE_UPDATE_SUCCESS, payload: data });
+    })
+    .catch((error) => {
+      handleError(dispatch, error);
+    });
+  };
+}
+
 export {
   addMember,
   fetchProfile,
+  updateProfile,
 };
