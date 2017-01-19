@@ -86,7 +86,12 @@ class EditProfile extends Component {
           <FormRow field={fields.LAST_NAME} label="Last name" />
 
           <div className="form-group row">
-            <label htmlFor={fields.GENDER} className="col-sm-6 col-md-3 col-form-label">Gender</label>
+            <label
+              htmlFor={fields.GENDER}
+              className="col-sm-6 col-md-3 col-form-label"
+            >
+              Gender
+            </label>
             <div className="col-sm-6 col-md-4 col-lg-3">
               <select className="form-control">
                 <option>Male</option>
@@ -141,7 +146,10 @@ class EditProfile extends Component {
           </div>
 
           <div className="form-group row">
-            <label htmlFor="editProfileStatus" className="col-xs-6 col-sm-5 col-md-3 col-form-label">
+            <label
+              htmlFor="editProfileStatus"
+              className="col-xs-6 col-sm-5 col-md-3 col-form-label"
+            >
               Status
             </label>
             <div className="col-xs-6 col-sm-7 col-md-9">
