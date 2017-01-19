@@ -18,10 +18,12 @@ function fetchClub(cid) {
 
 function updateClub(club) {
   return function update(dispatch) {
+    // Get the API endpoint for updating this club
     const { id } = club;
     const url = clubDetailUrl(id);
+    // Dispatch an event
     dispatch({ type: types.CLUB_DETAIL_SENDING });
-    axios.put(url, club)
+    axios.patch(url, club)
     .then((response) => {
       const { data } = response;
       dispatch({ type: types.CLUB_UPDATE_SUCCESS, payload: data });
