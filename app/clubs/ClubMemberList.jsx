@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as Table from 'reactabular-table';
-import * as resolve from 'table-resolver';
 
 import MemberTable from '../shared/MemberTable';
 import PageError from '../shared/PageError';
