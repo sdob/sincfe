@@ -31,10 +31,11 @@ class ViewCourses extends Component {
     return visibleCourses;
   }
 
+  /* eslint-disable class-methods-use-this */
   handleCertificateSelect() {
     // TODO: handle filtering on course
-    const props = this.props;
   }
+  /* eslint-enable class-methods-use-this */
 
   handleRegionToggle(evt, region) {
     const shouldBeVisible = evt.target.checked;
