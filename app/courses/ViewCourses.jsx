@@ -9,8 +9,6 @@ import { fetchCertificateList, fetchCourseList, hideRegion, showRegion } from '.
 
 class ViewCourses extends Component {
 
-  static handleCertificateSelect() {
-  }
 
   constructor(props) {
     super(props);
@@ -31,6 +29,11 @@ class ViewCourses extends Component {
     const { courses, hiddenRegions } = this.props;
     const visibleCourses = courses.filter(course => !hiddenRegions.includes(course.region.id));
     return visibleCourses;
+  }
+
+  handleCertificateSelect() {
+    // TODO: handle filtering on course
+    const props = this.props;
   }
 
   handleRegionToggle(evt, region) {
@@ -84,7 +87,7 @@ class ViewCourses extends Component {
             <select
               name="certificate"
               className="form-control"
-              onChange={evt => ViewCourses.handleCertificateSelect(evt)}
+              onChange={evt => this.handleCertificateSelect(evt)}
             >
               <option />
               {this.props.certificates && this.props.certificates.map((certificate, i) => (
