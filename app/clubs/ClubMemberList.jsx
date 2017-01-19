@@ -13,7 +13,7 @@ class ClubMemberList extends MemberTable {
   componentDidMount() {
     const { profile } = this.props;
     if (profile && profile.club) {
-      this.fetchMembers(cid);
+      this.fetchMembers(profile.club.id);
     }
   }
 
