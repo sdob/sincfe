@@ -38,8 +38,9 @@ class EditClubDetails extends Component {
   }
 
   handleFormSubmit(formProps) {
-    // Don't send the users list
-    const { users, ...rest } = formProps;
+    // Don't send the users list. When linting, ignore the fact that
+    // we're not using the variable.
+    const { users, ...rest } = formProps; // eslint-disable-line no-unused-vars
     this.props.updateClub(rest);
   }
 
