@@ -6,30 +6,34 @@ import * as resolve from 'table-resolver';
 import MemberTable from '../shared/MemberTable';
 import PageError from '../shared/PageError';
 import PageLoading from '../shared/PageLoading';
-import fetchCurrentMembers from './actions';
+import { fetchClubMemberList } from './actions';
 
-class SearchCurrentMembers extends MemberTable {
+class ClubMemberList extends MemberTable {
 
   componentDidMount() {
     const { profile } = this.props;
     if (profile && profile.club) {
-      this.props.fetchCurrentMembers(profile.club.id);
+      this.fetchMembers(cid);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.profile !== this.props.profile) {
       const { profile } = nextProps;
-      this.props.fetchCurrentMembers(profile.club.id);
+      this.fetchMembers(profile.club.id);
     }
   }
 
+  fetchMembers(cid) {
+    this.props.fetchClubMemberList(cid);
+  }
+
   render() {
-    const { error, profile, currentMembers } = this.props;
+    const { error, profile, members } = this.props;
     if (error) {
       return (<PageError />);
     }
-    if (!(profile && currentMembers.currentMembers)) {
+    if (!(profile && members)) {
       return (<PageLoading />);
     }
 
@@ -37,15 +41,10 @@ class SearchCurrentMembers extends MemberTable {
     // (e.g., club, region, etc.)
     const scope = profile.club.name;
 
-    const members = currentMembers.currentMembers;
-
-    const rows = members;
-
-
     const { columns, sortingColumns } = this.state;
     const resolvedColumns = resolve.columnChildren({ columns });
 
-    const sortedRows = MemberTable.sortedRows(rows, resolvedColumns, sortingColumns);
+    const sortedRows = MemberTable.sortedRows(members, resolvedColumns, sortingColumns);
 
     return (
       <div>
@@ -67,8 +66,8 @@ class SearchCurrentMembers extends MemberTable {
 function mapStateToProps(state) {
   return {
     profile: state.profiles.profile,
-    currentMembers: state.currentMembers,
+    members: state.clubs.memberList,
   };
 }
 
-export default connect(mapStateToProps, { fetchCurrentMembers })(SearchCurrentMembers);
+export default connect(mapStateToProps, { fetchClubMemberList })(ClubMemberList);

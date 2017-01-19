@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { clubDetailUrl } from '../api';
+import { clubDetailUrl, clubMemberListUrl } from '../api';
 import * as types from './types';
 
 function fetchClub(cid) {
@@ -16,17 +16,17 @@ function fetchClub(cid) {
   };
 }
 
-function fetchCurrentMembers(cid) {
+function fetchClubMemberList(cid) {
   return function fetch(dispatch) {
     const url = clubMemberListUrl(cid);
     axios.get(url)
     .then((response) => {
-      const currentMembers = response.data;
-      dispatch({ type: CURRENT_MEMBERS_RECEIVED, payload: currentMembers });
+      const { data } = response;
+      dispatch({ type: types.CURRENT_MEMBERS_RECEIVED, payload: data });
     })
     .catch((error) => {
       console.error(error);
-      dispatch({ type: CURRENT_MEMBERS_ERROR, payload: error });
+      dispatch({ type: types.CURRENT_MEMBERS_ERROR, payload: error });
     });
   };
 }
@@ -52,6 +52,6 @@ function updateClub(club) {
 
 export {
   fetchClub,
-  fetchCurrentMembers,
+  fetchClubMemberList,
   updateClub,
 };

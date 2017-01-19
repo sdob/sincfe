@@ -28,6 +28,7 @@ function handleError(dispatch, error, type) {
     // No response means a client error: the request never reached the
     // server. Handle accordingly.
     console.error(error);
+    throw error;
   }
 }
 

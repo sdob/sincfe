@@ -22,7 +22,7 @@ import activeInstructorsReducer from './active-instructors/reducers';
 import authReducer from './auth/reducers';
 import clubsReducer from './clubs/reducers';
 import coursesReducer from './courses/reducers';
-import currentMembersReducer from './search-current-members/reducers';
+// import currentMembersReducer from './search-current-members/reducers';
 import currentMembershipStatusReducer from './membership-history/reducers';
 import profileReducer from './profiles/reducers';
 import qualificationsReducer from './qualifications/reducers';
@@ -61,7 +61,7 @@ const rootReducer = combineReducers({
   qualifications: qualificationsReducer,
   clubs: clubsReducer,
   courses: coursesReducer,
-  currentMembers: currentMembersReducer,
+  // currentMembers: currentMembersReducer,
   membershipStatus: currentMembershipStatusReducer,
   form: formReducer,
   profiles: profileReducer,

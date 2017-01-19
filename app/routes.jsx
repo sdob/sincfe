@@ -21,6 +21,7 @@ import ActiveInstructors from './active-instructors/ActiveInstructors';
 import AddMember from './profiles/AddMember';
 import ContactUs from './contact-us/ContactUs';
 import CourseDetail from './courses/CourseDetail';
+import ClubMemberList from './clubs/ClubMemberList';
 import ClubRenewalOrders from './renewal-orders/ClubRenewalOrders';
 import ClubQualifications from './qualifications/ClubQualifications';
 import Documents from './documents/Documents';
@@ -32,7 +33,6 @@ import MedicalDisclaimer from './medical-disclaimer/MedicalDisclaimer';
 import MembershipHistory from './membership-history/MembershipHistory';
 import OrganizeCourses from './courses/OrganizeCourses';
 import RequireAuth from './auth/RequireAuth';
-import SearchCurrentMembers from './search-current-members/SearchCurrentMembers';
 import TeachCourses from './courses/TeachCourses';
 import ViewCourses from './courses/ViewCourses';
 
@@ -57,7 +57,7 @@ export default (
       * Dive Officer options. These should be listed in this file in the same order in which
       * they appear in the rendered sidebar.
       */}
-    <Route path={paths.SEARCH_CURRENT_MEMBERS} component={RequireAuth(SearchCurrentMembers)} />
+    <Route path={paths.SEARCH_CURRENT_MEMBERS} component={RequireAuth(ClubMemberList)} />
     <Route path={paths.ADD_MEMBER} component={RequireAuth(AddMember)} />
     <Route path={paths.CLUB_RENEWAL_ORDERS} component={RequireAuth(ClubRenewalOrders)} />
     <Route path={paths.CLUB_QUALIFICATIONS} component={RequireAuth(ClubQualifications)} />
