@@ -58,6 +58,7 @@
     "redux-auth": "^0.0.5-beta5",
     "redux-form": "^6.2.1",
     "redux-thunk": "^2.1.0",
+    "sass-loader": "^4.0.2",
     "script-loader": "^0.7.0",
     "sortabular": "^1.1.0",
     "style-loader": "~0.13.0",
