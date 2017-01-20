@@ -66,6 +66,20 @@ function formatDateOfBirth(dob) {
   return moment(dob).format('YYYY-MM-DD');
 }
 
+/*
+ * Retrieve a user's profile by ID.
+ */
+function fetchMember(uid) {
+  return function fetch(dispatch) {
+    const url = memberDetailUrl(uid);
+    dispatch({ type: types.MEMBER_DETAIL_FETCHING });
+    axios.get(url)
+    .then((response) => {
+      const { data } = response;
+      dispatch({ type: types.MEMBER_DETAIL_RECEIVED, payload: data });
+    });
+  }
+}
 
 /*
  * Retrieve the user's profile information.
@@ -90,7 +104,7 @@ function fetchProfile() {
   };
 }
 
-function updateProfile(user) {
+function updateMember(user) {
   return function update(dispatch) {
     const { id } = user;
     // Get the API endpoint
@@ -109,6 +123,7 @@ function updateProfile(user) {
 
 export {
   addMember,
+  fetchMember,
   fetchProfile,
-  updateProfile,
+  updateMember,
 };
