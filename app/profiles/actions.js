@@ -1,7 +1,7 @@
 import axios from 'axios';
 import HTTP from 'http-status-codes';
 
-import { formatDate } from '../shared/utils';
+import formatDate from '../shared/utils';
 
 import { addMemberUrl, memberDetailUrl, ownProfileUrl } from '../api';
 import { logoutUser } from '../auth/actions';
