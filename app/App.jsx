@@ -5,6 +5,7 @@ import { fetchProfile } from './profiles/actions';
 
 import Header from './header/Header';
 import Login from './pages/Login';
+import NotificationContainer from './notifications/NotificationContainer';
 
 import Sidebar from './sidebar/Sidebar';
 
@@ -50,6 +51,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <NotificationContainer />
         <Header />
         { this.props.authenticated ? renderAuthenticated(this.props) : renderLoginPage() }
       </div>

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
-import FlashNotification from '../shared/FlashNotification';
 import PageLoading from '../shared/PageLoading';
 import { fetchClub, updateClub } from './actions';
 import { fetchRegions } from '../regions/actions';
@@ -64,12 +63,6 @@ class EditClubDetails extends Component {
 
     return (
       <div>
-
-        <FlashNotification
-          message="Changes saved!"
-          trigger={types.CLUB_UPDATE_SUCCESS}
-          status="success"
-        />
 
         <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           <h1 className="sinc-page-header">Club details ({club.name})</h1>
