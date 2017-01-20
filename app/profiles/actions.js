@@ -1,6 +1,7 @@
 import axios from 'axios';
 import HTTP from 'http-status-codes';
-import moment from 'moment';
+
+import { formatDate } from '../shared/utils';
 
 import { addMemberUrl, memberDetailUrl, ownProfileUrl } from '../api';
 import { logoutUser } from '../auth/actions';
@@ -41,7 +42,7 @@ function addMember(user) {
     // Get the API endpoint for adding the user
     const url = addMemberUrl();
     // Format the date of birth to meet Django's expectations
-    const request = { ...user, date_of_birth: formatDateOfBirth(user.date_of_birth) };
+    const request = { ...user, date_of_birth: formatDate(user.date_of_birth) };
     // Dispatch a 'sending' action
     dispatch({ type: types.PROFILE_CREATE_SENDING });
     // Make the request
@@ -56,14 +57,6 @@ function addMember(user) {
       handleError(dispatch, error, types.PROFILE_CREATE_ERROR);
     });
   };
-}
-
-/*
- * Helper function for formatting dates of birth to meet Django's
- * expectations
- */
-function formatDateOfBirth(dob) {
-  return moment(dob).format('YYYY-MM-DD');
 }
 
 /*
@@ -107,7 +100,7 @@ function fetchProfile() {
 function updateMember(user) {
   return function update(dispatch) {
     const { id } = user;
-    const request = { ...user, date_of_birth: formatDateOfBirth(user.date_of_birth) };
+    const request = { ...user, date_of_birth: formatDate(user.date_of_birth) };
     // Get the API endpoint
     const url = memberDetailUrl(id);
     dispatch({ type: types.UPDATE_MEMBER_SENDING });
@@ -125,7 +118,7 @@ function updateMember(user) {
 function updateOwnProfile(user) {
   return function update(dispatch) {
     const { id } = user;
-    const request = { ...user, date_of_birth: formatDateOfBirth(user.date_of_birth) };
+    const request = { ...user, date_of_birth: formatDate(user.date_of_birth) };
     const url = memberDetailUrl(id);
     dispatch({ type: types.PROFILE_UPDATE_SENDING });
     axios.patch(url, request)
