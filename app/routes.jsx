@@ -26,6 +26,7 @@ import ClubRenewalOrders from './renewal-orders/ClubRenewalOrders';
 import ClubQualifications from './qualifications/ClubQualifications';
 import Documents from './documents/Documents';
 import EditClubDetails from './clubs/EditClubDetails';
+import EditMember from './profiles/EditMember';
 import EditProfile from './profiles/EditProfile';
 import HelpPage from './help-page/HelpPage';
 import MemberQualifications from './qualifications/MemberQualifications';
@@ -63,6 +64,8 @@ export default (
     <Route path={paths.CLUB_QUALIFICATIONS} component={RequireAuth(ClubQualifications)} />
     <Route path={paths.CLUB_DETAILS} component={RequireAuth(EditClubDetails)} />
     <Route path={paths.ACTIVE_INSTRUCTORS} component={RequireAuth(ActiveInstructors)} />
+    {/* Routes available to the DO but not actually present in the sidebar */}
+    <Route path={`${paths.EDIT_MEMBER}/:id`} component={RequireAuth(EditMember)} />
     {/*
       * Member options. These should be listed in this file in the same order in which
       * they appear in the rendered sidebar.
