@@ -9,6 +9,7 @@
     "test": "jest",
     "build": "webpack",
     "start": "webpack-dev-server --devtool eval --progress --hot --content-base app",
+    "predeploy": "npm install -g webpack",
     "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js",
     "deploy-windows": "SET NODE_ENV=production & webpack -p --config webpack.production.config.js",
     "validate": "npm ls",
