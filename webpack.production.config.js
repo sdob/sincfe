@@ -37,14 +37,14 @@ module.exports = {
       }
     }),
     new webpack.DefinePlugin({
+      API_URL: `'${process.env.API_URL}'`,
       'process.env': {
-        API_URL: `'${process.env.API_URL}'`,
         NODE_ENV: JSON.stringify('production')
       }
     }),
     new CopyWebpackPlugin([
       { from: './app/index.html', to: 'index.html' },
-      { from: './app/main.css', to: 'main.css' }
+      { from: './app/img/', to:'./img/' },
     ]),
   ]
 };
