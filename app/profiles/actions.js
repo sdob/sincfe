@@ -107,10 +107,11 @@ function fetchProfile() {
 function updateMember(user) {
   return function update(dispatch) {
     const { id } = user;
+    const request = { ...user, date_of_birth: formatDateOfBirth(user.date_of_birth) };
     // Get the API endpoint
     const url = memberDetailUrl(id);
     dispatch({ type: types.UPDATE_MEMBER_SENDING });
-    axios.patch(url, user)
+    axios.patch(url, request)
     .then((response) => {
       const { data } = response;
       dispatch({ type: types.UPDATE_MEMBER_SUCCESS, payload: data });
@@ -124,9 +125,10 @@ function updateMember(user) {
 function updateOwnProfile(user) {
   return function update(dispatch) {
     const { id } = user;
+    const request = { ...user, date_of_birth: formatDateOfBirth(user.date_of_birth) };
     const url = memberDetailUrl(id);
     dispatch({ type: types.PROFILE_UPDATE_SENDING });
-    axios.patch(url, user)
+    axios.patch(url, request)
     .then((response) => {
       const { data } = response;
       dispatch({ type: types.PROFILE_UPDATE_SUCCESS, payload: data });
