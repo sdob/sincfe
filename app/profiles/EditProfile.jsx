@@ -9,6 +9,7 @@ import FormRow from '../shared/FormRow';
 import SubmitRow from '../shared/SubmitRow';
 
 import { updateOwnProfile } from './actions';
+import PersonalDetails from './PersonalDetails';
 import * as fields from './fields';
 
 const form = reduxForm({
@@ -64,57 +65,7 @@ class EditProfile extends Component {
             </div>
           </div>
 
-          <div className="form-group row">
-            <label
-              htmlFor="editProfileTitle"
-              className="col-sm-6 col-md-3 col-form-label"
-            >
-              Title
-            </label>
-            <div className="col-sm-6 col-md-4 col-lg-3">
-              <select className="form-control">
-                <option>Select title</option>
-                <option>Dr</option>
-                <option>Miss</option>
-                <option>Mr</option>
-                <option>Mrs</option>
-                <option>Ms</option>
-              </select>
-            </div>
-          </div>
-
-          <FormRow field={fields.FIRST_NAME} label="First name" />
-          <FormRow field={fields.LAST_NAME} label="Last name" />
-
-          <div className="form-group row">
-            <label
-              htmlFor={fields.GENDER}
-              className="col-sm-6 col-md-3 col-form-label"
-            >
-              Gender
-            </label>
-            <div className="col-sm-6 col-md-4 col-lg-3">
-              <select className="form-control">
-                <option>Male</option>
-                <option>Female</option>
-              </select>
-            </div>
-          </div>
-
-          <div className="form-group row">
-            <label
-              htmlFor={fields.DATE_OF_BIRTH}
-              className="col-xs-6 col-sm-5 col-md-3 col-form-label"
-            >
-              Date of birth
-            </label>
-            <div className="col-xs-6 col-sm-7 col-md-9">
-              <p className="form-control-static">
-                {moment(profile.date_of_birth).format('D MMM Y')}
-              </p>
-              <UneditableProfileHelp describes="dob" />
-            </div>
-          </div>
+          <PersonalDetails />
 
           <div className="form-group row">
             <label
@@ -127,7 +78,7 @@ class EditProfile extends Component {
               <p className="form-control-static">
                 {profile.readable_membership_type}
               </p>
-              <UneditableProfileHelp />
+              {/* <UneditableProfileHelp /> */}
             </div>
           </div>
 
@@ -142,7 +93,7 @@ class EditProfile extends Component {
               <p className="form-control-static">
                 {profile.last_medical ? 'Ever' : 'Never'}
               </p>
-              <UneditableProfileHelp />
+              {/* <UneditableProfileHelp /> */}
             </div>
           </div>
 
@@ -157,7 +108,7 @@ class EditProfile extends Component {
               <p className="form-control-static">
                 {profile.current_membership_status}
               </p>
-              <UneditableProfileHelp />
+              {/* <UneditableProfileHelp /> */}
             </div>
           </div>
 
