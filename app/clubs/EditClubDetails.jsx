@@ -9,7 +9,6 @@ import FormRow from '../shared/FormRow';
 import InlineSpinner from '../shared/InlineSpinner';
 
 import * as fields from './fields';
-import * as types from './types';
 
 const form = reduxForm({
   form: 'editClubDetails',
