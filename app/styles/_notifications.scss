@@ -3,6 +3,18 @@
 // TODO: This dependency is brittle
 @import '../../node_modules/animate.css/animate';
 
+.animated {
+  // The animate.css default is 1s, which feels sluggish for flash
+  // notifications
+  @extend .animated;
+  animation-duration: 200ms;
+}
+
+.bounceInDown {
+  @extend .bounceInDown;
+  animation-duration: 800ms;
+}
+
 .notification {
   padding: 15px;
   border: 1px solid $cft-blue-bg;
@@ -47,10 +59,10 @@
 
 .alert-enter {
   @extend .animated;
-  @extend .fadeInDown;
+  @extend .slideInDown;
 }
 
 .alert-leave {
   @extend .animated;
-  @extend .fadeOutUp;
+  @extend .slideOutUp;
 }
