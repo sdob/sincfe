@@ -54,7 +54,7 @@ class EditMember extends Component {
 
 EditMember.contextTypes = {
   router: React.PropTypes.object.isRequired,
-}
+};
 
 function mapStateToProps(state) {
   const { member, sending } = state.profiles;
