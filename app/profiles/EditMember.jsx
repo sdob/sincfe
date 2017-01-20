@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
-import InlineSpinner from '../shared/InlineSpinner';
 import PageLoading from '../shared/PageLoading';
 import SubmitRow from '../shared/SubmitRow';
 import { fetchMember, updateMember } from './actions';
@@ -29,7 +28,7 @@ class EditMember extends Component {
   handleFormSubmit(formProps) {
     this.props.updateMember(formProps);
   }
-  
+
   render() {
     console.info(this.props);
     const { handleSubmit, member, sending } = this.props;

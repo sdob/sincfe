@@ -71,7 +71,7 @@ function fetchMember(uid) {
       const { data } = response;
       dispatch({ type: types.MEMBER_DETAIL_RECEIVED, payload: data });
     });
-  }
+  };
 }
 
 /*
@@ -129,7 +129,7 @@ function updateOwnProfile(user) {
     .catch((error) => {
       handleError(dispatch, error);
     });
-  }
+  };
 }
 
 export {
