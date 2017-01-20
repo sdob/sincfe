@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
-import moment from 'moment';
 
 import PageLoading from '../shared/PageLoading';
 import UneditableProfileHelp from '../shared/UneditableProfileHelp';
@@ -78,7 +77,7 @@ class EditProfile extends Component {
               <p className="form-control-static">
                 {profile.readable_membership_type}
               </p>
-              {/* <UneditableProfileHelp /> */}
+              <UneditableProfileHelp />
             </div>
           </div>
 
@@ -93,7 +92,7 @@ class EditProfile extends Component {
               <p className="form-control-static">
                 {profile.last_medical ? 'Ever' : 'Never'}
               </p>
-              {/* <UneditableProfileHelp /> */}
+              <UneditableProfileHelp />
             </div>
           </div>
 
@@ -108,7 +107,7 @@ class EditProfile extends Component {
               <p className="form-control-static">
                 {profile.current_membership_status}
               </p>
-              {/* <UneditableProfileHelp /> */}
+              <UneditableProfileHelp />
             </div>
           </div>
 
