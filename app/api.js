@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /*
  * This defines the API. These functions take zero or more arguments and return
  * URLs for resources on the API server.

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import HTTP from 'http-status-codes';
-import moment from 'moment';
+
+import { formatDate } from '../shared/utils';
 
 import { addMemberUrl, memberDetailUrl, ownProfileUrl } from '../api';
 import { logoutUser } from '../auth/actions';
@@ -41,7 +42,7 @@ function addMember(user) {
     // Get the API endpoint for adding the user
     const url = addMemberUrl();
     // Format the date of birth to meet Django's expectations
-    const request = { ...user, date_of_birth: formatDateOfBirth(user.date_of_birth) };
+    const request = { ...user, date_of_birth: formatDate(user.date_of_birth) };
     // Dispatch a 'sending' action
     dispatch({ type: types.PROFILE_CREATE_SENDING });
     // Make the request
@@ -59,13 +60,19 @@ function addMember(user) {
 }
 
 /*
- * Helper function for formatting dates of birth to meet Django's
- * expectations
+ * Retrieve a user's profile by ID.
  */
-function formatDateOfBirth(dob) {
-  return moment(dob).format('YYYY-MM-DD');
+function fetchMember(uid) {
+  return function fetch(dispatch) {
+    const url = memberDetailUrl(uid);
+    dispatch({ type: types.MEMBER_DETAIL_FETCHING });
+    axios.get(url)
+    .then((response) => {
+      const { data } = response;
+      dispatch({ type: types.MEMBER_DETAIL_RECEIVED, payload: data });
+    });
+  };
 }
-
 
 /*
  * Retrieve the user's profile information.
@@ -90,13 +97,31 @@ function fetchProfile() {
   };
 }
 
-function updateProfile(user) {
+function updateMember(user) {
   return function update(dispatch) {
     const { id } = user;
+    const request = { ...user, date_of_birth: formatDate(user.date_of_birth) };
     // Get the API endpoint
     const url = memberDetailUrl(id);
+    dispatch({ type: types.UPDATE_MEMBER_SENDING });
+    axios.patch(url, request)
+    .then((response) => {
+      const { data } = response;
+      dispatch({ type: types.UPDATE_MEMBER_SUCCESS, payload: data });
+    })
+    .catch((error) => {
+      handleError(dispatch, error);
+    });
+  };
+}
+
+function updateOwnProfile(user) {
+  return function update(dispatch) {
+    const { id } = user;
+    const request = { ...user, date_of_birth: formatDate(user.date_of_birth) };
+    const url = memberDetailUrl(id);
     dispatch({ type: types.PROFILE_UPDATE_SENDING });
-    axios.patch(url, user)
+    axios.patch(url, request)
     .then((response) => {
       const { data } = response;
       dispatch({ type: types.PROFILE_UPDATE_SUCCESS, payload: data });
@@ -109,6 +134,8 @@ function updateProfile(user) {
 
 export {
   addMember,
+  fetchMember,
   fetchProfile,
-  updateProfile,
+  updateMember,
+  updateOwnProfile,
 };

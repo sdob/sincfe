@@ -15,6 +15,7 @@ export default function authReducer(initialState = {}, action) {
     case types.PROFILE_CREATE_SUCCESS:
       return { ...state, user: action.payload };
     case types.PROFILE_RECEIVED:
+      console.info('profile received');
       return { ...state, profile: action.payload };
     // Profile updates
     case types.PROFILE_UPDATE_SENDING:
@@ -23,6 +24,17 @@ export default function authReducer(initialState = {}, action) {
       return { ...state, profile: action.payload };
     case types.PROFILE_UPDATE_ERROR:
       return { ...state, errorMsg: action.payload };
+    // Retrieving member by ID
+    case types.MEMBER_DETAIL_FETCHING:
+      return { ...state, sending: true };
+    case types.MEMBER_DETAIL_RECEIVED:
+      console.info('member detail received');
+      return { ...state, member: action.payload };
+    // Updating member
+    case types.UPDATE_MEMBER_SENDING:
+      return { ...state, sending: true };
+    case types.UPDATE_MEMBER_SUCCESS:
+      return { ...state, member: action.payload };
     default:
       return initialState;
   }
