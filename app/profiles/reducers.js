@@ -23,6 +23,11 @@ export default function authReducer(initialState = {}, action) {
       return { ...state, profile: action.payload };
     case types.PROFILE_UPDATE_ERROR:
       return { ...state, errorMsg: action.payload };
+    // Retrieving member by ID
+    case types.MEMBER_DETAIL_FETCHING:
+      return { ...state, sending: true };
+    case types.MEMBER_DETAIL_RECEIVED:
+      return { ...state, member: action.payload };
     default:
       return initialState;
   }

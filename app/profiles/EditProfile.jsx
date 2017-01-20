@@ -7,7 +7,7 @@ import PageLoading from '../shared/PageLoading';
 import UneditableProfileHelp from '../shared/UneditableProfileHelp';
 import FormRow from '../shared/FormRow';
 
-import { updateProfile } from './actions';
+import { updateMember } from './actions';
 import * as fields from './fields';
 
 const form = reduxForm({
@@ -31,7 +31,7 @@ class EditProfile extends Component {
   }
 
   handleFormSubmit(formProps) {
-    this.props.updateProfile(formProps);
+    this.props.updateMember(formProps);
   }
 
   render() {
@@ -218,4 +218,4 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { updateProfile })(form(EditProfile));
+export default connect(mapStateToProps, { updateMember })(form(EditProfile));
