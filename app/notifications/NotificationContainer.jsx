@@ -18,6 +18,12 @@ export default function NotificationContainer() {
           status="success"
           trigger={profileTypes.PROFILE_UPDATE_SUCCESS}
         />
+        <FlashNotification
+          hideAfter={2000}
+          message="Member details updated!"
+          status="success"
+          trigger={profileTypes.UPDATE_MEMBER_SUCCESS}
+        />
     </div>
   );
 }
