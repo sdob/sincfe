@@ -1,1 +1,1 @@
-web: yarn deploy
+web: yarn deploy && node server
