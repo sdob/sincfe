@@ -17,11 +17,10 @@ export default function PersonalDetails() {
           <Field name={fields.GENDER} component="select" className="form-control">
             <option>Select a gender</option>
             <option value={genders.MALE}>Male</option>
-            <option value={genders.MALE}>Female</option>
+            <option value={genders.FEMALE}>Female</option>
           </Field>
         </div>
       </div>
-
 
       <div className="form-group row">
         <label htmlFor="date_of_birth" className="col-sm-3 col-form-label">Date of birth</label>
