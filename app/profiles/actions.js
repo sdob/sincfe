@@ -109,6 +109,22 @@ function updateMember(user) {
     const { id } = user;
     // Get the API endpoint
     const url = memberDetailUrl(id);
+    dispatch({ type: types.UPDATE_MEMBER_SENDING });
+    axios.patch(url, user)
+    .then((response) => {
+      const { data } = response;
+      dispatch({ type: types.UPDATE_MEMBER_SUCCESS, payload: data });
+    })
+    .catch((error) => {
+      handleError(dispatch, error);
+    });
+  };
+}
+
+function updateOwnProfile(user) {
+  return function update(dispatch) {
+    const { id } = user;
+    const url = memberDetailUrl(id);
     dispatch({ type: types.PROFILE_UPDATE_SENDING });
     axios.patch(url, user)
     .then((response) => {
@@ -118,7 +134,7 @@ function updateMember(user) {
     .catch((error) => {
       handleError(dispatch, error);
     });
-  };
+  }
 }
 
 export {
@@ -126,4 +142,5 @@ export {
   fetchMember,
   fetchProfile,
   updateMember,
+  updateOwnProfile,
 };

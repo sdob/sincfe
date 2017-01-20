@@ -6,8 +6,9 @@ import moment from 'moment';
 import PageLoading from '../shared/PageLoading';
 import UneditableProfileHelp from '../shared/UneditableProfileHelp';
 import FormRow from '../shared/FormRow';
+import SubmitRow from '../shared/SubmitRow';
 
-import { updateMember } from './actions';
+import { updateOwnProfile } from './actions';
 import * as fields from './fields';
 
 const form = reduxForm({
@@ -31,11 +32,11 @@ class EditProfile extends Component {
   }
 
   handleFormSubmit(formProps) {
-    this.props.updateMember(formProps);
+    this.props.updateOwnProfile(formProps);
   }
 
   render() {
-    const { handleSubmit, profile } = this.props;
+    const { handleSubmit, profile, sending } = this.props;
 
     // TODO: check whether we've experienced an error and let the user
     // know.
@@ -199,11 +200,7 @@ class EditProfile extends Component {
             </div>
           )}
 
-          <div className="form-group row">
-            <div className="col-xs-12 sinc-form__submit-row">
-              <button type="submit" className="btn btn-primary">Save</button>
-            </div>
-          </div>
+          <SubmitRow sending={sending} />
 
         </form>
       </div>
@@ -212,10 +209,12 @@ class EditProfile extends Component {
 }
 
 function mapStateToProps(state) {
+  const { profile, sending } = state.profiles;
   return {
-    profile: state.profiles.profile,
+    profile,
+    sending,
     initialValues: state.profiles.profile,
   };
 }
 
-export default connect(mapStateToProps, { updateMember })(form(EditProfile));
+export default connect(mapStateToProps, { updateOwnProfile })(form(EditProfile));
