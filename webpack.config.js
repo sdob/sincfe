@@ -4,6 +4,12 @@ var path = require('path');
 // Load environment variables
 require('dotenv').config();
 
+const provideJQuery = new webpack.ProvidePlugin({
+  $: 'jquery',
+  jQuery: 'jquery',
+  Tether: 'tether',
+});
+
 module.exports = {
   devServer: {
     historyApiFallback: true,
