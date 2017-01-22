@@ -42,10 +42,10 @@ import 'script-loader!jquery/dist/jquery.min.js';
 import 'script-loader!tether/dist/js/tether.min.js';
 import 'script-loader!bootstrap/dist/js/bootstrap.min.js';
 
-import 'style!css!bootstrap/dist/css/bootstrap.css'; // eslint-disable-line
-import 'style!css!font-awesome/css/font-awesome.css'; // eslint-disable-line
-import 'style!css!tether/dist/css/tether.css'; // eslint-disable-line
-import 'style!css!react-widgets/dist/css/react-widgets.css'; // eslint-disable-line
+import 'style-loader!css-loader!bootstrap/dist/css/bootstrap.css'; // eslint-disable-line
+import 'style-loader!css-loader!font-awesome/css/font-awesome.css'; // eslint-disable-line
+import 'style-loader!css-loader!tether/dist/css/tether.css'; // eslint-disable-line
+import 'style-loader!css-loader!react-widgets/dist/css/react-widgets.css'; // eslint-disable-line
 // NOTE: import our own styles last (so that they'll correctly override third-party stuff
 import './styles/main.scss'; // eslint-disable-line
 /* eslint-enable */
