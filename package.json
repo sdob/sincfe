@@ -9,6 +9,7 @@
     "lint:msg": "validate-commit-msg",
     "test": "jest",
     "build": "webpack",
+    "postinstall": "npm rebuild node-sass",
     "start": "webpack-dev-server --devtool eval --progress --hot --content-base app",
     "deploy": "NODE_ENV=production webpack -p --config webpack.production.config.js",
     "deploy-windows": "SET NODE_ENV=production & webpack -p --config webpack.production.config.js",
