@@ -35,13 +35,8 @@ import * as authActionTypes from './auth/types';
 // Import routes
 import routes from './routes';
 
-import 'style-loader!css-loader!bootstrap/dist/css/bootstrap.css'; // eslint-disable-line
-import 'style-loader!css-loader!font-awesome/css/font-awesome.css'; // eslint-disable-line
-import 'style-loader!css-loader!tether/dist/css/tether.css'; // eslint-disable-line
-import 'style-loader!css-loader!react-widgets/dist/css/react-widgets.css'; // eslint-disable-line
-// NOTE: import our own styles last (so that they'll correctly override third-party stuff
+// Import our style rules
 import './styles/main.scss'; // eslint-disable-line
-/* eslint-enable */
 
 // Set up react-widget localization
 momentLocalizer(moment);
