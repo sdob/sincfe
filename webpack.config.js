@@ -1,5 +1,6 @@
 var webpack = require('webpack');
 var path = require('path');
+const plugins = require('./config/plugins');
 
 // Load environment variables
 require('dotenv').config();
@@ -34,8 +35,6 @@ module.exports = {
   },
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.DefinePlugin({
-      API_URL: `'${process.env.API_URL}'`,
-    }),
+    plugins.defineApiUrl,
   ]
 };
