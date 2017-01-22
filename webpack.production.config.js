@@ -28,7 +28,7 @@ module.exports = {
     new webpack.optimize.UglifyJsPlugin(),
     plugins.defineApiUrl,
     new CopyWebpackPlugin([
-      { from: './app/index.html', to: 'index.html' },
+      { from: './app/index.html', to: './index.html' },
       { from: './app/img/', to:'./img/' },
     ]),
   ]
