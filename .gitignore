@@ -5,10 +5,8 @@
 # Dependency directories
 node_modules
 
-# Builds are failing on Heroku so the build directory is going under
-# source control. When the node-sass issue is fixed, we can remove
-# it again.
-# build
+# Build remotely
+build
 
 # Logs
 logs

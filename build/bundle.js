@@ -65,7 +65,7 @@
 /******/ 	}
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "eea22a5a85199001ddcb"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "2d9f20b59cd1aad3033e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentParents = []; // eslint-disable-line no-unused-vars
 /******/ 	
@@ -585,8 +585,7 @@
 
 	__webpack_require__(1);
 	__webpack_require__(3);
-	__webpack_require__(78);
-	(function webpackMissingModule() { throw new Error("Cannot find module \"verbose\""); }());
+	module.exports = __webpack_require__(78);
 
 
 /***/ },
