@@ -20,6 +20,7 @@ export const CONTACT_US = '/contact-us';
 export const DOCUMENTS = '/documents';
 export const EDIT_MEMBER = '/edit-member';
 export const EDIT_PROFILE = '/edit-profile';
+export const EDIT_REGION = '/edit-region';
 export const HELP_PAGE = '/help';
 export const LOGIN = '/login';
 export const LOGOUT = '/logout';
