@@ -20,6 +20,10 @@ function clubDetailUrl(cid) {
   return `${API_URL}/clubs/${cid}/`;
 }
 
+function clubListUrl() {
+  return `${API_URL}/clubs/`;
+}
+
 function clubQualificationsUrl(cid) {
   return `${API_URL}/clubs/${cid}/qualifications/`;
 }
@@ -70,6 +74,7 @@ export {
   certificateListUrl,
   clubDetailUrl,
   clubQualificationsUrl,
+  clubListUrl,
   clubMemberListUrl,
   courseDetailUrl,
   coursesListUrl,
