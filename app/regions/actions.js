@@ -21,7 +21,7 @@ function fetchRegionDetail(rid) {
 
 function fetchRegions() {
   return function fetch(dispatch) {
-    axios.get(regionsListUrl())
+    return axios.get(regionsListUrl())
     .then((response) => {
       dispatch({ type: types.REGIONS_RECEIVED, payload: response.data });
     })
