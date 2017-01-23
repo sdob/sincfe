@@ -1,27 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { compose } from 'redux';
 import orderBy from 'lodash/orderBy';
 import * as Table from 'reactabular-table';
 import * as resolve from 'table-resolver';
+import * as search from 'searchtabular';
 import * as sort from 'sortabular';
 
-// This actually doesn't need any state, so pure function it is.
-export default function SortedTable(props) {
-  const { columns, rows, sortingColumns } = props;
-  const resolvedColumns = resolve.columnChildren({ columns });
-  const sortedRows = getSortedRows(rows, resolvedColumns, sortingColumns);
+// SortedTable handles its own state w.r.t. filtering; this doesn't need
+// to be persistent.
+export default class SortedTable extends Component {
+  constructor(props, ctx) {
+    super(props, ctx);
+    this.state = {
+      query: {},
+    };
+  }
 
-  return (
-    <Table.Provider
-      className="table pure-table pure-table-striped"
-      columns={columns}
-    >
-      <Table.Header
-        headerRows={resolve.headerRows({ columns })}
-      />
-      <Table.Body rows={sortedRows} rowKey="id" />
-    </Table.Provider>
-  );
+  render() {
+    const { query } = this.state;
+    const { columns, rows, sortingColumns } = this.props;
+    const resolvedColumns = resolve.columnChildren({ columns });
+    const sortedRows = getSortedRows(rows, resolvedColumns, sortingColumns);
+    // Filter the visible rows by search terms
+    const searchedRows = search.multipleColumns({
+      columns: resolvedColumns,
+      query,
+    })(sortedRows);
+
+    return (
+      <Table.Provider
+        className="table pure-table pure-table-striped"
+        columns={columns}
+      >
+        <search.Columns
+          columns={columns}
+          query={query}
+          onChange={query => this.setState({query})}
+        />
+        <Table.Header
+          headerRows={resolve.headerRows({ columns })}
+        />
+        <Table.Body rows={searchedRows} rowKey="id" />
+      </Table.Provider>
+    );
+  }
 }
 
 // I don't pretend to understand this; it's ripped from the sortabular

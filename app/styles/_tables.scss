@@ -23,3 +23,10 @@
 .sort.sort-none:after {
   font-family: FontAwesome;
 }
+
+// Style searchtabular search fields; they should have .form-control
+// applied, but I couldn't currently be bothered to wrap them in a
+// React component just to achieve this.
+.column-filter-input {
+  @extend .form-control;
+}
