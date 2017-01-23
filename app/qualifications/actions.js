@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { clubQualificationsUrl, qualificationsUrl } from '../api';
+import { clubQualificationsUrl, memberQualificationListUrl, qualificationListUrl } from '../api';
 import * as types from './types';
 
 function handleError(dispatch, error, type = types.GENERIC_QUALIFICATIONS_ERROR) {
@@ -24,7 +24,7 @@ function fetchClubQualifications(cid) {
 
 function fetchMemberQualifications(uid) {
   return function fetch(dispatch) {
-    const url = qualificationsUrl(uid);
+    const url = memberQualificationListUrl(uid);
     axios.get(url)
     .then((response) => {
       const qualifications = response.data;
@@ -36,7 +36,23 @@ function fetchMemberQualifications(uid) {
   };
 }
 
+function fetchQualifications() {
+  return function fetch(dispatch) {
+    const url = qualificationListUrl();
+    return axios.get(url)
+    .then((response) => {
+      const { data } = response;
+      dispatch({ type: types.QUALIFICATION_LIST_RECEIVED, payload: data });
+    })
+    .catch((error) => {
+      dispatch({ type: types.QUALIFICATION_LIST_ERROR, payload: error });
+      throw error;
+    });
+  }
+}
+
 export {
   fetchClubQualifications,
   fetchMemberQualifications,
+  fetchQualifications,
 };

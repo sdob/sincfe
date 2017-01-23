@@ -6,6 +6,8 @@ function qualificationsReducer(state = {}, action) {
       return { ...state, qualifications: action.payload };
     case types.CLUB_QUALIFICATIONS_RECEIVED:
       return { ...state, qualifications: action.payload };
+    case types.QUALIFICATION_LIST_RECEIVED:
+      return { ...state, qualifications: action.payload };
     case types.MEMBER_QUALIFICATIONS_ERROR:
     case types.CLUB_QUALIFICATIONS_ERROR:
     case types.GENERIC_QUALIFICATIONS_ERROR:
