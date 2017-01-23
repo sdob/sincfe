@@ -35,6 +35,7 @@ import MembershipHistory from './membership-history/MembershipHistory';
 import OrganizeCourses from './courses/OrganizeCourses';
 import RequireAuth from './auth/RequireAuth';
 import TeachCourses from './courses/TeachCourses';
+import ViewClubs from './clubs/ViewClubs';
 import ViewCourses from './courses/ViewCourses';
 
 // Define and export app routes
@@ -54,6 +55,8 @@ export default (
       */}
     <Route path={paths.HELP_PAGE} component={RequireAuth(HelpPage)} />
     <Route path={paths.CONTACT_US} component={RequireAuth(ContactUs)} />
+    {/* Admin options */}
+    <Route path={paths.VIEW_CLUBS} component={RequireAuth(ViewClubs)} />
     {/*
       * Dive Officer options. These should be listed in this file in the same order in which
       * they appear in the rendered sidebar.
