@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { clubDetailUrl, clubMemberListUrl } from '../api';
+import { clubDetailUrl, clubListUrl, clubMemberListUrl } from '../api';
 import * as types from './types';
 
 function fetchClub(cid) {
@@ -14,6 +14,21 @@ function fetchClub(cid) {
       console.error(error);
     });
   };
+}
+
+function fetchClubList() {
+  return function fetch(dispatch) {
+    const url = clubListUrl();
+    axios.get(url)
+    .then((response) => {
+      const { data } = response;
+      dispatch({ type: types.CLUB_LIST_RECEIVED, payload: data });
+    })
+    .catch((error) => {
+      console.error(error);
+      dispatch({ type: types.CLUB_LIST_ERROR, error });
+    });
+  }
 }
 
 function fetchClubMemberList(cid) {
@@ -52,6 +67,7 @@ function updateClub(club) {
 
 export {
   fetchClub,
+  fetchClubList,
   fetchClubMemberList,
   updateClub,
 };
