@@ -50,15 +50,10 @@ class ViewClubs extends Component {
           },
         },
         {
-          property: 'region',
+          property: 'region.name',
           header: {
             label: 'Region',
             transforms: [resetable],
-          },
-          cell: {
-            formatters: [
-              region => findRegionName(region, this.props.regions, 'National'),
-            ],
           },
         },
       ],
