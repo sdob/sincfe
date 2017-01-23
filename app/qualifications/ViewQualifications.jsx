@@ -14,6 +14,7 @@ import SortedTable from '../shared/SortedTable';
 class ViewQualifications extends Component {
   constructor(props, ctx) {
     super(props, ctx);
+    this.handleRegionToggle = this.handleRegionToggle.bind(this);
     const getSortingColumns = this.getSortingColumns.bind(this);
     const columns = columnDefinitions.bind(this)(getSortingColumns);
     this.state = {
@@ -33,8 +34,36 @@ class ViewQualifications extends Component {
     .then(fetchQualifications);
   }
 
+  componentWillReceiveProps(nextProps) {
+    // If we're receiving the list of regions, create a visibilities object
+    // that will hold the visibility toggles
+    if (nextProps.regions !== this.props.regions) {
+      const { regions } = nextProps;
+      let visibilities = {};
+      regions.forEach((region) => {
+        visibilities[region.id] = true;
+      });
+      this.setState({regionVisibilities: visibilities});
+    }
+  }
+
   getSortingColumns() {
     return this.state.sortingColumns || {};
+  }
+
+  getVisibleQualifications() {
+    // Filter the list of qualifications, returning only those qualifications
+    // that either have no region set or whose region is toggled to be
+    // visible.
+    const { qualifications } = this.props;
+    const { regionVisibilities } = this.state;
+    return qualifications.filter(q => (!(q.user.club && q.user.club.region)) || regionVisibilities[q.user.club.region.id]);
+  }
+
+  handleRegionToggle(rid, visibility) {
+    // When a change to one of the filter checkboxes occurs, update the
+    // visibility for that region
+    this.setState({regionVisibilities: {...this.state.regionVisibilities, [rid]: visibility}});
   }
 
   render() {
@@ -60,6 +89,7 @@ class ViewQualifications extends Component {
                 <input
                   type="checkbox"
                   defaultChecked
+                  onChange={(event) => this.handleRegionToggle(region.id, event.target.checked)}
                 />
                 {region.name}
               </label>
@@ -68,7 +98,7 @@ class ViewQualifications extends Component {
         </div>
         <SortedTable
           columns={columns}
-          rows={qualifications}
+          rows={this.getVisibleQualifications()}
           searchingColumns={searchingColumns}
           sortingColumns={sortingColumns}
         />
