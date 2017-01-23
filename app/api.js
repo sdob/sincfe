@@ -52,12 +52,16 @@ function memberDetailUrl(uid) {
   return `${API_URL}/users/${uid}/`;
 }
 
+function memberQualificationListUrl(uid) {
+  return `${API_URL}/users/${uid}/qualifications/`;
+}
+
 function ownProfileUrl() {
   return `${API_URL}/users/me/`;
 }
 
-function qualificationsUrl(uid) {
-  return `${API_URL}/users/${uid}/qualifications/`;
+function qualificationListUrl() {
+  return `${API_URL}/qualifications/`;
 }
 
 function regionDetailUrl(rid) {
@@ -81,8 +85,9 @@ export {
   currentMembershipStatusUrl,
   loginUrl,
   memberDetailUrl,
+  memberQualificationListUrl,
   ownProfileUrl,
-  qualificationsUrl,
+  qualificationListUrl,
   regionDetailUrl,
   regionsListUrl,
 };
