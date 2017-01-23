@@ -95,11 +95,12 @@ export default class NewMemberTable extends Component {
 
   render() {
     const { rows } = this.props;
-    const { columns, sortingColumns } = this.state;
+    const { columns, searchingColumns, sortingColumns } = this.state;
     return (
       <SortedTable
         columns={columns}
         rows={rows}
+        searchingColumns={searchingColumns}
         sortingColumns={sortingColumns}
       />
     );

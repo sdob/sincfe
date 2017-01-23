@@ -18,12 +18,12 @@ export default class SortedTable extends Component {
 
   render() {
     const { query } = this.state;
-    const { columns, rows, sortingColumns } = this.props;
+    const { columns, rows, sortingColumns, searchingColumns } = this.props;
     const resolvedColumns = resolve.columnChildren({ columns });
     const sortedRows = getSortedRows(rows, resolvedColumns, sortingColumns);
     // Filter the visible rows by search terms
     const searchedRows = search.multipleColumns({
-      columns: resolvedColumns,
+      columns: searchingColumns,
       query,
     })(sortedRows);
 
@@ -33,7 +33,7 @@ export default class SortedTable extends Component {
         columns={columns}
       >
         <search.Columns
-          columns={columns}
+          columns={searchingColumns}
           query={query}
           onChange={query => this.setState({query})}
         />
