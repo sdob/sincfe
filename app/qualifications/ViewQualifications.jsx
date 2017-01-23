@@ -45,8 +45,8 @@ class ViewQualifications extends Component {
 
     const { columns, sortingColumns } = this.state;
     // Don't search on these columns; it's either not meaningful to do so
-    const searchingColumns = columns.filter(col => col.property != 'id')
-    .filter(col => col.property != 'user.club.region.name');
+    const unsearchableProperties = ['id', 'user.club.region.name'];
+    const searchingColumns = columns.filter(col => !unsearchableProperties.includes(col.property));
     return (
       <div>
         <h1 className="sinc-page-header">View qualifications</h1>

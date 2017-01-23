@@ -78,12 +78,15 @@ class ViewClubs extends Component {
     }
 
     const { columns, sortingColumns } = this.state;
+    const searchableProperties = ['name'];
+    const searchingColumns = columns.filter(col => searchableProperties.includes(col.property));
     return (
       <div>
         <h1 className="sinc-page-header">View clubs</h1>
         <SortedTable
           columns={columns}
           rows={clubs}
+          searchingColumns={searchingColumns}
           sortingColumns={sortingColumns}
         />
       </div>
