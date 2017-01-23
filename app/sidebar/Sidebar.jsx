@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import AdminOptions from './AdminOptions';
 import DivingOfficerOptions from './DivingOfficerOptions';
 import TrainingOfficerOptions from './TrainingOfficerOptions';
 import MemberOptions from './MemberOptions';
@@ -30,6 +31,7 @@ class Sidebar extends Component {
 
     return (
       <div>
+        {profile.is_staff && <AdminOptions />}
         {profile.readable_committee_positions.includes('Dive Officer') && <DivingOfficerOptions />}
         {profile.readable_committee_positions.includes('Training Officer') && <TrainingOfficerOptions />}
         {profile.readable_committee_positions.includes('Treasurer') && <TreasurerOptions />}
