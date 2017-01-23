@@ -11,6 +11,8 @@ export default function clubsReducer(initialState = {}, action) {
       return { ...state, club: action.payload };
     case types.MEMBER_LIST_RECEIVED:
       return { ...state, memberList: action.payload };
+    case types.CLUB_LIST_RECEIVED:
+      return { ...state, clubList: action.payload};
     default:
       return initialState;
   }
