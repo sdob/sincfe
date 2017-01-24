@@ -6,7 +6,8 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Router, browserHistory } from 'react-router';
 import reduxThunk from 'redux-thunk';
-import { reducer as formReducer } from 'redux-form';
+
+import rootReducer from './root-reducer';
 
 // Import react-redux-notifications stuff
 import {
@@ -17,16 +18,6 @@ import {
 import moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
 
-// Import reducers from submodules
-import activeInstructorsReducer from './active-instructors/reducers';
-import authReducer from './auth/reducers';
-import clubsReducer from './clubs/reducers';
-import coursesReducer from './courses/reducers';
-// import currentMembersReducer from './search-current-members/reducers';
-import currentMembershipStatusReducer from './membership-history/reducers';
-import profileReducer from './profiles/reducers';
-import qualificationsReducer from './qualifications/reducers';
-import regionsReducer from './regions/reducers';
 
 // import authentication action types (in case we're authenticated at
 // startup)
@@ -40,21 +31,6 @@ import './styles/main.scss'; // eslint-disable-line
 
 // Set up react-widget localization
 momentLocalizer(moment);
-
-// Combine our submodule reducers
-const rootReducer = combineReducers({
-  notifications,
-  activeInstructors: activeInstructorsReducer,
-  auth: authReducer,
-  qualifications: qualificationsReducer,
-  clubs: clubsReducer,
-  courses: coursesReducer,
-  // currentMembers: currentMembersReducer,
-  membershipStatus: currentMembershipStatusReducer,
-  form: formReducer,
-  profiles: profileReducer,
-  regions: regionsReducer,
-});
 
 // Create the store
 const createStoreWithMiddleware = applyMiddleware(reduxThunk, NotificationMiddleware)(createStore);
