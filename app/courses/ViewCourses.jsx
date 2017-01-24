@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import * as paths from '../paths';
+import CertificateSelector from '../shared/CertificateSelector';
 import PageLoading from '../shared/PageLoading';
 import { fetchRegions } from '../regions/actions';
 import { fetchCertificateList, fetchCourseList, hideRegion, showRegion } from './actions';
@@ -47,6 +48,7 @@ class ViewCourses extends Component {
   }
 
   render() {
+    const { certificates } = this.props;
     return (
       <div>
         <h1 className="sinc-page-header">View courses</h1>
@@ -84,23 +86,11 @@ class ViewCourses extends Component {
           <label htmlFor="certificate" className="col-sm-6 col-md-3 col-form-label">
             Course name
           </label>
-          <div className="col-sm-6 col-md-4 col-lg-3">
-            <select
-              name="certificate"
-              className="form-control"
-              onChange={evt => this.handleCertificateSelect(evt)}
-            >
-              <option />
-              {this.props.certificates && this.props.certificates.map(certificate => (
-                <option
-                  value={certificate.id}
-                  key={certificate.id}
-                >
-                  {certificate.name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <CertificateSelector
+            certificates={certificates}
+            className="col-sm-6 col-md-4 col-lg-3"
+            onChange={this.handleCertificateSelect.bind(this)}
+          / >
         </div>
 
         <h2 className="sinc-section-header sinc-section-header-minor">

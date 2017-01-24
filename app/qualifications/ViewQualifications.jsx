@@ -6,7 +6,9 @@ import * as sort from 'sortabular';
 import * as paths from '../paths';
 import { fetchQualifications } from './actions';
 import { fetchClubList } from '../clubs/actions';
+import { fetchCertificateList } from '../courses/actions';
 import { fetchRegions } from '../regions/actions';
+import CertificateSelector from '../shared/CertificateSelector';
 import PageLoading from '../shared/PageLoading';
 import SortedTable from '../shared/SortedTable';
 
@@ -29,12 +31,18 @@ class ViewQualifications extends Component {
   }
 
   componentDidMount() {
-    this.props.fetchRegions()
-    .then(this.props.fetchClubList)
-    .then(this.props.fetchQualifications);
+    // If we already have regions in state (e.g., from another component),
+    // then initialize the region visibilities immediately
     if (this.props.regions) {
       this.initializeVisibilities(this.props.regions);
     }
+    // Get the list of all certificate types in the system (this will populate
+    // the filter dropdown)
+    this.props.fetchCertificateList();
+    // Get the list of regions, then clubs, then qualifications
+    this.props.fetchRegions()
+    .then(this.props.fetchClubList)
+    .then(this.props.fetchQualifications);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,10 +64,28 @@ class ViewQualifications extends Component {
     // visible.
     const { qualifications } = this.props;
     const { regionVisibilities } = this.state;
-    return qualifications.filter(shouldBeVisible);
+    const { selectedCertificateId } = this.state;
+    return qualifications.filter(isWithinVisibleRegion).filter(isSelectedCertificate);
 
-    function shouldBeVisible(q) {
+    function isSelectedCertificate(qual) {
+      return selectedCertificateId === undefined || selectedCertificateId === '' + qual.certificate.id;
+    }
+
+    function isWithinVisibleRegion(q) {
       return !(q.user && q.user.club && q.user.club.region) || regionVisibilities[q.user.club.region.id];
+    }
+  }
+
+  handleCertificateSelect(evt) {
+    const { certificates } = this.props;
+    const value = evt.target.value;
+    // Check whether the value is represented in the list of certificates;
+    // if not, then all certs should be visible
+    const matchingCertificates = certificates.filter(cert => ('' + cert.id) === value);
+    if (matchingCertificates.length) {
+      this.setState({ selectedCertificateId: value });
+    } else {
+      this.setState({ selectedCertificateId: undefined });
     }
   }
 
@@ -78,7 +104,7 @@ class ViewQualifications extends Component {
   }
 
   render() {
-    const { qualifications, regions } = this.props;
+    const { certificates, qualifications, regions } = this.props;
     if (!(qualifications && regions)) {
       return <PageLoading />;
     }
@@ -107,6 +133,26 @@ class ViewQualifications extends Component {
               </label>
             </div>
           ))}
+        </div>
+        <div className="row">
+          <h2 className="sinc-section-header sinc-section-header--minor">
+            Filter by course
+          </h2>
+        </div>
+        <div className="form-group row">
+          <label htmlFor="certificate" className="col-sm-6 col-md-3 col-form-label">
+            Course name
+          </label>
+          <CertificateSelector
+            className="col-sm-6 col-md-4 col-lg-3"
+            onChange={this.handleCertificateSelect.bind(this)}
+            certificates={certificates}
+          />
+        </div>
+        <div className="row">
+          <h2 className="sinc-section-header">
+            Results
+          </h2>
         </div>
         <SortedTable
           columns={columns}
@@ -182,12 +228,14 @@ function columnDefinitions(getSortingColumns) {
 function mapStateToProps(state) {
   return {
     clubs: state.clubs.clubs,
+    certificates: state.courses.certificates,
     qualifications: state.qualifications.qualifications,
     regions: state.regions.regions,
   };
 }
 
 export default connect(mapStateToProps, {
+  fetchCertificateList,
   fetchClubList,
   fetchQualifications,
   fetchRegions,
