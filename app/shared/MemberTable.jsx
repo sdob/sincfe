@@ -96,7 +96,7 @@ export default class NewMemberTable extends Component {
     // Initialize state
     this.state = { columns, searchingColumns, sortingColumns };
 
-    function defaultColumnDefinition(property, label, canBeSorted=true)  {
+    function defaultColumnDefinition(property, label, canBeSorted = true) {
       // A few of our column definitions are identical except for their
       // properties and labels, so we lift the definition out into this
       // function for the sake of terseness

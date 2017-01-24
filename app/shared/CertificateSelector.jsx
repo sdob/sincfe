@@ -1,7 +1,7 @@
 import React from 'react';
 
 export default function CertificateSelector(props) {
-  const { className, onChange, certificates } = props;
+  const { certificates, onChange } = props;
   return (
     <select
       name="certificate"

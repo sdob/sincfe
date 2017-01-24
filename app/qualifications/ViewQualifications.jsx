@@ -14,6 +14,7 @@ class ViewQualifications extends Component {
   constructor(props, ctx) {
     super(props, ctx);
     this.handleRegionToggle = this.handleRegionToggle.bind(this);
+    this.handleCertificateSelect = this.handleCertificateSelect.bind(this);
     const getSortingColumns = this.getSortingColumns.bind(this);
     const columns = columnDefinitions.bind(this)(getSortingColumns);
     this.state = {
@@ -65,11 +66,15 @@ class ViewQualifications extends Component {
     return qualifications.filter(isWithinVisibleRegion).filter(isSelectedCertificate);
 
     function isSelectedCertificate(qual) {
-      return selectedCertificateId === undefined || selectedCertificateId === '' + qual.certificate.id;
+      const noSelectedCertificate = selectedCertificateId === undefined;
+      const qualCertIsSelected = Number(selectedCertificateId) === qual.certificate.id;
+      return noSelectedCertificate || qualCertIsSelected;
     }
 
     function isWithinVisibleRegion(q) {
-      return !(q.user && q.user.club && q.user.club.region) || regionVisibilities[q.user.club.region.id];
+      const userRegionIsDefined = q.user && q.user.club && q.user.club.region;
+      const regionIsVisible = regionVisibilities[q.user.club.region.id];
+      return !userRegionIsDefined || regionIsVisible;
     }
   }
 
@@ -78,7 +83,7 @@ class ViewQualifications extends Component {
     const value = evt.target.value;
     // Check whether the value is represented in the list of certificates;
     // if not, then all certs should be visible
-    const matchingCertificates = certificates.filter(cert => ('' + cert.id) === value);
+    const matchingCertificates = certificates.filter(cert => cert.id === Number(value));
     if (matchingCertificates.length) {
       this.setState({ selectedCertificateId: value });
     } else {
@@ -142,7 +147,7 @@ class ViewQualifications extends Component {
           </label>
           <div className="col-sm-6 col-md-4 col-lg-3">
             <CertificateSelector
-              onChange={this.handleCertificateSelect.bind(this)}
+              onChange={this.handleCertificateSelect}
               certificates={certificates}
             />
           </div>

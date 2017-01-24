@@ -88,8 +88,8 @@ class ViewCourses extends Component {
           <div className="col-sm-6 col-md-4 col-lg-3">
             <CertificateSelector
               certificates={certificates}
-              onChange={this.handleCertificateSelect.bind(this)}
-            / >
+              onChange={this.handleCertificateSelect}
+            />
           </div>
         </div>
 

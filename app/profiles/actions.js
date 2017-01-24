@@ -88,7 +88,7 @@ function fetchMembers() {
     .catch((error) => {
       handleError(dispatch, error, types.MEMBER_LIST_ERROR);
     });
-  }
+  };
 }
 
 /*

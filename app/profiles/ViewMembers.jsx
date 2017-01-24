@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { MemberTable, PageLoading} from '../shared';
+import { MemberTable, PageLoading } from '../shared';
 import { fetchMembers } from './actions';
 
 class ViewMembers extends Component {

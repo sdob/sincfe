@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import cookie from 'react-cookie';
 import axios from 'axios';
 import { Provider } from 'react-redux';
-import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Router, browserHistory } from 'react-router';
 import reduxThunk from 'redux-thunk';
 import { middleware as NotificationMiddleware } from 'react-redux-notifications';
