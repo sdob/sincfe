@@ -19,6 +19,7 @@ class ViewQualifications extends Component {
     const columns = columnDefinitions.bind(this)(getSortingColumns);
     this.state = {
       columns,
+      regionVisibilities: {},
       sortingColumns: {
         id: { direction: 'desc', position: 0 },
         first_name: { direction: 'desc', position: 1 },
@@ -31,6 +32,9 @@ class ViewQualifications extends Component {
     this.props.fetchRegions()
     .then(this.props.fetchClubList)
     .then(this.props.fetchQualifications);
+    if (this.props.regions) {
+      this.initializeVisibilities(this.props.regions);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -38,11 +42,7 @@ class ViewQualifications extends Component {
     // that will hold the visibility toggles
     if (nextProps.regions !== this.props.regions) {
       const { regions } = nextProps;
-      const visibilities = {};
-      regions.forEach((region) => {
-        visibilities[region.id] = true;
-      });
-      this.setState({ regionVisibilities: visibilities });
+      this.initializeVisibilities(regions);
     }
   }
 
@@ -59,7 +59,7 @@ class ViewQualifications extends Component {
     return qualifications.filter(shouldBeVisible);
 
     function shouldBeVisible(q) {
-      return !(q.user.club && q.user.club.region) || regionVisibilities[q.user.club.region.id];
+      return !(q.user && q.user.club && q.user.club.region) || regionVisibilities[q.user.club.region.id];
     }
   }
 
@@ -67,6 +67,14 @@ class ViewQualifications extends Component {
     // When a change to one of the filter checkboxes occurs, update the
     // visibility for that region
     this.setState({ regionVisibilities: { ...this.state.regionVisibilities, [rid]: visibility } });
+  }
+
+  initializeVisibilities(regions) {
+    const visibilities = {};
+    regions.forEach((region) => {
+      visibilities[region.id] = true;
+    });
+    this.setState({ regionVisibilities: visibilities });
   }
 
   render() {
