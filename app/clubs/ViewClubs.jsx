@@ -94,23 +94,6 @@ class ViewClubs extends Component {
   }
 }
 
-function findRegionName(rid, regions, defaultName='National') {
-  // If regions is undefined, then either we are waiting for the API
-  // to respond, or something else has gone wrong. Either way, provide
-  // something sane.
-  if (typeof regions === 'undefined') {
-    return 'Unknown';
-  }
-  // Otherwise, look for a region with a matching ID and return its
-  // name.
-  const filteredRegions = regions.filter(region => region.id == rid);
-  if (filteredRegions.length) {
-    return filteredRegions[0].name;
-  }
-  // If no region is found, return our default
-  return defaultName;
-}
-
 function mapStateToProps(state) {
   return {
     clubs: state.clubs.clubList,
@@ -121,4 +104,4 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
   fetchClubList,
   fetchRegions,
-  })(ViewClubs);
+})(ViewClubs);

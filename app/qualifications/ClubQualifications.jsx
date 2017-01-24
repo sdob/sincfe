@@ -47,8 +47,8 @@ class ClubQualifications extends Component {
             </tr>
           </thead>
           <tbody>
-            {qualifications.map((qual, i) => (
-              <tr key={i + 1}>
+            {qualifications.map(qual => (
+              <tr key={qual.id}>
                 <td>{qual.user.id}</td>
                 <td>{qual.user.first_name}</td>
                 <td>{qual.user.last_name}</td>

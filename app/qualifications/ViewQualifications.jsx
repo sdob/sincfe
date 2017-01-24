@@ -28,10 +28,9 @@ class ViewQualifications extends Component {
   }
 
   componentDidMount() {
-    const { fetchClubList, fetchQualifications, fetchRegions } = this.props;
-    fetchRegions()
-    .then(fetchClubList)
-    .then(fetchQualifications);
+    this.props.fetchRegions()
+    .then(this.props.fetchClubList)
+    .then(this.props.fetchQualifications);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -39,11 +38,11 @@ class ViewQualifications extends Component {
     // that will hold the visibility toggles
     if (nextProps.regions !== this.props.regions) {
       const { regions } = nextProps;
-      let visibilities = {};
+      const visibilities = {};
       regions.forEach((region) => {
         visibilities[region.id] = true;
       });
-      this.setState({regionVisibilities: visibilities});
+      this.setState({ regionVisibilities: visibilities });
     }
   }
 
@@ -57,13 +56,17 @@ class ViewQualifications extends Component {
     // visible.
     const { qualifications } = this.props;
     const { regionVisibilities } = this.state;
-    return qualifications.filter(q => (!(q.user.club && q.user.club.region)) || regionVisibilities[q.user.club.region.id]);
+    return qualifications.filter(shouldBeVisible);
+
+    function shouldBeVisible(q) {
+      return !(q.user.club && q.user.club.region) || regionVisibilities[q.user.club.region.id];
+    }
   }
 
   handleRegionToggle(rid, visibility) {
     // When a change to one of the filter checkboxes occurs, update the
     // visibility for that region
-    this.setState({regionVisibilities: {...this.state.regionVisibilities, [rid]: visibility}});
+    this.setState({ regionVisibilities: { ...this.state.regionVisibilities, [rid]: visibility } });
   }
 
   render() {
@@ -85,11 +88,12 @@ class ViewQualifications extends Component {
           </h2>
           {regions.map(region => (
             <div className="col-xs-6 col-md-3" key={region.id}>
-              <label>
+              <label htmlFor={`toggle-region-${region.id}`}>
                 <input
                   type="checkbox"
                   defaultChecked
-                  onChange={(event) => this.handleRegionToggle(region.id, event.target.checked)}
+                  name={`toggle-region-${region.id}`}
+                  onChange={event => this.handleRegionToggle(region.id, event.target.checked)}
                 />
                 {region.name}
               </label>
@@ -145,8 +149,9 @@ function columnDefinitions(getSortingColumns) {
           id => (
             <Link to={`${paths.EDIT_QUALIFICATION}/${id}`}>
               <i className="fa fa-fw fa-edit" />
-            </Link>),
-          ],
+            </Link>
+          ),
+        ],
       },
     },
   ];

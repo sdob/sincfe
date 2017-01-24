@@ -12,7 +12,7 @@ export default function clubsReducer(initialState = {}, action) {
     case types.MEMBER_LIST_RECEIVED:
       return { ...state, memberList: action.payload };
     case types.CLUB_LIST_RECEIVED:
-      return { ...state, clubList: action.payload};
+      return { ...state, clubList: action.payload };
     default:
       return initialState;
   }

@@ -35,7 +35,7 @@ export default class SortedTable extends Component {
         <search.Columns
           columns={searchingColumns}
           query={query}
-          onChange={query => this.setState({query})}
+          onChange={q => this.setState({ query: q })}
         />
         <Table.Header
           headerRows={resolve.headerRows({ columns })}

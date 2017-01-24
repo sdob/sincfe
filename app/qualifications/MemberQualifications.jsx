@@ -41,9 +41,10 @@ class Qualifications extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.props.qualifications.qualifications.map((qual, i) => (
-              <tr key={i + 1}>
-                <td>{qual.certificate.name}</td><td>{moment(qual.date_granted).format('D MMM YYYY')}</td>
+            {this.props.qualifications.qualifications.map(qual => (
+              <tr key={qual.id}>
+                <td>{qual.certificate.name}</td>
+                <td>{moment(qual.date_granted).format('D MMM YYYY')}</td>
               </tr>
             ))}
           </tbody>

@@ -34,19 +34,19 @@ class ViewRegions extends Component {
             </tr>
           </thead>
           <tbody>
+            {regions.map(region => (
+              <tr>
+                <td>
+                  {region.name}
+                </td>
+                <td>
+                  <Link to={`${paths.EDIT_REGION}/:id`}>
+                    <i className="fa fa-fw fa-edit" />
+                  </Link>
+                </td>
+              </tr>
+            ))}
           </tbody>
-          {regions.map(region => (
-            <tr>
-              <td>
-                {region.name}
-              </td>
-              <td>
-                <Link to={`${paths.EDIT_REGION}/:id`}>
-                  <i className="fa fa-fw fa-edit" />
-                </Link>
-              </td>
-            </tr>
-          ))}
         </table>
       </div>
     );

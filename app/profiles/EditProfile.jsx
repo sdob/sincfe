@@ -139,8 +139,8 @@ class EditProfile extends Component {
               <div className="form-group row">
                 <div className="offset-sm-5 offset-md-3 col-sm-7 col-md-9">
                   <ul className="list-group">
-                    {profile.readable_committee_positions.map((p, i) => (
-                      <li key={i + 1} className="list-group-item">
+                    {profile.readable_committee_positions.map(p => (
+                      <li key={p.id + 1} className="list-group-item">
                         {p}
                       </li>
                     ))}

@@ -57,8 +57,8 @@ class ViewCourses extends Component {
         <div className="row">
           { this.props.regions.regions ? (
             <div>
-              {this.props.regions.regions.map((region, i) => (
-                <div className="col-xs-6 col-md-3" key={i + 1}>
+              {this.props.regions.regions.map(region => (
+                <div className="col-xs-6 col-md-3" key={region.id}>
                   <div className="checkbox">
                     <label htmlFor={`region-${region.id}`}>
                       <input
@@ -91,10 +91,10 @@ class ViewCourses extends Component {
               onChange={evt => this.handleCertificateSelect(evt)}
             >
               <option />
-              {this.props.certificates && this.props.certificates.map((certificate, i) => (
+              {this.props.certificates && this.props.certificates.map(certificate => (
                 <option
                   value={certificate.id}
-                  key={i + 1}
+                  key={certificate.id}
                 >
                   {certificate.name}
                 </option>
@@ -118,17 +118,17 @@ class ViewCourses extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.getVisibleCourses().map((c, i) => (
-                <tr key={i + 1}>
+              {this.getVisibleCourses().map(course => (
+                <tr key={course.id}>
                   <td>
-                    <Link to={`${paths.VIEW_COURSES}/${c.id}`}>
-                      {c.id}
+                    <Link to={`${paths.VIEW_COURSES}/${course.id}`}>
+                      {course.id}
                     </Link>
                   </td>
-                  <td>{c.certificate.name}</td>
-                  <td>{c.date || 'Open'}</td>
-                  <td>{c.organizer.first_name} {c.organizer.last_name}</td>
-                  <td>{c.region.name}</td>
+                  <td>{course.certificate.name}</td>
+                  <td>{course.date || 'Open'}</td>
+                  <td>{course.organizer.first_name} {course.organizer.last_name}</td>
+                  <td>{course.region.name}</td>
                 </tr>
               ))}
             </tbody>

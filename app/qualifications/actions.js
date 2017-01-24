@@ -48,7 +48,7 @@ function fetchQualifications() {
       dispatch({ type: types.QUALIFICATION_LIST_ERROR, payload: error });
       throw error;
     });
-  }
+  };
 }
 
 export {

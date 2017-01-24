@@ -28,7 +28,7 @@ function fetchClubList() {
       console.error(error);
       dispatch({ type: types.CLUB_LIST_ERROR, error });
     });
-  }
+  };
 }
 
 function fetchClubMemberList(cid) {
