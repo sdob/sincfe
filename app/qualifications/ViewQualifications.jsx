@@ -143,11 +143,12 @@ class ViewQualifications extends Component {
           <label htmlFor="certificate" className="col-sm-6 col-md-3 col-form-label">
             Course name
           </label>
-          <CertificateSelector
-            className="col-sm-6 col-md-4 col-lg-3"
-            onChange={this.handleCertificateSelect.bind(this)}
-            certificates={certificates}
-          />
+          <div className="col-sm-6 col-md-4 col-lg-3">
+            <CertificateSelector
+              onChange={this.handleCertificateSelect.bind(this)}
+              certificates={certificates}
+            />
+          </div>
         </div>
         <div className="row">
           <h2 className="sinc-section-header">
