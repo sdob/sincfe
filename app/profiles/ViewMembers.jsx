@@ -21,12 +21,19 @@ class ViewMembers extends Component {
       );
     }
 
-    console.info(members);
-
+    // Because this is an admin view, there are members from many
+    // clubs and regions. Add these as columns in the MemberTable.
+    const extraColumns = {
+      'club.name': { label: 'Club', canBeSorted: true },
+      'club.region.name': { label: 'Region', canBeSorted: true },
+    };
     return (
       <div>
         <h1 className="sinc-page-header">View members</h1>
-        <MemberTable rows={members} />
+        <MemberTable
+          extraColumns={extraColumns}
+          rows={members}
+        />
       </div>
     );
   }

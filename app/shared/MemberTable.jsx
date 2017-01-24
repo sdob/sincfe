@@ -32,6 +32,23 @@ export default class NewMemberTable extends Component {
       },
     });
 
+    // If we have been passed a dict of property -> label mappings,
+    // we'll assume that they're searchable and sortable. This lets
+    // us extend MemberTable for admin views.
+    /*
+    const extraColumns = props.columns.length ? Object.keys(props.columns).map((k) => {
+      console.info(k);
+      return defaultColumnDefinition(k, props.columns[k].label, props.columns[k].canBeSorted)
+    }) : [];
+    */
+    const extraColumns = props.extraColumns ? Object.keys(props.extraColumns).map((prop) => {
+      const label = props.extraColumns[prop].label;
+      const canBeSorted = props.extraColumns[prop].canBeSorted;
+      return defaultColumnDefinition(prop, label, canBeSorted);
+    }) : [];
+
+    console.info(extraColumns);
+
     // Define our columns
     const columns = [
       // Our sorting columns are all defined very similarly
@@ -48,6 +65,7 @@ export default class NewMemberTable extends Component {
           ],
         },
       },
+      ...extraColumns, // Add in our extra search/sort columns
       // Actions column: not sortable
       {
         property: 'id',
@@ -65,7 +83,8 @@ export default class NewMemberTable extends Component {
     ];
 
     // We'll allow searching on all columns
-    const searchingColumns = columns;
+    const unsearchableProperties = ['club.region.name'];
+    const searchingColumns = columns.filter(col => !unsearchableProperties.includes(col.property));
 
     // These are the columns on which we allow sorting
     const sortingColumns = {
@@ -77,18 +96,21 @@ export default class NewMemberTable extends Component {
     // Initialize state
     this.state = { columns, searchingColumns, sortingColumns };
 
-    function defaultColumnDefinition(property, label) {
+    function defaultColumnDefinition(property, label, canBeSorted=true)  {
       // A few of our column definitions are identical except for their
       // properties and labels, so we lift the definition out into this
       // function for the sake of terseness
+      const formatters = canBeSorted ? [
+        sort.header({ getSortingColumns, sortable, strategy })
+      ] : [];
+      const transforms = sortable ? { transforms: [resetable] } : {};
       return {
         property,
         header: {
           label,
-          transforms: [resetable],
-          formatters: [
-            sort.header({ getSortingColumns, sortable, strategy })
-          ],
+          ...transforms,
+          // transforms: [resetable],
+          formatters,
         },
       };
     }
