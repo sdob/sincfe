@@ -1,11 +1,11 @@
 import axios from 'axios';
 
 import { ACTIVE_INSTRUCTORS_RECEIVED } from './types';
-import { activeInstructorsUrl } from '../api';
+import { activeInstructorListUrl } from '../api';
 
 export default function fetchActiveInstructors(rid) {
   return function fetch(dispatch) {
-    const url = activeInstructorsUrl(rid);
+    const url = activeInstructorListUrl(rid);
     axios.get(url)
     .then((response) => {
       const instructors = response.data;

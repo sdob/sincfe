@@ -8,7 +8,7 @@ function addMemberUrl() {
   return `${API_URL}/users/`;
 }
 
-function activeInstructorsUrl(rid) {
+function activeInstructorListUrl(rid) {
   return `${API_URL}/regions/${rid}/active-instructors/`;
 }
 
@@ -74,7 +74,7 @@ function regionsListUrl() {
 
 export {
   addMemberUrl,
-  activeInstructorsUrl,
+  activeInstructorListUrl,
   certificateListUrl,
   clubDetailUrl,
   clubQualificationsUrl,
