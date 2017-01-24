@@ -6,27 +6,13 @@ import { Provider } from 'react-redux';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { Router, browserHistory } from 'react-router';
 import reduxThunk from 'redux-thunk';
-
-import rootReducer from './root-reducer';
-
-// Import react-redux-notifications stuff
-import {
-  reducer as notifications,
-  middleware as NotificationMiddleware,
-} from 'react-redux-notifications';
-
+import { middleware as NotificationMiddleware } from 'react-redux-notifications';
 import moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
 
-
-// import authentication action types (in case we're authenticated at
-// startup)
-import * as authActionTypes from './auth/types';
-
-// Import routes
+import rootReducer from './root-reducer';
 import routes from './routes';
-
-// Import our style rules
+import { LOGIN_SUCCESS } from './auth/types';
 import './styles/main.scss'; // eslint-disable-line
 
 // Set up react-widget localization
@@ -43,7 +29,7 @@ if (token) {
   // Configure Axios to send the token in the header for all requests
   axios.defaults.headers.common.Authorization = `Token ${token}`;
   // Dispatch a LOGIN_SUCCESS
-  store.dispatch({ type: authActionTypes.LOGIN_SUCCESS });
+  store.dispatch({ type: LOGIN_SUCCESS });
 }
 
 // Render the app
