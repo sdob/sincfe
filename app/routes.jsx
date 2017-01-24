@@ -37,6 +37,7 @@ import RequireAuth from './auth/RequireAuth';
 import TeachCourses from './courses/TeachCourses';
 import ViewClubs from './clubs/ViewClubs';
 import ViewCourses from './courses/ViewCourses';
+import ViewMembers from './profiles/ViewMembers';
 import ViewQualifications from './qualifications/ViewQualifications';
 import ViewRegions from './regions/ViewRegions';
 
@@ -65,6 +66,7 @@ export default (
     <Route path={paths.VIEW_CLUBS} component={RequireAuth(ViewClubs)} />
     <Route path={paths.VIEW_COURSES} component={RequireAuth(ViewCourses)} />
     <Route path={`${paths.VIEW_COURSES}/:id`} component={RequireAuth(CourseDetail)} />
+    <Route path={paths.VIEW_MEMBERS} component={RequireAuth(ViewMembers)} />
     <Route path={paths.VIEW_REGIONS} component={RequireAuth(ViewRegions)} />
     <Route path={paths.VIEW_QUALIFICATIONS} component={RequireAuth(ViewQualifications)} />
     <Redirect path="*" to="/" />
