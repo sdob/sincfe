@@ -85,14 +85,14 @@ class ViewQualifications extends Component {
 
     const { columns, sortingColumns } = this.state;
     // Don't search on these columns; it's either not meaningful to do so
-    const unsearchableProperties = ['id', 'user.club.region.name'];
+    const unsearchableProperties = ['id', 'user.club.region.name', 'certificate.name'];
     const searchingColumns = columns.filter(col => !unsearchableProperties.includes(col.property));
     return (
       <div>
         <h1 className="sinc-page-header">View qualifications</h1>
         <div className="row">
-          <h2 className="sinc-section-header">
-            Filter regions
+          <h2 className="sinc-section-header sinc-section-header--minor">
+            Filter by region
           </h2>
           {regions.map(region => (
             <div className="col-xs-6 col-md-3" key={region.id}>
@@ -146,8 +146,8 @@ function columnDefinitions(getSortingColumns) {
     defaultColumn('user.id', 'CFT #'),
     defaultColumn('user.first_name', 'First name'),
     defaultColumn('user.last_name', 'Last name'),
-    defaultColumn('certificate.name', 'Certification'),
     defaultColumn('user.club.name', 'Club'),
+    defaultColumn('certificate.name', 'Certification'),
     defaultColumn('user.club.region.name', 'Region'),
     {
       property: 'id',
