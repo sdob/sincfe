@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import GenericErrorMessage from '../shared/GenericErrorMessage';
-import PageLoading from '../shared/PageLoading';
+import { GenericErrorMessage, PageLoading } from '../shared';
 import * as paths from '../paths';
 
 import { fetchRegions } from './actions';

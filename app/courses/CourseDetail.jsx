@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { fetchCourseDetail } from './actions';
 import CourseDetailRow from './CourseDetailRow';
-import PageLoading from '../shared/PageLoading';
-import NotImplementedYet from '../shared/NotImplementedYet';
+import { PageLoading, NotImplementedYet } from '../shared';
 
 class CourseDetail extends Component {
   componentWillMount() {

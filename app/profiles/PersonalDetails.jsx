@@ -1,10 +1,9 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import DatePicker from '../shared/DatePicker';
+import { DatePicker, FormRow } from '../shared';
 import * as fields from './fields';
 import * as genders from './genders';
 import * as titles from './titles';
-import FormRow from '../shared/FormRow';
 
 export default function PersonalDetails() {
   return (

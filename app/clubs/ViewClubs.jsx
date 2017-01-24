@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as sort from 'sortabular';
-import PageLoading from '../shared/PageLoading';
-import SortedTable from '../shared/SortedTable';
 import { fetchClubList } from './actions';
 import { fetchRegions } from '../regions/actions';
+import { PageLoading, SortedTable } from '../shared';
 
 class ViewClubs extends Component {
   constructor(props, ctx) {

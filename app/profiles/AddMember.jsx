@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
 import * as paths from '../paths';
-import InlineSpinner from '../shared/InlineSpinner';
+import { FormRow, InlineSpinner } from '../shared';
 import { addMember } from './actions';
 import * as fields from './fields';
-import FormRow from '../shared/FormRow';
 import PersonalDetails from './PersonalDetails';
 
 const form = reduxForm({

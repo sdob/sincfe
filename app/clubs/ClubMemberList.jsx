@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import MemberTable from '../shared/MemberTable';
-import PageError from '../shared/PageError';
-import PageLoading from '../shared/PageLoading';
+import { GenericErrorMessage, MemberTable, PageLoading } from '../shared';
 import { fetchClubMemberList } from './actions';
 
 class ClubMemberList extends Component {
@@ -27,9 +25,9 @@ class ClubMemberList extends Component {
   }
 
   render() {
-    const { error, profile, members } = this.props;
-    if (error) {
-      return (<PageError />);
+    const { errorMsg, profile, members } = this.props;
+    if (errorMsg) {
+      return (<GenericErrorMessage error={errorMsg} />);
     }
     if (!(profile && members)) {
       return (<PageLoading />);

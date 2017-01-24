@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import NotImplementedYet from '../shared/NotImplementedYet';
+import { NotImplementedYet } from '../shared';
 
 function Documents() {
   return (

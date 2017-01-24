@@ -2,8 +2,7 @@ import moment from 'moment';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import fetchCurrentMembershipStatus from './actions';
-import GenericErrorMessage from '../shared/GenericErrorMessage';
-import NotImplementedYet from '../shared/NotImplementedYet';
+import { GenericErrorMessage, NotImplementedYet } from '../shared';
 
 const CURRENT = 'Current';
 

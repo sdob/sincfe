@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 
 import fetchActiveInstructors from './actions';
 import { fetchRegionDetail } from '../regions/actions';
-import PageLoading from '../shared/PageLoading';
-import MemberTable from '../shared/MemberTable';
+import { MemberTable, PageLoading } from '../shared';
 
 class ActiveInstructors extends Component {
   componentDidMount() {

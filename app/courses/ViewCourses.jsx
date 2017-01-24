@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import * as paths from '../paths';
-import CertificateSelector from '../shared/CertificateSelector';
-import PageLoading from '../shared/PageLoading';
+import { CertificateSelector, PageLoading } from '../shared';
 import { fetchRegions } from '../regions/actions';
 import { fetchCertificateList, fetchCourseList, hideRegion, showRegion } from './actions';
 

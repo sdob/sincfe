@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
-import PageLoading from '../shared/PageLoading';
 import { fetchClub, updateClub } from './actions';
 import { fetchRegions } from '../regions/actions';
-import FormRow from '../shared/FormRow';
-import InlineSpinner from '../shared/InlineSpinner';
+import { FormRow, InlineSpinner, PageLoading } from '../shared';
 
 import * as fields from './fields';
 

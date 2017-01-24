@@ -1,5 +1,5 @@
 import React from 'react';
-import FormRow from '../shared/FormRow';
+import { FormRow } from '../shared';
 import * as fields from './fields';
 
 export default function ContactDetails() {

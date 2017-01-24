@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import { fetchMemberQualifications } from './actions';
-import PageLoading from '../shared/PageLoading';
+import { PageLoading } from '../shared';
 
 class Qualifications extends Component {
 

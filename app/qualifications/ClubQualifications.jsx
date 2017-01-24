@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
-import GenericErrorMessage from '../shared/GenericErrorMessage';
-import PageLoading from '../shared/PageLoading';
+import { GenericErrorMessage, PageLoading } from '../shared';
 import { fetchClubQualifications } from './actions';
 
 class ClubQualifications extends Component {

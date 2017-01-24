@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
-import PageLoading from '../shared/PageLoading';
-import SubmitRow from '../shared/SubmitRow';
+import { PageLoading, SubmitRow } from '../shared';
 import { fetchMember, updateMember } from './actions';
 import ContactDetails from './ContactDetails';
 import PersonalDetails from './PersonalDetails';

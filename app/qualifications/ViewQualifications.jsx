@@ -8,10 +8,7 @@ import { fetchQualifications } from './actions';
 import { fetchClubList } from '../clubs/actions';
 import { fetchCertificateList } from '../courses/actions';
 import { fetchRegions } from '../regions/actions';
-import CertificateSelector from '../shared/CertificateSelector';
-import PageLoading from '../shared/PageLoading';
-import SortedTable from '../shared/SortedTable';
-
+import { CertificateSelector, PageLoading, SortedTable } from '../shared';
 
 class ViewQualifications extends Component {
   constructor(props, ctx) {
