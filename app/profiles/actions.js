@@ -3,7 +3,7 @@ import HTTP from 'http-status-codes';
 
 import formatDate from '../shared/utils';
 
-import { addMemberUrl, memberDetailUrl, ownProfileUrl } from '../api';
+import { addMemberUrl, memberDetailUrl, memberListUrl, ownProfileUrl } from '../api';
 import { logoutUser } from '../auth/actions';
 import * as types from './types';
 
@@ -75,6 +75,23 @@ function fetchMember(uid) {
 }
 
 /*
+ * Retrieve all SINC members (which will be a *lot*, so use sparingly)
+ */
+function fetchMembers() {
+  return function fetch(dispatch) {
+    const url = memberListUrl();
+    return axios.get(url)
+    .then((response) => {
+      const { data } = response;
+      dispatch({ type: types.MEMBER_LIST_RECEIVED, payload: data });
+    })
+    .catch((error) => {
+      handleError(dispatch, error, types.MEMBER_LIST_ERROR);
+    });
+  }
+}
+
+/*
  * Retrieve the user's profile information.
  */
 function fetchProfile() {
@@ -135,6 +152,7 @@ function updateOwnProfile(user) {
 export {
   addMember,
   fetchMember,
+  fetchMembers,
   fetchProfile,
   updateMember,
   updateOwnProfile,

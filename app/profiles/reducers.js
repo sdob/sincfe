@@ -30,6 +30,11 @@ export default function authReducer(initialState = {}, action) {
     case types.MEMBER_DETAIL_RECEIVED:
       console.info('member detail received');
       return { ...state, member: action.payload };
+    // Retrieving all members
+    case types.MEMBER_LIST_RECEIVED:
+      return { ...state, members: action.payload };
+    case types.MEMBER_LIST_ERROR:
+      return { ...state, errorMsg: action.payload };
     // Updating member
     case types.UPDATE_MEMBER_SENDING:
       return { ...state, sending: true };
