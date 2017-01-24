@@ -24,11 +24,11 @@ function handleError(dispatch, error, type) {
       default:
         // Dispatch an error
         dispatch({ type, payload: error });
+        throw error;
     }
   } else {
     // No response means a client error: the request never reached the
     // server. Handle accordingly.
-    console.error(error);
     throw error;
   }
 }
@@ -127,7 +127,7 @@ function updateOwnProfile(user) {
       dispatch({ type: types.PROFILE_UPDATE_SUCCESS, payload: data });
     })
     .catch((error) => {
-      handleError(dispatch, error);
+      handleError(dispatch, error, types.PROFILE_UPDATE_ERROR);
     });
   };
 }
