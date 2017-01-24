@@ -79,12 +79,12 @@ class ViewCourses extends Component {
         </div>
 
         <h2 className="sinc-section-header sinc-section-header--minor">
-          Filter by course
+          Filter by certification
         </h2>
 
         <div className="form-group row">
           <label htmlFor="certificate" className="col-sm-6 col-md-3 col-form-label">
-            Course name
+            Certification
           </label>
           <div className="col-sm-6 col-md-4 col-lg-3">
             <CertificateSelector
