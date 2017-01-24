@@ -21,8 +21,8 @@ class ActiveInstructors extends Component {
 
   retrieveData(profile) {
     const { region } = profile.club;
-    this.props.fetchActiveInstructors(region);
-    this.props.fetchRegionDetail(region);
+    this.props.fetchActiveInstructors(region.id);
+    this.props.fetchRegionDetail(region.id);
   }
 
   render() {
