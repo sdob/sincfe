@@ -52,6 +52,10 @@ function memberDetailUrl(uid) {
   return `${API_URL}/users/${uid}/`;
 }
 
+function memberListUrl() {
+  return `${API_URL}/users/`;
+}
+
 function memberQualificationListUrl(uid) {
   return `${API_URL}/users/${uid}/qualifications/`;
 }
@@ -85,6 +89,7 @@ export {
   currentMembershipStatusUrl,
   loginUrl,
   memberDetailUrl,
+  memberListUrl,
   memberQualificationListUrl,
   ownProfileUrl,
   qualificationListUrl,
