@@ -44,12 +44,10 @@ class EditClubDetails extends Component {
   }
 
   render() {
-    const { clubs, handleSubmit } = this.props;
-    if (!clubs.club) {
+    const { club, handleSubmit, sending } = this.props;
+    if (!club) {
       return <PageLoading />;
     }
-
-    const { club, sending } = clubs;
 
     return (
       <div>
@@ -110,11 +108,9 @@ class EditClubDetails extends Component {
 }
 
 function mapStateToProps(state) {
-  return {
-    clubs: state.clubs,
-    initialValues: state.clubs.club,
-    profile: state.profiles.profile,
-  };
+  const { club, sending } = state.clubs;
+  const { profile } = state.profiles;
+  return { club, initialValues: club, profile, sending };
 }
 
 export default connect(mapStateToProps, { fetchClub, updateClub })(form(EditClubDetails));
