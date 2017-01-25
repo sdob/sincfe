@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 
 import * as paths from '../paths';
 import { FormRow, InlineSpinner } from '../shared';
+import formatDate from '../shared/utils';
 import { addMember } from './actions';
 import * as fields from './fields';
 import PersonalDetails from './PersonalDetails';
@@ -29,7 +30,8 @@ class AddMember extends Component {
   }
 
   handleFormSubmit(formProps) {
-    this.props.addMember(formProps);
+    const user = { ...formProps, date_of_birth: formatDate(formProps.date_of_birth) };
+    this.props.addMember(user);
   }
 
   render() {
