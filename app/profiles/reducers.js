@@ -14,8 +14,8 @@ export default function authReducer(initialState = {}, action) {
       return { ...state, errorMsg: action.payload };
     case types.PROFILE_CREATE_SUCCESS:
       return { ...state, user: action.payload };
-    case types.PROFILE_RECEIVED:
-      console.info('profile received');
+    // Retrieving the user's own profile
+    case types.OWN_PROFILE_RECEIVED:
       return { ...state, profile: action.payload };
     // Profile updates
     case types.PROFILE_UPDATE_SENDING:
