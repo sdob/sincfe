@@ -10,6 +10,8 @@ import SortedTable from './SortedTable';
 import SubmitRow from './SubmitRow';
 import UneditableProfileHelp from './UneditableProfileHelp';
 
+import createApiAction from './createApiAction';
+
 export {
   CertificateSelector,
   DatePicker,
@@ -22,4 +24,5 @@ export {
   SortedTable,
   SubmitRow,
   UneditableProfileHelp,
+  createApiAction,
 };
