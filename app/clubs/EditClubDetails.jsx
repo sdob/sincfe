@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
 import { fetchClub, updateClub } from './actions';
-import { fetchRegions } from '../regions/actions';
 import { FormRow, InlineSpinner, PageLoading } from '../shared';
 
 import * as fields from './fields';
@@ -42,21 +41,15 @@ class EditClubDetails extends Component {
 
   retrieveData(profile) {
     this.props.fetchClub(profile.club.id);
-    this.props.fetchRegions();
   }
 
   render() {
-    const { clubs, handleSubmit, regions } = this.props;
-    if (!(clubs.club && regions)) {
+    const { clubs, handleSubmit } = this.props;
+    if (!clubs.club) {
       return <PageLoading />;
     }
 
     const { club, sending } = clubs;
-
-    // Try to find a region for this club; if it's missing, call it
-    // 'None assigned'
-    const region = regions.filter(x => x.id === club.region)[0];
-    const regionName = region ? region.name : 'None assigned';
 
     return (
       <div>
@@ -81,7 +74,7 @@ class EditClubDetails extends Component {
             </div>
             <div className="col-xs-6 col-md-9">
               <p className="form-control-static">
-                {regionName}
+                {club.region.name}
               </p>
             </div>
           </div>
@@ -121,10 +114,7 @@ function mapStateToProps(state) {
     clubs: state.clubs,
     initialValues: state.clubs.club,
     profile: state.profiles.profile,
-    regions: state.regions.regions,
   };
 }
 
-export default connect(mapStateToProps, {
-  fetchClub, fetchRegions, updateClub
-})(form(EditClubDetails));
+export default connect(mapStateToProps, { fetchClub, updateClub })(form(EditClubDetails));
