@@ -7,3 +7,14 @@ export const MEMBER_LIST_ERROR = 'MEMBER_LIST_ERROR';
 
 export const CLUB_LIST_RECEIVED = 'CLUB_LIST_RECEIVED';
 export const CLUB_LIST_ERROR = 'CLUB_LIST_ERROR';
+
+
+const clubUpdate = {
+  success: 'CLUB_UPDATE_SUCCESS',
+  pending: 'CLUB_UPDATE_PENDING',
+  error: 'CLUB_UPDATE_ERROR',
+};
+
+export {
+  clubUpdate,
+};

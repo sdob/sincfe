@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { clubDetailUrl, clubListUrl, clubMemberListUrl } from '../api';
+import { createApiAction } from '../shared';
 import * as types from './types';
 
 function fetchClub(cid) {
@@ -46,24 +47,8 @@ function fetchClubMemberList(cid) {
   };
 }
 
-function updateClub(club) {
-  return function update(dispatch) {
-    // Get the API endpoint for updating this club
-    const { id } = club;
-    const url = clubDetailUrl(id);
-    // Dispatch an event
-    dispatch({ type: types.CLUB_DETAIL_SENDING });
-    axios.patch(url, club)
-    .then((response) => {
-      const { data } = response;
-      dispatch({ type: types.CLUB_UPDATE_SUCCESS, payload: data });
-    })
-    .catch((error) => {
-      console.error(error);
-      throw error;
-    });
-  };
-}
+/* Update a club, using the ID attribute of the data passed in */
+const updateClub = (club) => createApiAction(clubDetailUrl(club.id), 'patch', types.clubUpdate, club);
 
 export {
   fetchClub,
