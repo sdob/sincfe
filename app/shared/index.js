@@ -1,6 +1,7 @@
 import CertificateSelector from './CertificateSelector';
 import DatePicker from './DatePicker';
 import FormRow from './FormRow';
+import SelectRow from './SelectRow';
 import GenericErrorMessage from './GenericErrorMessage';
 import InlineSpinner from './InlineSpinner';
 import MemberTable from './MemberTable';
@@ -21,6 +22,7 @@ export {
   MemberTable,
   NotImplementedYet,
   PageLoading,
+  SelectRow,
   SortedTable,
   SubmitRow,
   UneditableProfileHelp,
