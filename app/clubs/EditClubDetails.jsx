@@ -9,6 +9,7 @@ import * as fields from './fields';
 
 const form = reduxForm({
   form: 'editClubDetails',
+  validate,
 });
 
 class EditClubDetails extends Component {
@@ -45,6 +46,8 @@ class EditClubDetails extends Component {
 
   render() {
     const { club, handleSubmit, sending } = this.props;
+    console.info('form props');
+    console.info(this.props);
     if (!club) {
       return <PageLoading />;
     }
@@ -78,9 +81,9 @@ class EditClubDetails extends Component {
           </div>
 
           <FormRow field={fields.DESCRIPTION} label="Description" component="textarea" rows="3" />
-          <FormRow field={fields.CONTACT_NAME} label="Contact name" />
-          <FormRow field={fields.CONTACT_EMAIL} label="Email address" />
-          <FormRow field={fields.CONTACT_PHONE} label="Phone number" />
+          <FormRow required="true" field={fields.CONTACT_NAME} label="Contact name" />
+          <FormRow required="true" field={fields.CONTACT_EMAIL} label="Email address" />
+          <FormRow required="true" field={fields.CONTACT_PHONE} label="Phone number" />
           <FormRow field={fields.LOCATION} label="Location" component="textarea" rows="3" />
           <FormRow
             field={fields.TRAINING_TIMES}
@@ -111,6 +114,18 @@ function mapStateToProps(state) {
   const { club, sending } = state.clubs;
   const { profile } = state.profiles;
   return { club, initialValues: club, profile, sending };
+}
+
+function validate(values) {
+  const DEFAULT_REQUIRED = 'This field cannot be blank.';
+  const errors = {};
+  // Contact name, email, and phone can all be dealt with the same way
+  [fields.CONTACT_EMAIL, fields.CONTACT_NAME, fields.CONTACT_PHONE].forEach((field) => {
+    if (!values[field]) {
+      errors[field] = DEFAULT_REQUIRED;
+    }
+  });
+  return errors;
 }
 
 export default connect(mapStateToProps, { fetchClub, updateClub })(form(EditClubDetails));
