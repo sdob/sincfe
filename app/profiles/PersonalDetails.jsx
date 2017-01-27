@@ -1,50 +1,37 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { DatePicker, FormRow } from '../shared';
+import { DatePicker, FormRow, SelectRow } from '../shared';
 import * as fields from './fields';
 import * as genders from './genders';
 import * as titles from './titles';
 
 export default function PersonalDetails() {
+  const genderOptions = [
+    { value: -1, label: 'Select gender' }, // value of -1 is the help text
+    { value: genders.FEMALE, label: 'Female' },
+    { value: genders.MALE, label: 'Male' },
+  ];
+
+  const titleOptions = [
+    {value: -1, label: 'Select title'}, // value of -1 is the help text
+    {value: titles.DR, label: 'Dr'},
+    {value: titles.MISS, label: 'Miss'},
+    {value: titles.MR, label: 'Mr'},
+    {value: titles.MRS, label: 'Mrs'},
+    {value: titles.MS, label: 'Ms'},
+  ];
   return (
     <div>
+      <SelectRow field={fields.TITLE} label="Title" options={titleOptions} required={true} />
+      <FormRow required="true" field={fields.FIRST_NAME} label="First name" />
+      <FormRow required="true" field={fields.LAST_NAME} label="Last name" />
+      <SelectRow field={fields.GENDER} label="Gender" options={genderOptions} required={true} />
 
       <div className="form-group row">
-        <label
-          htmlFor="editProfileTitle"
-          className="col-sm-6 col-md-3 col-form-label"
-        >
-          Title
+        <label htmlFor="date_of_birth" className="col-sm-6 col-md-3 col-form-label">
+          Date of birth
         </label>
         <div className="col-sm-6 col-md-4 col-lg-3">
-          <Field name={fields.TITLE} component="select" className="form-control">
-            <option value="-1">Select title</option>
-            <option value={titles.DR}>Dr</option>
-            <option value={titles.MISS}>Miss</option>
-            <option value={titles.MR}>Mr</option>
-            <option value={titles.MRS}>Mrs</option>
-            <option value={titles.MS}>Ms</option>
-          </Field>
-        </div>
-      </div>
-
-      <FormRow field={fields.FIRST_NAME} label="First name" />
-      <FormRow field={fields.LAST_NAME} label="Last name" />
-
-      <div className="form-group row">
-        <label htmlFor={fields.GENDER} className="col-sm-3 col-form-label">Gender</label>
-        <div className="col-sm-4">
-          <Field name={fields.GENDER} component="select" className="form-control">
-            <option>Select a gender</option>
-            <option value={genders.MALE}>Male</option>
-            <option value={genders.FEMALE}>Female</option>
-          </Field>
-        </div>
-      </div>
-
-      <div className="form-group row">
-        <label htmlFor="date_of_birth" className="col-sm-3 col-form-label">Date of birth</label>
-        <div className="col-sm-4">
           <Field
             name="date_of_birth"
             component={DatePicker}
