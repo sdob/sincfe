@@ -6,9 +6,11 @@ import { PageLoading, SubmitRow } from '../shared';
 import { fetchMember, updateMember } from './actions';
 import ContactDetails from './ContactDetails';
 import PersonalDetails from './PersonalDetails';
+import validate from './validate';
 
 const form = reduxForm({
   form: 'editMember',
+  validate,
 });
 
 class EditMember extends Component {
