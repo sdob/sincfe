@@ -1,13 +1,20 @@
-export const CLUB_DETAIL_RECEIVED = 'CLUB_DETAIL_RECEIVED';
-export const CLUB_DETAIL_SENDING = 'CLUB_DETAIL_SENDING';
-export const CLUB_UPDATE_SUCCESS = 'CLUB_UPDATE_SUCCESS';
+const clubDetail = {
+  success: 'CLUB_DETAIL_RECEIVED',
+  pending: 'CLUB_DETAIL_FETCHING',
+  error: 'CLUB_DETAIL_ERROR',
+};
 
-export const MEMBER_LIST_RECEIVED = 'MEMBER_LIST_RECEIVED';
-export const MEMBER_LIST_ERROR = 'MEMBER_LIST_ERROR';
+const clubList = {
+  success: 'CLUB_LIST_RECEIVED',
+  pending: 'CLUB_LIST_FETCHING',
+  error: 'CLUB_LIST_ERROR',
+};
 
-export const CLUB_LIST_RECEIVED = 'CLUB_LIST_RECEIVED';
-export const CLUB_LIST_ERROR = 'CLUB_LIST_ERROR';
-
+const clubMemberList = {
+  success: 'CLUB_MEMBER_LIST_RECEIVED',
+  pending: 'CLUB_MEMBER_LIST_FETCHING',
+  error: 'CLUB_MEMBER_LIST_ERROR',
+};
 
 const clubUpdate = {
   success: 'CLUB_UPDATE_SUCCESS',
@@ -16,5 +23,8 @@ const clubUpdate = {
 };
 
 export {
+  clubDetail,
+  clubList,
+  clubMemberList,
   clubUpdate,
 };
