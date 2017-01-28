@@ -80,11 +80,11 @@ class EditClubDetails extends Component {
             </div>
           </div>
 
-          <FormRow field={fields.DESCRIPTION} label="Description" component="textarea" rows="3" />
+          <FormRow field={fields.DESCRIPTION} label="Description" type="textarea" rows="3" />
           <FormRow required="true" field={fields.CONTACT_NAME} label="Contact name" />
           <FormRow required="true" field={fields.CONTACT_EMAIL} label="Email address" />
           <FormRow required="true" field={fields.CONTACT_PHONE} label="Phone number" />
-          <FormRow field={fields.LOCATION} label="Location" component="textarea" rows="3" />
+          <FormRow field={fields.LOCATION} label="Location" type="textarea" rows="3" />
           <FormRow
             field={fields.TRAINING_TIMES}
             label="Training times"
