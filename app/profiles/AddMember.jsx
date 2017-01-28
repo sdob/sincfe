@@ -3,8 +3,7 @@ import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
 import * as paths from '../paths';
-import { FormRow, InlineSpinner } from '../shared';
-import formatDate from '../shared/utils';
+import { InlineSpinner } from '../shared';
 import { addMember } from './actions';
 import * as fields from './fields';
 import ContactDetails from './ContactDetails';
@@ -33,10 +32,7 @@ class AddMember extends Component {
   }
 
   handleFormSubmit(formProps) {
-    const user = { ...formProps, date_of_birth: formatDate(formProps.date_of_birth) };
-    console.info('should send...');
-    console.info(user);
-    // this.props.addMember(user);
+    this.props.addMember(formProps);
   }
 
   render() {

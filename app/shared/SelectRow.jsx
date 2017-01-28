@@ -2,14 +2,14 @@ import React from 'react';
 import { Field } from 'redux-form';
 
 export default function SelectRow(props) {
-  const { field, label, options } = props;
+  const { field } = props;
   return (
     <Field name={field} {...props} component={renderSelect} />
   );
 }
 
 function renderSelect({ field, input, label, options, meta: { touched, error } }) {
-  const className = `form-group row${(touched && error) ? ' has-danger': ''}`;
+  const className = `form-group row${(touched && error) ? ' has-danger' : ''}`;
   return (
     <div className={className}>
       <div className="col-sm-6 col-md-3 col-form-label">
@@ -31,5 +31,5 @@ function renderSelect({ field, input, label, options, meta: { touched, error } }
 
 function renderOption(o) {
   const { value, label } = o;
-  return <option value={value}>{label}</option>
+  return <option value={value}>{label}</option>;
 }

@@ -1,13 +1,6 @@
-import axios from 'axios';
-import HTTP from 'http-status-codes';
-import moment from 'moment';
-
 import { addMemberUrl, memberDetailUrl, memberListUrl, ownProfileUrl } from '../api';
 import { createApiAction } from '../shared';
-// import formatDate from '../shared/utils';
-import { date2django, django2date } from '../shared/dateUtils';
-import { logoutUser } from '../auth/actions';
-import * as types from './types';
+import { date2django } from '../shared/dateUtils';
 import {
   memberCreate,
   memberDetail,
@@ -18,7 +11,7 @@ import {
 } from './types';
 
 /* Create a new user. */
-const addMember = (user) => createApiAction({
+const addMember = user => createApiAction({
   url: addMemberUrl(),
   method: 'post',
   types: memberCreate,
@@ -27,7 +20,7 @@ const addMember = (user) => createApiAction({
 });
 
 /* Retrieve a user's profile by ID. */
-const fetchMember = (uid) => createApiAction({
+const fetchMember = uid => createApiAction({
   url: memberDetailUrl(uid),
   method: 'get',
   types: memberDetail,
@@ -46,15 +39,16 @@ const fetchProfile = () => createApiAction({
 });
 
 /* Update a user. Convert the Date object to a string that Django accepts before sending.  */
-const updateMember = (user) => createApiAction({
+const updateMember = user => createApiAction({
   url: memberDetailUrl(user.id),
   method: 'patch',
-  types: memberUpdate, data: user,
+  types: memberUpdate,
+  data: user,
   formatRequest: formatUserDOB,
 });
 
 /* Update the user's own profile. */
-const updateOwnProfile = (user) => createApiAction({
+const updateOwnProfile = user => createApiAction({
   url: memberDetailUrl(user.id),
   method: 'patch',
   types: ownProfileUpdate,

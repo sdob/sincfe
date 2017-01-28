@@ -8,12 +8,13 @@ import { Field } from 'redux-form';
  * down on boilerplate in other components.
  */
 export default function FormRow(props) {
-  const { field, required } = props;
-  return ( <Field name={field} {...props} component={renderField} />
-  );
+  const { field } = props;
+  return <Field name={field} {...props} component={renderField} />;
 }
 
-function renderField({ component, field, input, label, required, rows, type, meta: { touched, error } }) {
+function renderField({
+  field, input, label, required, rows, type, meta: { touched, error }
+}) {
   return (
     <div>
       <div className={`form-group row${(touched && error) ? ' has-danger' : ''}`}>
@@ -23,7 +24,7 @@ function renderField({ component, field, input, label, required, rows, type, met
           </label>
         </div>
         <div className="col-md-9 col-lg-6">
-          {type === 'textarea' ? renderTextArea({ field, input, required, rows}) : renderInput({ field, input, required, type })}
+          {type === 'textarea' ? renderTextArea({ field, input, required, rows }) : renderInput({ field, input, required, type })}
           {touched && error && <ErrorMessage error={error} />}
         </div>
       </div>
@@ -39,7 +40,7 @@ function renderInput({ field, input, required, type }) {
       className="form-control"
       placeholder={required ? '' : 'Optional'}
       type={type}
-      />
+    />
   );
 }
 
@@ -51,7 +52,7 @@ function renderTextArea({ field, input, required, rows }) {
       className="form-control"
       placeholder={!required && 'Optional'}
       rows={rows}
-      />
+    />
   );
 }
 

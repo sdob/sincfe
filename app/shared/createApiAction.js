@@ -26,16 +26,16 @@ export default function createApiAction({
   const { pending, success, error } = types;
   // TODO: It seems like it ought to be possible to declare these identity
   // functions as default parameters, but I can't get that to work.
-  const _formatRequest = formatRequest ? formatRequest : function(x) {return x;};
-  const _formatResponse = formatResponse ? formatResponse : function(x) {return x;};
+  // const formatRequest_ = formatRequest || function format(x) { return x; };
+  // const formatResponse_ = formatResponse || function format(x) { return x; };
+  const identity = x => x;
   return (dispatch) => {
     dispatch({ type: pending });
-    return axios[method](url, _formatRequest(data))
-    .then(formatResponse)
+    return axios[method](url, (formatRequest || identity)(data))
+    .then((formatResponse || identity))
     .then((response) => {
-      const { data } = response;
-      dispatch({ type: success, payload: data });
-      return data;
+      dispatch({ type: success, payload: response.data });
+      return response.data;
     })
     .catch((err) => {
       // Special case: HTTP 401 Unauthorized. This should happen very
@@ -47,5 +47,5 @@ export default function createApiAction({
       dispatch({ type: error, error: err });
       throw err;
     });
-  }
+  };
 }

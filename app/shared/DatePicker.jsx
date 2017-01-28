@@ -2,8 +2,8 @@ import React from 'react';
 import { DateTimePicker } from 'react-widgets';
 
 // eslint-disable-next-line no-unused-vars
-export default function DatePicker({ input, meta,  ...rest }) {
-  const { name, value } = input;
+export default function DatePicker({ input, meta, ...rest }) {
+  const { value } = input;
   return (
     <DateTimePicker
       {...input}

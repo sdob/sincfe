@@ -50,7 +50,7 @@ const memberUpdate = {
   pending: 'UPDATE_MEMBER_SENDING',
   success: 'UPDATE_MEMBER_SUCCESS',
   error: 'UPDATE_MEMBER_ERROR',
-}
+};
 
 const ownProfileUpdate = {
   pending: PROFILE_UPDATE_SENDING,

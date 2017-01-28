@@ -48,7 +48,9 @@ function fetchClubMemberList(cid) {
 }
 
 /* Update a club, using the ID attribute of the data passed in */
-const updateClub = (club) => createApiAction(clubDetailUrl(club.id), 'patch', types.clubUpdate, club);
+const updateClub = club => createApiAction({
+  url: clubDetailUrl(club.id), method: 'patch', types: types.clubUpdate, data: club
+});
 
 export {
   fetchClub,
