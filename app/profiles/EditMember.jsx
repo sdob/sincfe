@@ -19,7 +19,6 @@ class EditMember extends Component {
   }
 
   componentDidMount() {
-    console.info(this.context.router);
     const uid = this.context.router.params.id;
     this.props.fetchMember(uid);
   }
@@ -29,7 +28,6 @@ class EditMember extends Component {
   }
 
   render() {
-    console.info(this.props);
     const { handleSubmit, member, sending } = this.props;
     if (!member) {
       return <PageLoading />;
