@@ -9,6 +9,7 @@ import { addMember } from './actions';
 import * as fields from './fields';
 import ContactDetails from './ContactDetails';
 import PersonalDetails from './PersonalDetails';
+import validate from './validate';
 
 const form = reduxForm({
   form: 'addMember',
@@ -89,32 +90,6 @@ function mapStateToProps(state) {
   return {
     profiles: state.profiles,
   };
-}
-
-function validate(values) {
-  const errors = {};
-  const requiredFields = [
-    fields.TITLE,
-    fields.FIRST_NAME,
-    fields.LAST_NAME,
-    fields.GENDER,
-    fields.DATE_OF_BIRTH,
-    fields.EMAIL,
-  ];
-  requiredFields.forEach((field) => {
-    if (!values[field]) {
-      errors[field] = 'This field may not be blank.';
-    }
-  });
-
-  // Handle selects
-  const requiredSelects = [fields.TITLE, fields.GENDER];
-  requiredSelects.forEach((field) => {
-    if (!values[field] || values[field] < 0) {
-      errors[field] = 'This field may not be blank.';
-    }
-  });
-  return errors;
 }
 
 export default connect(mapStateToProps, { addMember })(form(AddMember));
