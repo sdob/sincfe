@@ -9,7 +9,6 @@ export default function SelectRow(props) {
 }
 
 function renderSelect({ field, input, label, options, meta: { touched, error } }) {
-  console.info(`Label: ${label}`);
   const className = `form-group row${(touched && error) ? ' has-danger': ''}`;
   return (
     <div className={className}>
