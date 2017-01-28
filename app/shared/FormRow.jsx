@@ -32,11 +32,27 @@ function renderField({ component, field, input, label, required, rows, type, met
 }
 
 function renderInput({ field, input, required, type }) {
-  return <input {...input} name={field} className="form-control" placeholder={required ? '' : 'Optional'} type={type} />
+  return (
+    <input
+      {...input}
+      name={field}
+      className="form-control"
+      placeholder={required ? '' : 'Optional'}
+      type={type}
+      />
+  );
 }
 
-function renderTextArea({ field, input, rows }) {
-  return <textarea {...input} name={field} className="form-control" rows={rows} />;
+function renderTextArea({ field, input, required, rows }) {
+  return (
+    <textarea
+      {...input}
+      name={field}
+      className="form-control"
+      placeholder={!required && 'Optional'}
+      rows={rows}
+      />
+  );
 }
 
 function ErrorMessage({ error }) {
