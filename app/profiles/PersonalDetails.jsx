@@ -33,7 +33,7 @@ export default function PersonalDetails() {
         </label>
         <div className="col-sm-6 col-md-4 col-lg-3">
           <Field
-            name="date_of_birth"
+            name={fields.DATE_OF_BIRTH}
             component={DatePicker}
           />
         </div>
