@@ -5,9 +5,6 @@ import moment from 'moment';
  * expectations
  */
 function date2django(date) {
-  // console.info('date2django');
-  console.info('date2django');
-  console.info(moment(date).format('YYYY-MM-DD'));
   return moment(date).format('YYYY-MM-DD');
 }
 
