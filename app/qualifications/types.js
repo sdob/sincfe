@@ -1,8 +1,11 @@
-export const CLUB_QUALIFICATIONS_RECEIVED = 'CLUB_QUALIFICATIONS_RECEIVED';
-export const CLUB_QUALIFICATIONS_ERROR = 'CLUB_QUALIFICATIONS_ERROR';
-export const MEMBER_QUALIFICATIONS_RECEIVED = 'MEMBER_QUALIFICATIONS_RECEIVED';
-export const MEMBER_QUALIFICATIONS_ERROR = 'MEMBER_QUALIFICATIONS_ERROR';
-export const GENERIC_QUALIFICATIONS_ERROR = 'GENERIC_QUALIFICATIONS_ERROR';
+import { createTypes } from '../shared';
 
-export const QUALIFICATION_LIST_RECEIVED = 'QUALIFICATION_LIST_RECEIVED';
-export const QUALIFICATION_LIST_ERROR = 'QUALIFICATION_LIST_ERROR';
+const clubQualificationList = createTypes('CLUB_QUALIFICATION_LIST');
+const memberQualificationList = createTypes('MEMBER_QUAlIFICATION_LIST');
+const qualificationList = createTypes('QUALIFICATION_LIST');
+
+export {
+  clubQualificationList,
+  memberQualificationList,
+  qualificationList,
+};
