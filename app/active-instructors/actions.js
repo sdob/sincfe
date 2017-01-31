@@ -1,18 +1,13 @@
-import axios from 'axios';
+import { createApiAction } from '../api';
+import { activeInstructorListUrl } from '../api/urls';
+import {
+  regionActiveInstructorList,
+} from './types';
 
-import { ACTIVE_INSTRUCTORS_RECEIVED } from './types';
-import { activeInstructorListUrl } from '../api';
+const fetchActiveInstructors = rid => createApiAction({
+  url: activeInstructorListUrl(rid),
+  method: 'get',
+  types: regionActiveInstructorList,
+});
 
-export default function fetchActiveInstructors(rid) {
-  return function fetch(dispatch) {
-    const url = activeInstructorListUrl(rid);
-    axios.get(url)
-    .then((response) => {
-      const instructors = response.data;
-      dispatch({ type: ACTIVE_INSTRUCTORS_RECEIVED, payload: instructors });
-    })
-    .catch((error) => {
-      console.error(error);
-    });
-  };
-}
+export default fetchActiveInstructors;

@@ -11,7 +11,6 @@ import SortedTable from './SortedTable';
 import SubmitRow from './SubmitRow';
 import UneditableProfileHelp from './UneditableProfileHelp';
 
-import createApiAction from './createApiAction';
 import createTypes from './createTypes';
 
 export {
@@ -27,6 +26,5 @@ export {
   SortedTable,
   SubmitRow,
   UneditableProfileHelp,
-  createApiAction,
   createTypes,
 };

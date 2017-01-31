@@ -3,7 +3,7 @@ import cookie from 'react-cookie';
 // import STATUS_CODES from 'http';
 import HTTP from 'http-status-codes';
 import * as types from './types';
-import { loginUrl } from '../api';
+import { loginUrl } from '../api/urls';
 
 export {
   loginUser,

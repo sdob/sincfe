@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { currentMembershipStatusUrl } from '../api';
+import { currentMembershipStatusUrl } from '../api/urls';
 
 import * as types from './types';
 

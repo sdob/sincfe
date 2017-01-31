@@ -1,5 +1,5 @@
-import { clubQualificationsUrl, memberQualificationListUrl, qualificationListUrl } from '../api';
-import { createApiAction } from '../shared';
+import { clubQualificationsUrl, memberQualificationListUrl, qualificationListUrl } from '../api/urls';
+import { createApiAction } from '../api';
 import {
   clubQualificationList,
   memberQualificationList,

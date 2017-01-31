@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as types from './types';
-import { certificateListUrl, courseDetailUrl, coursesListUrl } from '../api';
+import { certificateListUrl, courseDetailUrl, coursesListUrl } from '../api/urls';
 
 function fetchCertificateList() {
   return function fetch(dispatch) {

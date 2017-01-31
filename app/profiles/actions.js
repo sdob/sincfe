@@ -1,5 +1,5 @@
-import { addMemberUrl, memberDetailUrl, memberListUrl, ownProfileUrl } from '../api';
-import { createApiAction } from '../shared';
+import { addMemberUrl, memberDetailUrl, memberListUrl, ownProfileUrl } from '../api/urls';
+import { createApiAction } from '../api';
 import { date2django } from '../shared/dateUtils';
 import {
   memberCreate,

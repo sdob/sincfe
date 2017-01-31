@@ -1,37 +1,28 @@
 import axios from 'axios';
-import { regionDetailUrl, regionsListUrl } from '../api';
-import * as types from './types';
+import { createApiAction } from '../api';
+import { regionDetailUrl, regionsListUrl } from '../api/urls';
+// import * as types from './types';
+import {
+  regionDetail,
+  regionList,
+} from './types';
 
 function handleError(dispatch, error) {
   // TODO: implement proper error-handling here.
   return dispatch({ type: types.REGIONS_ERROR, payload: error });
 }
 
-function fetchRegionDetail(rid) {
-  return function fetch(dispatch) {
-    axios.get(regionDetailUrl(rid))
-    .then((response) => {
-      dispatch({ type: types.REGION_DETAIL_RECEIVED, payload: response.data });
-    })
-    .catch((error) => {
-      handleError(dispatch, error);
-    });
-  };
-}
+const fetchRegionDetail = rid => createApiAction({
+  url: regionDetailUrl(rid),
+  types: regionDetail,
+  method: 'get',
+});
 
-function fetchRegions() {
-  return function fetch(dispatch) {
-    return axios.get(regionsListUrl())
-    .then((response) => {
-      dispatch({ type: types.REGIONS_RECEIVED, payload: response.data });
-    })
-    .catch((error) => {
-      // There's been an error (4xx or 5xx); let the error handler
-      // take care of it
-      handleError(dispatch, error);
-    });
-  };
-}
+const fetchRegions = () => createApiAction({
+  url: regionsListUrl(),
+  types: regionList,
+  method: 'get',
+});
 
 export {
   fetchRegionDetail,

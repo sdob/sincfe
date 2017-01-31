@@ -1,6 +1,6 @@
 import axios from 'axios';
-import { clubDetailUrl, clubListUrl, clubMemberListUrl } from '../api';
-import { createApiAction } from '../shared';
+import { clubDetailUrl, clubListUrl, clubMemberListUrl } from '../api/urls';
+import { createApiAction } from '../api';
 import {
   clubDetail,
   clubList,

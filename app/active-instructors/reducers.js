@@ -1,8 +1,10 @@
-import * as types from './types';
+import {
+  regionActiveInstructorList,
+}from './types';
 
 export default function activeInstructorsReducer(state = {}, action) {
   switch (action.type) {
-    case types.ACTIVE_INSTRUCTORS_RECEIVED:
+    case regionActiveInstructorList.success:
       return { ...state, instructors: action.payload };
     default:
       return state;
