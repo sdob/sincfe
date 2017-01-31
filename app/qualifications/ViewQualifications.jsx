@@ -8,7 +8,7 @@ import { fetchQualifications } from './actions';
 import { fetchClubList } from '../clubs/actions';
 import { fetchCertificateList } from '../courses/actions';
 import { fetchRegions } from '../regions/actions';
-import { CertificateSelector, PageLoading, SortedTable } from '../shared';
+import { CertificateSelector, PageLoading, RegionFilter, SortedTable } from '../shared';
 
 class ViewQualifications extends Component {
   constructor(props, ctx) {
@@ -122,19 +122,7 @@ class ViewQualifications extends Component {
           <h2 className="sinc-section-header sinc-section-header--minor">
             Filter by region
           </h2>
-          {regions.map(region => (
-            <div className="col-xs-6 col-md-3" key={region.id}>
-              <label htmlFor={`toggle-region-${region.id}`}>
-                <input
-                  type="checkbox"
-                  defaultChecked
-                  name={`toggle-region-${region.id}`}
-                  onChange={event => this.handleRegionToggle(region.id, event.target.checked)}
-                />
-                {region.name}
-              </label>
-            </div>
-          ))}
+          <RegionFilter regions={regions} onChange={this.handleRegionToggle} />
         </div>
         <div className="row">
           <h2 className="sinc-section-header sinc-section-header--minor">

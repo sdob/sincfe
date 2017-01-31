@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router';
 
 import * as paths from '../paths';
-import { CertificateSelector, PageLoading } from '../shared';
+import { CertificateSelector, PageLoading, RegionFilter } from '../shared';
 import { fetchRegions } from '../regions/actions';
 import { fetchCertificateList, fetchCourseList, hideRegion, showRegion } from './actions';
 
@@ -84,31 +84,12 @@ class ViewCourses extends Component {
           Filter by region
         </h2>
         <div className="row">
-          { regions ? (
-            <div>
-              {regions.map(region => (
-                <div className="col-xs-6 col-md-3" key={region.id}>
-                  <div className="checkbox">
-                    <label htmlFor={`region-${region.id}`}>
-                      <input
-                        name={`region-${region.id}`}
-                        type="checkbox"
-                        defaultChecked
-                        onChange={evt => this.handleRegionToggle(region.id, evt.target.checked)}
-                      />
-                      {region.name}
-                    </label>
-                  </div>
-                </div>
-              ))}
-            </div>
-          ) : <PageLoading /> }
+          {regions && regions.length ? (<RegionFilter regions={regions} onChange={this.handleRegionToggle} />) : (<PageLoading />)}
         </div>
 
         <h2 className="sinc-section-header sinc-section-header--minor">
           Filter by certification
         </h2>
-
         <div className="form-group row">
           <label htmlFor="certificate" className="col-sm-6 col-md-3 col-form-label">
             Certification
