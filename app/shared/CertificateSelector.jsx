@@ -8,7 +8,7 @@ export default function CertificateSelector(props) {
       className="form-control"
       onChange={evt => onChange(evt)}
     >
-      <option />
+      <option value="NaN"/>
       {certificates && certificates.map(certificate => (
         <option
           value={certificate.id}
