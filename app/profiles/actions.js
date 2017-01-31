@@ -1,4 +1,4 @@
-import { addMemberUrl, memberDetailUrl, memberListUrl, ownProfileUrl } from '../api/urls';
+import { addMemberUrl, memberDetailUrl, memberListUrl, memberNameSearchUrl, ownProfileUrl } from '../api/urls';
 import { createApiAction } from '../api';
 import { date2django } from '../shared/dateUtils';
 import {
@@ -38,6 +38,12 @@ const fetchProfile = () => createApiAction({
   types: ownProfileRetrieve,
 });
 
+const searchForMember = (name) => createApiAction({
+  url: memberNameSearchUrl(name),
+  method: 'get',
+  types: memberList,
+});
+
 /* Update a user. Convert the Date object to a string that Django accepts before sending.  */
 const updateMember = user => createApiAction({
   url: memberDetailUrl(user.id),
@@ -65,6 +71,7 @@ export {
   fetchMember,
   fetchMembers,
   fetchProfile,
+  searchForMember,
   updateMember,
   updateOwnProfile,
 };

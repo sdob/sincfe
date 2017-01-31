@@ -60,6 +60,10 @@ function memberQualificationListUrl(uid) {
   return `${API_URL}/users/${uid}/qualifications/`;
 }
 
+function memberNameSearchUrl(name) {
+  return `${API_URL}/users/?name=${name}`;
+}
+
 function ownProfileUrl() {
   return `${API_URL}/users/me/`;
 }
@@ -90,6 +94,7 @@ export {
   loginUrl,
   memberDetailUrl,
   memberListUrl,
+  memberNameSearchUrl,
   memberQualificationListUrl,
   ownProfileUrl,
   qualificationListUrl,

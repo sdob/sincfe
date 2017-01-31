@@ -18,6 +18,7 @@ import Main from './pages/Main';
 
 // Other components; imports in alphabetical order, please
 import ActiveInstructors from './active-instructors/ActiveInstructors';
+import AddCourse from './courses/AddCourse';
 import AddMember from './profiles/AddMember';
 import ContactUs from './contact-us/ContactUs';
 import CourseDetail from './courses/CourseDetail';
@@ -46,6 +47,7 @@ export default (
   <Route path="/" component={App}>
     <IndexRoute component={RequireAuth(Main)} />
     <Route path={paths.ACTIVE_INSTRUCTORS} component={RequireAuth(ActiveInstructors)} />
+    <Route path={paths.ADD_COURSE} component={RequireAuth(AddCourse)} />
     <Route path={paths.ADD_MEMBER} component={RequireAuth(AddMember)} />
     <Route path={paths.CLUB_DETAILS} component={RequireAuth(EditClubDetails)} />
     <Route path={paths.CLUB_QUALIFICATIONS} component={RequireAuth(ClubQualifications)} />

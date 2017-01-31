@@ -78,7 +78,11 @@ class ViewCourses extends Component {
     const { certificates, courses, regions } = this.props;
     return (
       <div>
-        <h1 className="sinc-page-header">View courses</h1>
+        <h1 className="sinc-page-header">
+          View courses
+          {' '}
+          <Link to={paths.ADD_COURSE}>Add</Link>
+        </h1>
 
         <h2 className="sinc-section-header sinc-section-header--minor">
           Filter by region
