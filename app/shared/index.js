@@ -12,6 +12,7 @@ import SubmitRow from './SubmitRow';
 import UneditableProfileHelp from './UneditableProfileHelp';
 
 import createApiAction from './createApiAction';
+import createTypes from './createTypes';
 
 export {
   CertificateSelector,
@@ -27,4 +28,5 @@ export {
   SubmitRow,
   UneditableProfileHelp,
   createApiAction,
+  createTypes,
 };
