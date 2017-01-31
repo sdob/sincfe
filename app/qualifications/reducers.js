@@ -1,16 +1,23 @@
-import * as types from './types';
+import {
+  clubQualificationList,
+  memberQualificationList,
+  qualificationList,
+} from './types';
 
 function qualificationsReducer(state = {}, action) {
   switch (action.type) {
-    case types.MEMBER_QUALIFICATIONS_RECEIVED:
+    // Handle success
+    case clubQualificationList.success:
       return { ...state, qualifications: action.payload };
-    case types.CLUB_QUALIFICATIONS_RECEIVED:
+    case memberQualificationList.success:
       return { ...state, qualifications: action.payload };
-    case types.QUALIFICATION_LIST_RECEIVED:
+    case qualificationList.success:
       return { ...state, qualifications: action.payload };
-    case types.MEMBER_QUALIFICATIONS_ERROR:
-    case types.CLUB_QUALIFICATIONS_ERROR:
-    case types.GENERIC_QUALIFICATIONS_ERROR:
+
+    // Handle errors
+    case clubQualificationList.error:
+    case memberQualificationList.error:
+    case qualificationList.error:
       return { ...state, errorMsg: action.payload };
     default:
       return state;
