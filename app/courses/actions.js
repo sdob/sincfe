@@ -1,42 +1,28 @@
-import axios from 'axios';
-import * as types from './types';
+import { createApiAction } from '../api';
 import { certificateListUrl, courseDetailUrl, coursesListUrl } from '../api/urls';
+import {
+  certificateList,
+  courseDetail,
+  courseList,
+} from './types';
 
-function fetchCertificateList() {
-  return function fetch(dispatch) {
-    axios.get(certificateListUrl())
-    .then((response) => {
-      dispatch({ type: types.CERTIFICATE_LIST_RECEIVED, payload: response.data });
-    })
-    .catch((error) => {
-      handleError(dispatch, error);
-    });
-  };
-}
+const fetchCertificateList = () => createApiAction({
+  url: certificateListUrl(),
+  method: 'get',
+  types: certificateList,
+});
 
-function fetchCourseDetail(cid) {
-  return function fetch(dispatch) {
-    axios.get(courseDetailUrl(cid))
-    .then((response) => {
-      dispatch({ type: types.COURSE_DETAIL_RECEIVED, payload: response.data });
-    })
-    .catch((error) => {
-      handleError(dispatch, error);
-    });
-  };
-}
+const fetchCourseDetail = cid => createApiAction({
+  url: courseDetailUrl(cid),
+  method: 'get',
+  types: courseDetail,
+});
 
-function fetchCourseList() {
-  return function fetch(dispatch) {
-    axios.get(coursesListUrl())
-    .then((response) => {
-      dispatch({ type: types.COURSE_LIST_RECEIVED, payload: response.data });
-    })
-    .catch((error) => {
-      handleError(dispatch, error);
-    });
-  };
-}
+const fetchCourseList = () => createApiAction({
+  url: coursesListUrl(),
+  method: 'get',
+  types: courseList,
+});
 
 function hideRegion(region) {
   console.info(`hiding region ID ${region.id}`);
@@ -49,10 +35,6 @@ function showRegion(region) {
   return function show(dispatch) {
     dispatch({ type: types.REGION_SHOW, payload: region });
   };
-}
-
-function handleError(dispatch, error) {
-  console.error(error);
 }
 
 export {

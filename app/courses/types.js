@@ -1,8 +1,11 @@
-export const CERTIFICATE_LIST_RECEIVED = 'CERTIFICATE_LIST_RECEIVED';
+import { createTypes } from '../shared';
 
-export const COURSE_DETAIL_RECEIVED = 'COURSE_DETAIL_RECEIVED';
-export const COURSE_LIST_RECEIVED = 'COURSE_LIST_RECEIVED';
-export const COURSE_LIST_ERROR = 'COURSE_LIST_ERROR';
+const certificateList = createTypes('CERTIFICATE_LIST');
+const courseDetail = createTypes('COURSE_DETAIL');
+const courseList = createTypes('COURSE_LIST');
 
-export const REGION_SHOW = 'REGION_SHOW';
-export const REGION_HIDE = 'REGION_HIDE';
+export {
+  certificateList,
+  courseDetail,
+  courseList,
+};

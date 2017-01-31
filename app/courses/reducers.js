@@ -1,19 +1,25 @@
-import * as types from './types';
+import {
+  certificateList,
+  courseDetail,
+  courseList,
+  REGION_HIDE,
+  REGION_SHOW,
+} from './types';
 
 export default function coursesReducer(state = { hiddenRegions: [] }, action) {
   switch (action.type) {
-    case types.CERTIFICATE_LIST_RECEIVED:
+    case certificateList.success:
       return { ...state, certificates: action.payload };
-    case types.COURSE_DETAIL_RECEIVED:
+    case courseDetail.success:
       return { ...state, course: action.payload };
-    case types.COURSE_LIST_RECEIVED:
+    case courseList.success:
       return { ...state, courses: action.payload };
-    case types.REGION_HIDE:
+    case REGION_HIDE:
       {
         const hiddenRegions = [...state.hiddenRegions, action.payload.id];
         return { ...state, hiddenRegions };
       }
-    case types.REGION_SHOW:
+    case REGION_SHOW:
       {
         const hiddenRegions = (state.hiddenRegions || []).filter(x => x !== action.payload.id);
         return { ...state, hiddenRegions };
