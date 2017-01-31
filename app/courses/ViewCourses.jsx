@@ -14,6 +14,9 @@ class ViewCourses extends Component {
     super(props);
     this.handleCertificateSelect = this.handleCertificateSelect.bind(this);
     this.handleRegionToggle = this.handleRegionToggle.bind(this);
+    this.state = {
+      regionVisibilities: {},
+    };
   }
 
   componentDidMount() {
@@ -25,29 +28,54 @@ class ViewCourses extends Component {
     this.props.fetchCertificateList();
   }
 
-  getVisibleCourses() {
-    const { courses, hiddenRegions } = this.props;
-    const visibleCourses = courses.filter(course => !hiddenRegions.includes(course.region.id));
-    return visibleCourses;
-  }
-
-  /* eslint-disable class-methods-use-this */
-  handleCertificateSelect() {
-    // TODO: handle filtering on course
-  }
-  /* eslint-enable class-methods-use-this */
-
-  handleRegionToggle(evt, region) {
-    const shouldBeVisible = evt.target.checked;
-    if (!shouldBeVisible) {
-      this.props.hideRegion(region);
-    } else {
-      this.props.showRegion(region);
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.regions !== this.props.regions) {
+      const { regions } = nextProps;
+      this.initializeRegionVisibilities(regions);
     }
   }
 
-  render() {
+  getVisibleCourses() {
+    const { courses } = this.props;
+    const { regionVisibilities, selectedCertificateId } = this.state;
+    return courses.filter(isWithinVisibleRegion).filter(isSelectedCertificate);
+
+    function isWithinVisibleRegion(course) {
+      const courseRegionIsDefined = course && course.region && course.region.id;
+      return !courseRegionIsDefined || regionVisibilities[course.region.id];
+    }
+
+    function isSelectedCertificate(course) {
+      const noSelectedCertificate = selectedCertificateId === undefined;
+      const courseCertificateIsSelected = Number(selectedCertificateId) === course.certificate.id;
+      return noSelectedCertificate || courseCertificateIsSelected;
+    }
+  }
+
+  handleCertificateSelect(evt) {
     const { certificates } = this.props;
+    const { target: { value } } = evt;
+    // If this value (cast to a Number) isn't present in the list of certificates, then it's garbage
+    if (!certificates.map(c => c.id).includes(Number(value))) {
+      return this.setState({ selectedCertificateId: undefined });
+    }
+    return this.setState({ selectedCertificateId: Number(value) });
+  }
+
+  handleRegionToggle(rid, visibility) {
+    this.setState({ regionVisibilities: { ...this.state.regionVisibilities, [rid]: visibility } });
+  }
+
+  initializeRegionVisibilities(regions) {
+    const visibilities = {};
+    regions.forEach((r) => {
+      visibilities[r.id] = true;
+    });
+    this.setState({ regionVisibilities: visibilities });
+  }
+
+  render() {
+    const { certificates, courses, regions } = this.props;
     return (
       <div>
         <h1 className="sinc-page-header">View courses</h1>
@@ -56,9 +84,9 @@ class ViewCourses extends Component {
           Filter by region
         </h2>
         <div className="row">
-          { this.props.regions.regions ? (
+          { regions ? (
             <div>
-              {this.props.regions.regions.map(region => (
+              {regions.map(region => (
                 <div className="col-xs-6 col-md-3" key={region.id}>
                   <div className="checkbox">
                     <label htmlFor={`region-${region.id}`}>
@@ -66,7 +94,7 @@ class ViewCourses extends Component {
                         name={`region-${region.id}`}
                         type="checkbox"
                         defaultChecked
-                        onChange={evt => this.handleRegionToggle(evt, region)}
+                        onChange={evt => this.handleRegionToggle(region.id, evt.target.checked)}
                       />
                       {region.name}
                     </label>
@@ -96,7 +124,7 @@ class ViewCourses extends Component {
         <h2 className="sinc-section-header sinc-section-header-minor">
           Results
         </h2>
-        {this.props.courses ? (
+        {courses ? (
           <table className="table">
             <thead>
               <tr>
@@ -135,7 +163,7 @@ function mapStateToProps(state) {
     certificates: state.courses.certificates,
     courses: state.courses.courses,
     profile: state.profiles.profile,
-    regions: state.regions,
+    regions: state.regions.regions,
     hiddenRegions: state.courses.hiddenRegions,
   };
 }
