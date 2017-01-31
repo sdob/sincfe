@@ -7,6 +7,7 @@ import InlineSpinner from './InlineSpinner';
 import MemberTable from './MemberTable';
 import NotImplementedYet from './NotImplementedYet';
 import PageLoading from './PageLoading';
+import RegionFilter from './RegionFilter';
 import SortedTable from './SortedTable';
 import SubmitRow from './SubmitRow';
 import UneditableProfileHelp from './UneditableProfileHelp';
@@ -22,6 +23,7 @@ export {
   MemberTable,
   NotImplementedYet,
   PageLoading,
+  RegionFilter,
   SelectRow,
   SortedTable,
   SubmitRow,
