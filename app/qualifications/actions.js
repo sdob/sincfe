@@ -1,55 +1,31 @@
-import axios from 'axios';
-
 import { clubQualificationsUrl, memberQualificationListUrl, qualificationListUrl } from '../api';
-import * as types from './types';
+import { createApiAction } from '../shared';
+import {
+  clubQualificationList,
+  memberQualificationList,
+  qualificationList,
+} from './types';
 
-function handleError(dispatch, error, type = types.GENERIC_QUALIFICATIONS_ERROR) {
-  console.error(error);
-  dispatch({ type, payload: error });
-}
+/* Retrieve all qualifications for the club with ID 'cid' */
+const fetchClubQualifications = cid => createApiAction({
+  url: clubQualificationsUrl(cid),
+  method: 'get',
+  types: clubQualificationList,
+});
 
-function fetchClubQualifications(cid) {
-  return function fetch(dispatch) {
-    const url = clubQualificationsUrl(cid);
-    axios.get(url)
-    .then((response) => {
-      const qualifications = response.data;
-      dispatch({ type: types.CLUB_QUALIFICATIONS_RECEIVED, payload: qualifications });
-    })
-    .catch((error) => {
-      handleError(dispatch, error, types.CLUB_QUALIFICATIONS_ERROR);
-    });
-  };
-}
+/* Retrieve all qualifications for the member with ID 'uid' */
+const fetchMemberQualifications = uid => createApiAction({
+  url: memberQualificationListUrl(uid),
+  method: 'get',
+  types: clubQualificationList,
+});
 
-function fetchMemberQualifications(uid) {
-  return function fetch(dispatch) {
-    const url = memberQualificationListUrl(uid);
-    axios.get(url)
-    .then((response) => {
-      const qualifications = response.data;
-      dispatch({ type: types.MEMBER_QUALIFICATIONS_RECEIVED, payload: qualifications });
-    })
-    .catch((error) => {
-      handleError(dispatch, error, types.MEMBER_QUALIFICATIONS_ERROR);
-    });
-  };
-}
-
-function fetchQualifications() {
-  return function fetch(dispatch) {
-    const url = qualificationListUrl();
-    return axios.get(url)
-    .then((response) => {
-      const { data } = response;
-      dispatch({ type: types.QUALIFICATION_LIST_RECEIVED, payload: data });
-    })
-    .catch((error) => {
-      dispatch({ type: types.QUALIFICATION_LIST_ERROR, payload: error });
-      throw error;
-    });
-  };
-}
+/* Retrieve ALL qualifications in the system */
+const fetchQualifications = () => createApiAction({
+  url: qualificationListUrl(),
+  method: 'get',
+  types: clubQualificationList,
+});
 
 export {
   fetchClubQualifications,
