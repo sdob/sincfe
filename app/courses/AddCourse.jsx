@@ -4,24 +4,39 @@ import { Field, reduxForm } from 'redux-form';
 import Autosuggest from 'react-autosuggest';
 import DebounceInput from 'react-debounce-input';
 import debounce from 'lodash/debounce';
+import range from 'lodash/range';
 
-import { DatePicker, PageLoading, SubmitRow } from '../shared';
+import { DatePicker, PageLoading, SelectRow, SubmitRow } from '../shared';
 import { fetchRegionList } from '../regions';
 import { fetchCertificateList } from './actions';
 import { searchForMember } from '../profiles/actions';
 
 const form = reduxForm({
-  form: 'AddCourse',
+  form: 'addCourse',
 });
+
+const instructorInputId = 'js-autosuggest-instructor';
+const organizerInputId = 'js-autosuggest-organizer';
 
 class AddCourse extends Component {
   constructor(props, ctx) {
     super(props, ctx);
+    // Bind methods to the component
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleInstructorAdd = this.handleInstructorAdd.bind(this);
+    this.handleInstructorRemove = this.handleInstructorRemove.bind(this);
+    this.handleInstructorSelection = this.handleInstructorSelection.bind(this);
+    this.onInstructorChange = this.onInstructorChange.bind(this);
     this.onOrganizerChange = this.onOrganizerChange.bind(this);
+    this.onInstructorSuggestionsFetchRequested = debounce(this.onInstructorSuggestionsFetchRequested.bind(this), 250);
     this.onSuggestionsFetchRequested = debounce(this.onSuggestionsFetchRequested.bind(this), 250);
+    // Initialize state
     this.state = {
-      value: '',
+      instructorValue: '',
+      instructors: [],
+      instructorSuggestions: [],
       suggestions: [],
+      value: '',
     };
   }
 
@@ -31,8 +46,58 @@ class AddCourse extends Component {
     this.props.fetchCertificateList();
   }
 
+  handleFormSubmit(formProps) {
+    const { instructors } = this.state;
+    // Add the instructors to the form data
+    const data = {
+      ...formProps,
+      instructors: instructors.map(u => u.id),
+    };
+    console.info('submitting');
+    console.info(data);
+  }
+
+  handleInstructorAdd(evt) {
+    const { instructors, selectedInstructor } = this.state;
+    this.setState({
+      // Add the selected instructor to the list of instructors
+      instructors: [...instructors, selectedInstructor],
+      // Clear the input
+      instructorValue: '',
+      // Unset the selected instructor
+      selectedInstructor: undefined,
+    });
+  }
+
+  handleInstructorRemove(uid) {
+    this.setState({
+      instructors: this.state.instructors.filter(i => i.id !== uid),
+    });
+  }
+
+  handleInstructorSelection(value, { suggestion }) {
+    // Automatically add the instructor when the user selects them as
+    // an option.
+    const { instructors } = this.state;
+    this.setState({
+      instructors: [...instructors, suggestion],
+      instructorValue: '',
+    });
+  }
+
+  onInstructorChange(event, { newValue }) {
+    this.setState({ instructorValue: newValue });
+  }
+
   onOrganizerChange(event, { newValue }) {
     this.setState({ value: newValue });
+  }
+
+  onInstructorSuggestionsFetchRequested({ value }) {
+    this.props.searchForMember(value)
+    .then((data) => {
+      this.setState({ instructorSuggestions: data });
+    });
   }
 
   onSuggestionsFetchRequested({ value }) {
@@ -45,67 +110,93 @@ class AddCourse extends Component {
   }
 
   render() {
-    const {certificates, regions, submitting } = this.props;
+    const { certificates, handleSubmit, regions, submitting } = this.props;
+
+    // If we haven't loaded the regions and certificates, then show a spinner
     if (!(regions && certificates)) {
       return <PageLoading />;
     }
 
-    // Set the props that we pass to the autosuggest input
-    const { value, suggestions } = this.state;
+    // Extract what we need from the component's state
+    const {
+      instructors,
+      instructorValue,
+      instructorSuggestions,
+      selectedInstructor,
+      suggestions,
+      value,
+    } = this.state;
+
+    // Set the props that we pass to the autosuggest inputs
     const organizerInputProps = {
       placeholder: 'Name or CFT number',
+      id: organizerInputId,
       value,
       onChange: this.onOrganizerChange,
     };
+    const instructorInputProps = {
+      ...organizerInputProps,
+      id: instructorInputId,
+      value: instructorValue,
+      onChange: this.onInstructorChange,
+    };
 
     return (
-      <form>
+      <form onSubmit={handleSubmit(this.handleFormSubmit)}>
         <h1 className="sinc-page-header">
           Add course
         </h1>
+        <SelectRow
+          className="form-group row"
+          field="region"
+          label="Region"
+          options={[
+            { label: 'Select region', value: "-1"},
+            ...(regions.map(r => ({label: r.name, value: r.id})))
+          ]}
+        />
+        <SelectRow
+          className="form-group row"
+          field="certificate"
+          label="Certificate"
+          options={[
+            { label: 'Select certification', value: '-1' },
+            ...certificates.map(c => ({label: c.name, value: c.id}))
+          ]}
+        />
         <div className="form-group row">
-          <div className="col-xs-6 col-md-4 col-xl-3">
-            <label htmlFor="region">
-              Region
-            </label>
-          </div>
-          <div className="col-xs-6 col-md-8 col-lg-3">
-            <select className="form-control" name="region">
-              <option value="NaN">Select region</option>
-              {regions.map(r => (
-                <option value={r.id}>{r.name}</option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="form-group row">
-          <div className="col-xs-6 col-md-4 col-xl-3">
-            <label htmlFor="certificate">
-              Certification
-            </label>
-          </div>
-          <div className="col-xs-6 col-md-8 col-lg-3">
-            <select className="form-control" name="certificate">
-              <option value="NaN">Select certification</option>
-              {certificates.map(c => (
-                <option value={c.id}>{c.name}</option>
-              ))}
-            </select>
-          </div>
-        </div>
-        <div className="form-group row">
-          <div className="col-xs-6 col-md-4 col-xl-3">
+          <div className="col-xs-12 col-sm-6 col-md-4 col-xl-3">
             <label htmlFor="date col-form-label">
               Date
             </label>
           </div>
-          <div className="col-xs-6 col-md-8 col-lg-3">
+          <div className="col-xs-12 col-sm-6 col-md-8 col-lg-3">
             <Field name="date" component={DatePicker} aria-describedby="aria-date-help" />
           </div>
-          <div className="col-xs-6 offset-xs-6 col-md-8 offset-md-4 col-xl-9 offset-xl-3">
-            <p className="help-block" id="aria-date-help">
+          <div className="col-xs-12 col-md-8 offset-md-4 col-xl-9 offset-xl-3 text-sm-right">
+            <span className="help-block" id="aria-date-help">
               Leave this empty for recurring courses.
-            </p>
+            </span>
+          </div>
+        </div>
+        <div className="form-group row">
+          <div className="col-xs-12 col-sm-6 col-md-4 col-xl-3">
+            <label htmlFor="maximum_participants">
+              Maximum participants
+            </label>
+          </div>
+          <div className="col-xs-12 col-sm-6 col-md-8 col-lg-3">
+            <Field
+              name="maximum_participants"
+              component="input"
+              className="form-control"
+              aria-describedby="aria-maximum-participants-help"
+            />
+          </div>
+          <div className="col-xs-12 col-md-8 offset-md-4 col-xl-9 offset-xl-3 text-sm-right">
+            <span className="help-block" id="aria-maximum-participants-help">
+              Leave this empty for unlimited participants.
+            </span>
           </div>
         </div>
         <div className="form-group row">
@@ -116,35 +207,54 @@ class AddCourse extends Component {
           </div>
           <div className="col-xs-12 col-md-8 col-lg-5 col-xl-6">
             <Autosuggest
+              id="js-autosuggest-organizer"
               suggestions={suggestions}
               getSuggestionValue={getSuggestionValue}
               inputProps={organizerInputProps}
               onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
               renderSuggestion={renderSuggestion}
             />
-            {/* renderInputComponent={renderInputComponent} */}
           </div>
         </div>
-        <div className="form-group row">
-          <div className="col-xs-6 col-md-4 col-xl-3">
-            <label htmlFor="maximum_participants">
-              Max. participants
-            </label>
-          </div>
-          <div className="col-xs-6 col-md-8 col-lg-3">
-            <Field
-              name="maximum_participants"
-              component="input"
-              className="form-control"
-              aria-describedby="aria-maximum-participants-help"
-            />
-          </div>
-          <div className="col-xs-6 offset-xs-6 col-md-8 offset-md-4 col-xl-9 offset-xl-3">
-            <p className="help-block" id="aria-maximum-participants-help">
-              Leave this empty for unlimited participants.
-            </p>
+
+        <h2 className="sinc-section-header sinc-section-header--minor">
+          Instructors
+        </h2>
+        <div>
+          {instructors.map((i, index) => (
+            <div className="form-group row" key={i.id}>
+              <div className="col-xs-1 offset-md-2 offset-lg-3 offset-xl-3">
+                {i.id}
+              </div>
+              <div className="col-xs-9 col-md-7 col-lg-5 col-xl-6">
+                {i.first_name} {i.last_name}
+              </div>
+              <div className="col-xs-2 col-xl-3 text-xs-right">
+                <button
+                  className="btn btn-danger"
+                  onClick={evt => this.handleInstructorRemove(i.id)}
+                  type="button"
+                >
+                  <i className="fa fa-fw fa-times" />
+                </button>
+              </div>
+            </div>
+          ))}
+          <div className="form-group row">
+            <div className="col-xs-12 col-md-7 offset-md-4 col-lg-5 col-xl-6 offset-xl-3">
+              <Autosuggest
+                id="js-autosuggest-instructor"
+                suggestions={instructorSuggestions}
+                getSuggestionValue={getSuggestionValue}
+                inputProps={instructorInputProps}
+                onSuggestionsFetchRequested={this.onInstructorSuggestionsFetchRequested}
+                onSuggestionSelected={this.handleInstructorSelection}
+                renderSuggestion={renderSuggestion}
+              />
+            </div>
           </div>
         </div>
+
         <SubmitRow />
       </form>
     );
