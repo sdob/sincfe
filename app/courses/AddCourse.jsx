@@ -8,7 +8,7 @@ import range from 'lodash/range';
 
 import { DatePicker, PageLoading, SelectRow, SubmitRow } from '../shared';
 import { fetchRegionList } from '../regions';
-import { fetchCertificateList } from './actions';
+import { addCourse, fetchCertificateList } from './actions';
 import { searchForMember } from '../profiles/actions';
 
 const form = reduxForm({
@@ -59,6 +59,8 @@ class AddCourse extends Component {
     };
     console.info('submitting');
     console.info(data);
+    console.info(this.props);
+    this.props.addCourse(data);
   }
 
   handleInstructorAdd(evt) {
@@ -338,6 +340,7 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
+  addCourse,
   fetchCertificateList,
   fetchRegionList,
   searchForMember,

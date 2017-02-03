@@ -2,9 +2,17 @@ import { createApiAction } from '../api';
 import { certificateListUrl, courseDetailUrl, coursesListUrl } from '../api/urls';
 import {
   certificateList,
+  courseAdd,
   courseDetail,
   courseList,
 } from './types';
+
+
+const addCourse = data => createApiAction({
+  url: coursesListUrl(),
+  method: 'post',
+  types: courseAdd,
+});
 
 const fetchCertificateList = () => createApiAction({
   url: certificateListUrl(),
@@ -38,6 +46,7 @@ function showRegion(region) {
 }
 
 export {
+  addCourse,
   fetchCertificateList,
   fetchCourseDetail,
   fetchCourseList,
