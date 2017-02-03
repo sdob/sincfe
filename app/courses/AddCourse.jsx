@@ -26,6 +26,8 @@ class AddCourse extends Component {
     this.handleInstructorAdd = this.handleInstructorAdd.bind(this);
     this.handleInstructorRemove = this.handleInstructorRemove.bind(this);
     this.handleInstructorSelection = this.handleInstructorSelection.bind(this);
+    this.handleOrganizerClear = this.handleOrganizerClear.bind(this);
+    this.handleOrganizerSelection = this.handleOrganizerSelection.bind(this);
     this.onInstructorChange = this.onInstructorChange.bind(this);
     this.onOrganizerChange = this.onOrganizerChange.bind(this);
     this.onInstructorSuggestionsFetchRequested = debounce(this.onInstructorSuggestionsFetchRequested.bind(this), 250);
@@ -47,11 +49,13 @@ class AddCourse extends Component {
   }
 
   handleFormSubmit(formProps) {
-    const { instructors } = this.state;
+    const { instructors, organizer } = this.state;
+    const organizerId = organizer ? organizer.id : undefined;
     // Add the instructors to the form data
     const data = {
       ...formProps,
       instructors: instructors.map(u => u.id),
+      organizer: organizerId,
     };
     console.info('submitting');
     console.info(data);
@@ -83,6 +87,17 @@ class AddCourse extends Component {
       instructors: [...instructors, suggestion],
       instructorValue: '',
     });
+  }
+
+  handleOrganizerClear() {
+    console.info('clearing suggestions');
+    this.setState({ organizer: undefined });
+    this.setState({ value: '' });
+  }
+
+  handleOrganizerSelection(value, { suggestion }) {
+    console.info('handling organizer select');
+    this.setState({ organizer: suggestion });
   }
 
   onInstructorChange(event, { newValue }) {
@@ -122,6 +137,7 @@ class AddCourse extends Component {
       instructors,
       instructorValue,
       instructorSuggestions,
+      organizer,
       selectedInstructor,
       suggestions,
       value,
@@ -165,7 +181,7 @@ class AddCourse extends Component {
           ]}
         />
         <div className="form-group row">
-          <div className="col-xs-12 col-sm-6 col-md-4 col-xl-3">
+          <div className="col-xs-12 col-sm-6 col-md-4">
             <label htmlFor="date col-form-label">
               Date
             </label>
@@ -173,14 +189,14 @@ class AddCourse extends Component {
           <div className="col-xs-12 col-sm-6 col-md-8 col-lg-3">
             <Field name="date" component={DatePicker} aria-describedby="aria-date-help" />
           </div>
-          <div className="col-xs-12 col-md-8 offset-md-4 col-xl-9 offset-xl-3 text-sm-right">
+          <div className="col-xs-12 col-md-8 offset-md-4 col-xl-9">
             <span className="help-block" id="aria-date-help">
               Leave this empty for recurring courses.
             </span>
           </div>
         </div>
         <div className="form-group row">
-          <div className="col-xs-12 col-sm-6 col-md-4 col-xl-3">
+          <div className="col-xs-12 col-sm-6 col-md-4">
             <label htmlFor="maximum_participants">
               Maximum participants
             </label>
@@ -193,28 +209,50 @@ class AddCourse extends Component {
               aria-describedby="aria-maximum-participants-help"
             />
           </div>
-          <div className="col-xs-12 col-md-8 offset-md-4 col-xl-9 offset-xl-3 text-sm-right">
+          <div className="col-xs-12 col-md-8 offset-md-4 col-xl-9">
             <span className="help-block" id="aria-maximum-participants-help">
               Leave this empty for unlimited participants.
             </span>
           </div>
         </div>
         <div className="form-group row">
-          <div className="col-xs-12 col-md-4 col-xl-3">
+          <div className="col-xs-12 col-md-3">
             <label htmlFor="date col-form-label">
               Organizer
             </label>
           </div>
-          <div className="col-xs-12 col-md-8 col-lg-5 col-xl-6">
-            <Autosuggest
-              id="js-autosuggest-organizer"
-              suggestions={suggestions}
-              getSuggestionValue={getSuggestionValue}
-              inputProps={organizerInputProps}
-              onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-              renderSuggestion={renderSuggestion}
-            />
-          </div>
+          {organizer ? (
+            <div>
+              <div className="col-xs-1 form-control-static text-xs-right">
+                {organizer.id}
+              </div>
+              <div className="col-xs-9 col-md-6 col-lg-5 form-control-static">
+                {organizer.first_name} {organizer.last_name}
+              </div>
+              <div className="col-xs-2 col-xl-3">
+                <button
+                  className="btn btn-danger"
+                  onClick={this.handleOrganizerClear}
+                >
+                  <i className="fa fa-fw fa-times" />
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="col-xs-12 offset-md-1 col-md-8 col-lg-5">
+              <Autosuggest
+                id="js-autosuggest-organizer"
+                name="organizer"
+                suggestions={suggestions}
+                getSuggestionValue={getSuggestionValue}
+                inputProps={organizerInputProps}
+                onSuggestionSelected={this.handleOrganizerSelection}
+                onSuggestionsClearSelected={this.handleOrganizerClear}
+                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
+                renderSuggestion={renderSuggestion}
+              />
+            </div>
+          )}
         </div>
 
         <h2 className="sinc-section-header sinc-section-header--minor">
@@ -223,13 +261,13 @@ class AddCourse extends Component {
         <div>
           {instructors.map((i, index) => (
             <div className="form-group row" key={i.id}>
-              <div className="col-xs-1 offset-md-2 offset-lg-3 offset-xl-3">
+              <div className="col-xs-1 form-control-static offset-md-3 text-xs-right">
                 {i.id}
               </div>
-              <div className="col-xs-9 col-md-7 col-lg-5 col-xl-6">
+              <div className="form-control-static col-xs-9 col-md-7 col-lg-5 col-xl-6">
                 {i.first_name} {i.last_name}
               </div>
-              <div className="col-xs-2 col-xl-3 text-xs-right">
+              <div className="col-xs-2 col-xl-3">
                 <button
                   className="btn btn-danger"
                   onClick={evt => this.handleInstructorRemove(i.id)}
@@ -241,7 +279,7 @@ class AddCourse extends Component {
             </div>
           ))}
           <div className="form-group row">
-            <div className="col-xs-12 col-md-7 offset-md-4 col-lg-5 col-xl-6 offset-xl-3">
+            <div className="col-xs-12 col-md-8 offset-md-4 col-lg-5">
               <Autosuggest
                 id="js-autosuggest-instructor"
                 suggestions={instructorSuggestions}
@@ -261,6 +299,14 @@ class AddCourse extends Component {
 
     function getSuggestionValue(member) {
       return `${member.first_name} ${member.last_name}`;
+    }
+
+    function renderAutosuggest(props) {
+      console.info('rendering autosuggest');
+      console.info(props);
+      return (
+        <Autosuggest {...props} />
+      );
     }
 
     function renderInputComponent(inputProps) {
