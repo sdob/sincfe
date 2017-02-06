@@ -1,10 +1,16 @@
 import { createApiAction } from '../api';
-import { certificateListUrl, courseDetailUrl, coursesListUrl } from '../api/urls';
+import {
+  certificateListUrl,
+  courseDetailUrl,
+  coursesListUrl,
+  memberCoursesOrganizedListUrl,
+} from '../api/urls';
 import {
   certificateList,
   courseAdd,
   courseDetail,
   courseList,
+  memberCoursesOrganizedList,
 } from './types';
 
 
@@ -33,9 +39,16 @@ const fetchCourseList = () => createApiAction({
   types: courseList,
 });
 
+const fetchCoursesOrganized = uid => createApiAction({
+  url: memberCoursesOrganizedListUrl(uid),
+  method: 'get',
+  types: memberCoursesOrganizedList,
+});
+
 export {
   addCourse,
   fetchCertificateList,
   fetchCourseDetail,
   fetchCourseList,
+  fetchCoursesOrganized,
 };
