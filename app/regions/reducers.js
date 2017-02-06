@@ -1,4 +1,3 @@
-// import * as types from './types';
 import { regionDetail, regionList } from './types';
 
 function regionsReducer(state = {}, action) {

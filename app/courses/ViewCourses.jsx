@@ -88,7 +88,11 @@ class ViewCourses extends Component {
           Filter by region
         </h2>
         <div className="row">
-          {regions && regions.length ? (<RegionFilter regions={regions} onChange={this.handleRegionToggle} />) : (<PageLoading />)}
+          {regions && regions.length ? (
+            <RegionFilter regions={regions} onChange={this.handleRegionToggle} />
+          ) : (
+            <PageLoading />
+          )}
         </div>
 
         <h2 className="sinc-section-header sinc-section-header--minor">

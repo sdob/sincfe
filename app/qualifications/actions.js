@@ -17,14 +17,14 @@ const fetchClubQualifications = cid => createApiAction({
 const fetchMemberQualifications = uid => createApiAction({
   url: memberQualificationListUrl(uid),
   method: 'get',
-  types: clubQualificationList,
+  types: memberQualificationList,
 });
 
 /* Retrieve ALL qualifications in the system */
 const fetchQualifications = () => createApiAction({
   url: qualificationListUrl(),
   method: 'get',
-  types: clubQualificationList,
+  types: qualificationList,
 });
 
 export {

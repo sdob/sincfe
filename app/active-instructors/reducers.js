@@ -1,6 +1,6 @@
 import {
   regionActiveInstructorList,
-}from './types';
+} from './types';
 
 export default function activeInstructorsReducer(state = {}, action) {
   switch (action.type) {

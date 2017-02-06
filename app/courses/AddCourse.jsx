@@ -2,9 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 import Autosuggest from 'react-autosuggest';
-import DebounceInput from 'react-debounce-input';
 import debounce from 'lodash/debounce';
-import range from 'lodash/range';
 
 import { DatePicker, MemberLineItem, PageLoading, SelectRow, SubmitRow } from '../shared';
 import { fetchRegionList } from '../regions';
@@ -30,7 +28,10 @@ class AddCourse extends Component {
     this.handleOrganizerSelection = this.handleOrganizerSelection.bind(this);
     this.onInstructorChange = this.onInstructorChange.bind(this);
     this.onOrganizerChange = this.onOrganizerChange.bind(this);
-    this.onInstructorSuggestionsFetchRequested = debounce(this.onInstructorSuggestionsFetchRequested.bind(this), 250);
+    this.onInstructorSuggestionsFetchRequested = debounce(
+      this.onInstructorSuggestionsFetchRequested.bind(this),
+      250
+    );
     this.onSuggestionsFetchRequested = debounce(this.onSuggestionsFetchRequested.bind(this), 250);
     // Initialize state
     this.state = {
@@ -48,19 +49,32 @@ class AddCourse extends Component {
     this.props.fetchCertificateList();
   }
 
-  handleFormSubmit(formProps) {
-    const { instructors, organizer } = this.state;
-    const organizerId = organizer ? organizer.id : undefined;
-    // Add the instructors to the form data
-    const data = {
-      ...formProps,
-      instructors: instructors.map(u => u.id),
-      organizer: organizerId,
-    };
-    this.props.addCourse(data);
+
+  onInstructorChange(event, { newValue }) {
+    this.setState({ instructorValue: newValue });
   }
 
-  handleInstructorAdd(evt) {
+  onOrganizerChange(event, { newValue }) {
+    this.setState({ value: newValue });
+  }
+
+  onInstructorSuggestionsFetchRequested({ value }) {
+    this.props.searchForMember(value)
+    .then((data) => {
+      this.setState({ instructorSuggestions: data });
+    });
+  }
+
+  onSuggestionsFetchRequested({ value }) {
+    // Do a search by name fragment for members and put them into
+    // the state when the data return.
+    this.props.searchForMember(value)
+    .then((data) => {
+      this.setState({ suggestions: data });
+    });
+  }
+
+  handleInstructorAdd() {
     const { instructors, selectedInstructor } = this.state;
     this.setState({
       // Add the selected instructor to the list of instructors
@@ -97,32 +111,20 @@ class AddCourse extends Component {
     this.setState({ organizer: suggestion });
   }
 
-  onInstructorChange(event, { newValue }) {
-    this.setState({ instructorValue: newValue });
-  }
-
-  onOrganizerChange(event, { newValue }) {
-    this.setState({ value: newValue });
-  }
-
-  onInstructorSuggestionsFetchRequested({ value }) {
-    this.props.searchForMember(value)
-    .then((data) => {
-      this.setState({ instructorSuggestions: data });
-    });
-  }
-
-  onSuggestionsFetchRequested({ value }) {
-    // Do a search by name fragment for members and put them into
-    // the state when the data return.
-    this.props.searchForMember(value)
-    .then((data) => {
-      this.setState({ suggestions: data });
-    });
+  handleFormSubmit(formProps) {
+    const { instructors, organizer } = this.state;
+    const organizerId = organizer ? organizer.id : undefined;
+    // Add the instructors to the form data
+    const data = {
+      ...formProps,
+      instructors: instructors.map(u => u.id),
+      organizer: organizerId,
+    };
+    this.props.addCourse(data);
   }
 
   render() {
-    const { certificates, handleSubmit, regions, submitting } = this.props;
+    const { certificates, handleSubmit, regions } = this.props;
 
     // If we haven't loaded the regions and certificates, then show a spinner
     if (!(regions && certificates)) {
@@ -135,7 +137,6 @@ class AddCourse extends Component {
       instructorValue,
       instructorSuggestions,
       organizer,
-      selectedInstructor,
       suggestions,
       value,
     } = this.state;
@@ -164,8 +165,8 @@ class AddCourse extends Component {
           field="region"
           label="Region"
           options={[
-            { label: 'Select region', value: "-1"},
-            ...(regions.map(r => ({label: r.name, value: r.id})))
+            { label: 'Select region', value: '-1' },
+            ...(regions.map(r => ({ label: r.name, value: r.id })))
           ]}
         />
         <SelectRow
@@ -174,7 +175,7 @@ class AddCourse extends Component {
           label="Certificate"
           options={[
             { label: 'Select certification', value: '-1' },
-            ...certificates.map(c => ({label: c.name, value: c.id}))
+            ...certificates.map(c => ({ label: c.name, value: c.id }))
           ]}
         />
         <div className="form-group row">
@@ -267,21 +268,6 @@ class AddCourse extends Component {
 
     function getSuggestionValue(member) {
       return `${member.first_name} ${member.last_name}`;
-    }
-
-    function renderAutosuggest(props) {
-      return (
-        <Autosuggest {...props} />
-      );
-    }
-
-    function renderInputComponent(inputProps) {
-      return (
-        <DebounceInput
-          debounceTimeout={300}
-          {...inputProps}
-        />
-      );
     }
 
     function renderSuggestion(member) {

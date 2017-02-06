@@ -33,24 +33,9 @@ const fetchCourseList = () => createApiAction({
   types: courseList,
 });
 
-function hideRegion(region) {
-  console.info(`hiding region ID ${region.id}`);
-  return function hide(dispatch) {
-    dispatch({ type: types.REGION_HIDE, payload: region });
-  };
-}
-
-function showRegion(region) {
-  return function show(dispatch) {
-    dispatch({ type: types.REGION_SHOW, payload: region });
-  };
-}
-
 export {
   addCourse,
   fetchCertificateList,
   fetchCourseDetail,
   fetchCourseList,
-  hideRegion,
-  showRegion,
 };

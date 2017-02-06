@@ -38,7 +38,7 @@ const fetchProfile = () => createApiAction({
   types: ownProfileRetrieve,
 });
 
-const searchForMember = (name) => createApiAction({
+const searchForMember = name => createApiAction({
   url: memberNameSearchUrl(name),
   method: 'get',
   types: memberList,
