@@ -4,6 +4,7 @@ import { Field, reduxForm } from 'redux-form';
 import Autosuggest from 'react-autosuggest';
 import debounce from 'lodash/debounce';
 
+import * as paths from '../paths';
 import { DatePicker, MemberLineItem, PageLoading, SelectRow, SubmitRow } from '../shared';
 import { fetchRegionList } from '../regions';
 import { addCourse, fetchCertificateList } from './actions';
@@ -49,6 +50,14 @@ class AddCourse extends Component {
     this.props.fetchCertificateList();
   }
 
+  componentWillReceiveProps(nextProps) {
+    // If we've received a 'course' object, it means that we've successfully added
+    // a course.
+    const { added } = nextProps;
+    if (added) {
+      this.context.router.push(paths.VIEW_COURSES);
+    }
+  }
 
   onInstructorChange(event, { newValue }) {
     this.setState({ instructorValue: newValue });
@@ -280,8 +289,13 @@ class AddCourse extends Component {
   }
 }
 
+AddCourse.contextTypes = {
+  router: React.PropTypes.object.isRequired,
+}
+
 function mapStateToProps(state) {
   return {
+    added: state.courses.added,
     certificates: state.courses.certificates,
     members: state.profiles.members,
     regions: state.regions.regions,
