@@ -57,9 +57,6 @@ class AddCourse extends Component {
       instructors: instructors.map(u => u.id),
       organizer: organizerId,
     };
-    console.info('submitting');
-    console.info(data);
-    console.info(this.props);
     this.props.addCourse(data);
   }
 
@@ -92,13 +89,11 @@ class AddCourse extends Component {
   }
 
   handleOrganizerClear() {
-    console.info('clearing suggestions');
     this.setState({ organizer: undefined });
     this.setState({ value: '' });
   }
 
   handleOrganizerSelection(value, { suggestion }) {
-    console.info('handling organizer select');
     this.setState({ organizer: suggestion });
   }
 
@@ -304,15 +299,12 @@ class AddCourse extends Component {
     }
 
     function renderAutosuggest(props) {
-      console.info('rendering autosuggest');
-      console.info(props);
       return (
         <Autosuggest {...props} />
       );
     }
 
     function renderInputComponent(inputProps) {
-      console.info(inputProps);
       return (
         <DebounceInput
           debounceTimeout={300}
