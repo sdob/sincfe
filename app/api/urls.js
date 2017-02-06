@@ -48,6 +48,10 @@ function loginUrl() {
   return `${API_URL}/auth/login/`;
 }
 
+function memberCoursesOrganizedListUrl(uid) {
+  return `${API_URL}/users/${uid}/courses-organized/`;
+}
+
 function memberDetailUrl(uid) {
   return `${API_URL}/users/${uid}/`;
 }
@@ -92,6 +96,7 @@ export {
   coursesListUrl,
   currentMembershipStatusUrl,
   loginUrl,
+  memberCoursesOrganizedListUrl,
   memberDetailUrl,
   memberListUrl,
   memberNameSearchUrl,
