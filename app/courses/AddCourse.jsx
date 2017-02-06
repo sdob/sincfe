@@ -6,7 +6,7 @@ import DebounceInput from 'react-debounce-input';
 import debounce from 'lodash/debounce';
 import range from 'lodash/range';
 
-import { DatePicker, PageLoading, SelectRow, SubmitRow } from '../shared';
+import { DatePicker, MemberLineItem, PageLoading, SelectRow, SubmitRow } from '../shared';
 import { fetchRegionList } from '../regions';
 import { addCourse, fetchCertificateList } from './actions';
 import { searchForMember } from '../profiles/actions';
@@ -219,22 +219,7 @@ class AddCourse extends Component {
             </label>
           </div>
           {organizer ? (
-            <div>
-              <div className="col-xs-1 form-control-static text-xs-right">
-                {organizer.id}
-              </div>
-              <div className="col-xs-9 col-md-6 col-lg-5 form-control-static">
-                {organizer.first_name} {organizer.last_name}
-              </div>
-              <div className="col-xs-2 col-xl-3">
-                <button
-                  className="btn btn-danger"
-                  onClick={this.handleOrganizerClear}
-                >
-                  <i className="fa fa-fw fa-times" />
-                </button>
-              </div>
-            </div>
+            <MemberLineItem inline member={organizer} onClick={this.handleOrganizerClear} />
           ) : (
             <div className="col-xs-12 offset-md-1 col-md-8 col-lg-5">
               <Autosuggest
@@ -256,23 +241,9 @@ class AddCourse extends Component {
           Instructors
         </h2>
         <div>
-          {instructors.map((i, index) => (
+          {instructors.map(i => (
             <div className="form-group row" key={i.id}>
-              <div className="col-xs-1 form-control-static offset-md-3 text-xs-right">
-                {i.id}
-              </div>
-              <div className="form-control-static col-xs-9 col-md-7 col-lg-5 col-xl-6">
-                {i.first_name} {i.last_name}
-              </div>
-              <div className="col-xs-2 col-xl-3">
-                <button
-                  className="btn btn-danger"
-                  onClick={evt => this.handleInstructorRemove(i.id)}
-                  type="button"
-                >
-                  <i className="fa fa-fw fa-times" />
-                </button>
-              </div>
+              <MemberLineItem member={i} onClick={this.handleOnInstructorRemove} />
             </div>
           ))}
           <div className="form-group row">

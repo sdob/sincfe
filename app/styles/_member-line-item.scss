@@ -1,0 +1,25 @@
+.sinc-member-line-item {
+  &__id {
+    @extend .col-xs-1;
+    @extend .form-control-static;
+    @extend .text-xs-right;
+    font-weight: bold;
+  }
+  &__id.block {
+    @extend .offset-md-3;
+  }
+  &__name {
+    @extend .col-xs-9;
+    @extend .col-md-6;
+    @extend .col-lg-5;
+    @extend .form-control-static;
+  }
+  &__button-container {
+    @extend .col-xs-2;
+    @extend .col-xl-3;
+  }
+  &__button {
+    @extend .btn;
+    @extend .btn-danger;
+  }
+}

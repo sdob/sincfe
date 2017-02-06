@@ -4,6 +4,7 @@ import FormRow from './FormRow';
 import SelectRow from './SelectRow';
 import GenericErrorMessage from './GenericErrorMessage';
 import InlineSpinner from './InlineSpinner';
+import MemberLineItem from './MemberLineItem';
 import MemberTable from './MemberTable';
 import NotImplementedYet from './NotImplementedYet';
 import PageLoading from './PageLoading';
@@ -20,6 +21,7 @@ export {
   FormRow,
   GenericErrorMessage,
   InlineSpinner,
+  MemberLineItem,
   MemberTable,
   NotImplementedYet,
   PageLoading,
