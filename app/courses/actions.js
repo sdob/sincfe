@@ -9,6 +9,7 @@ import {
 
 
 const addCourse = data => createApiAction({
+  data,
   url: coursesListUrl(),
   method: 'post',
   types: courseAdd,
