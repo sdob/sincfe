@@ -19,6 +19,7 @@ export const CLUB_QUALIFICATIONS = '/club-qualifications';
 export const CLUB_RENEWAL_ORDERS = '/club-renewal-orders';
 export const CONTACT_US = '/contact-us';
 export const DOCUMENTS = '/documents';
+export const EDIT_COURSE = '/edit-course';
 export const EDIT_MEMBER = '/edit-member';
 export const EDIT_PROFILE = '/edit-profile';
 export const EDIT_QUALIFICATION = '/edit-qualification';
