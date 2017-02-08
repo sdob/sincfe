@@ -6,7 +6,8 @@ import moment from 'moment';
 import * as paths from '../paths';
 import { CertificateSelector, PageLoading, RegionFilter } from '../shared';
 import { fetchRegions } from '../regions/actions';
-import { deleteCourse, fetchCertificateList, fetchCourseList, hideRegion, showRegion } from './actions';
+import { deleteCourse, fetchCertificateList, fetchCourseList } from './actions';
+import { showModal } from '../modals/actions';
 
 class ViewCourses extends Component {
 
@@ -64,11 +65,13 @@ class ViewCourses extends Component {
   }
 
   handleCourseDelete(cid) {
-    if (confirm('Are you sure?')) {
-      console.info('deleting...');
-      this.props.deleteCourse(cid)
-      .then(this.props.fetchCourseList);
-    }
+    console.info('handling course delete');
+    this.props.showModal({
+      modalType: 'DELETE_COURSE',
+      modalProps: {
+        courseId: cid,
+      },
+    });
   }
 
   handleRegionToggle(rid, visibility) {
@@ -100,13 +103,11 @@ class ViewCourses extends Component {
         <h2 className="sinc-section-header sinc-section-header--minor">
           Filter by region
         </h2>
-        <div className="row">
-          {regions && regions.length ? (
-            <RegionFilter regions={regions} onChange={this.handleRegionToggle} />
-          ) : (
-            <PageLoading />
-          )}
-        </div>
+        {regions && regions.length ? (
+          <RegionFilter regions={regions} onChange={this.handleRegionToggle} />
+        ) : (
+          <PageLoading />
+        )}
 
         <h2 className="sinc-section-header sinc-section-header--minor">
           Filter by certification
@@ -156,7 +157,10 @@ class ViewCourses extends Component {
                       to={`${paths.EDIT_COURSE}/${course.id}`}>
                       <i className="fa fa-fw fa-edit" />
                     </Link>
-                    <button className="btn btn-danger sinc-btn--compact" onClick={() => this.handleCourseDelete(course.id)}>
+                    <button
+                      className="btn btn-danger sinc-btn--compact"
+                      onClick={() => this.handleCourseDelete(course.id)}
+                    >
                       <i className="fa fa-fw fa-trash" />
                     </button>
                   </td>
@@ -186,8 +190,7 @@ const actionList = {
   fetchCertificateList,
   fetchCourseList,
   fetchRegions,
-  hideRegion,
-  showRegion,
+  showModal,
 };
 
 export default connect(mapStateToProps, actionList)(ViewCourses);
