@@ -2,7 +2,7 @@
  * Import our third-party style files
  */
 
-
+// @import '~bootstrap/scss/bootstrap-grid';
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~font-awesome/css/font-awesome.css';
 @import '~tether/src/css/tether.sass';
@@ -32,6 +32,7 @@
 @import 'header';
 @import 'membership-history';
 @import 'member-line-item';
+@import 'modals';
 @import 'notifications';
 @import 'qualifications';
 @import 'navbar';
@@ -44,13 +45,13 @@
  */
 
 .sinc-page-header {
-  border-bottom: solid 1px $cft-blue-bg;
+  border-bottom: solid 1px $cft-blue;
   margin-bottom: 1rem;
   padding-bottom: 0.5rem;
 }
 
 .sinc-section-header {
-  background: $cft-blue-bg;
+  background: $cft-blue;
   color: #fff;
   padding: 0.25rem 0.5rem;
   &--minor {
