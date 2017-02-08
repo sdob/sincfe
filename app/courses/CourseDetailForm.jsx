@@ -120,27 +120,27 @@ class CourseDetailForm extends Component {
           ]}
         />
         <div className="form-group row">
-          <div className="col-xs-12 col-sm-6 col-md-4">
+          <div className="col-12 col-sm-6 col-md-4">
             <label htmlFor="date col-form-label">
               Date
             </label>
           </div>
-          <div className="col-xs-12 col-sm-6 col-md-8 col-lg-3">
+          <div className="col-12 col-sm-6 col-md-8 col-lg-3">
             <Field name={fields.DATETIME} component={DateTimePicker} aria-describedby="aria-date-help" />
           </div>
-          <div className="col-xs-12 col-md-8 offset-md-4 col-xl-9">
+          <div className="col-12 col-md-8 offset-md-4 col-xl-9">
             <span className="help-block" id="aria-date-help">
               Leave this empty for recurring courses.
             </span>
           </div>
         </div>
         <div className="form-group row">
-          <div className="col-xs-12 col-sm-6 col-md-4">
+          <div className="col-12 col-sm-6 col-md-4">
             <label htmlFor="maximum_participants">
               Maximum participants
             </label>
           </div>
-          <div className="col-xs-12 col-sm-6 col-md-8 col-lg-3">
+          <div className="col-12 col-sm-6 col-md-8 col-lg-3">
             <Field
               name={fields.MAXIMUM_PARTICIPANTS}
               component="input"
@@ -148,14 +148,14 @@ class CourseDetailForm extends Component {
               aria-describedby="aria-maximum-participants-help"
             />
           </div>
-          <div className="col-xs-12 col-md-8 offset-md-4 col-xl-9">
+          <div className="col-12 col-md-8 offset-md-4 col-xl-9">
             <span className="help-block" id="aria-maximum-participants-help">
               Leave this empty for unlimited participants.
             </span>
           </div>
         </div>
         <div className="form-group row">
-          <div className="col-xs-12 col-md-3">
+          <div className="col-12 col-md-3">
             <label htmlFor="date col-form-label">
               Organizer
             </label>
@@ -163,27 +163,25 @@ class CourseDetailForm extends Component {
           {organizer ? (
             <MemberLineItem inline member={organizer} onClick={this.handleOrganizerClear} />
           ) : (
-            <div>
-              <div className="col-xs-12 offset-md-1 col-md-8 col-lg-5">
-                <Autosuggest
-                  getSuggestionValue={getSuggestionValue}
-                  id={organizerInputId}
-                  inputProps={organizerInputProps}
-                  name={fields.ORGANIZER}
-                  onSuggestionsClearSelected={this.handleOrganizerClear}
-                  onSuggestionsFetchRequested={this.onOrganizerSuggestionsFetchRequested}
-                  onSuggestionSelected={this.onOrganizerSuggestionSelected}
-                  renderSuggestion={renderSuggestion}
-                  suggestions={organizerSuggestions}
-                />
-              </div>
-              <div className="col-xs-12 col-md-8 offset-md-4 col-xl-9">
-                <span className="help-block" id="aria-maximum-participants-help">
-                  Leave this empty if you are organizing this course.
-                </span>
-              </div>
+            <div className="col-12 offset-md-1 col-md-8 col-lg-5">
+              <Autosuggest
+                getSuggestionValue={getSuggestionValue}
+                id={organizerInputId}
+                inputProps={organizerInputProps}
+                name={fields.ORGANIZER}
+                onSuggestionsClearSelected={this.handleOrganizerClear}
+                onSuggestionsFetchRequested={this.onOrganizerSuggestionsFetchRequested}
+                onSuggestionSelected={this.onOrganizerSuggestionSelected}
+                renderSuggestion={renderSuggestion}
+                suggestions={organizerSuggestions}
+              />
             </div>
           )}
+          <div className="col-12 col-md-8 offset-md-4 col-xl-9">
+            <span className="help-block" id="aria-maximum-participants-help">
+              Leave this empty if you are organizing this course.
+            </span>
+          </div>
         </div>
 
         <h2 className="sinc-section-header sinc-section-header--minor">
@@ -196,7 +194,7 @@ class CourseDetailForm extends Component {
             </div>
           ))}
           <div className="form-group row">
-            <div className="col-xs-12 col-md-8 offset-md-4 col-lg-5">
+            <div className="col-12 col-md-8 offset-md-4 col-lg-5">
               <Autosuggest
                 id="js-autosuggest-instructor"
                 suggestions={instructorSuggestions}
