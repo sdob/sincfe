@@ -3,9 +3,9 @@ import React from 'react';
 export default function RegionFilter(props) {
   const { onChange, regions } = props;
   return (
-    <div>
+    <div className="row">
       {regions.map(region => (
-        <div className="col-xs-6 col-md-3" key={region.id}>
+        <div className="col-6 col-md-3" key={region.id}>
           <div className="checkbox">
             <label htmlFor={`region-${region.id}`}>
               <input
