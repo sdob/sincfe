@@ -1,6 +1,7 @@
 var webpack = require('webpack');
 var path = require('path');
 const plugins = require('./config/plugins');
+const rules = require('./config/rules');
 
 // Load environment variables
 require('dotenv').config();
@@ -28,12 +29,13 @@ module.exports = {
     filename: './bundle.js'
   },
   module: {
-    rules: require('./config/rules')(__dirname),
+    rules: rules(__dirname),
   },
   resolve: {
     extensions: [ '.js', '.jsx' ],
   },
   plugins: [
+    provideJQuery,
     new webpack.HotModuleReplacementPlugin(),
     plugins.defineApiUrl,
   ]
