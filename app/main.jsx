@@ -10,6 +10,10 @@ import { middleware as NotificationMiddleware } from 'react-redux-notifications'
 import moment from 'moment';
 import momentLocalizer from 'react-widgets/lib/localizers/moment';
 
+// Import Bootstrap JS; we don't use it directly, but we need it to be
+// here in order to avail of Bootstrap's responsive collapse behaviour.
+import bootstrap from 'bootstrap/dist/js/bootstrap';
+
 import rootReducer from './root-reducer';
 import routes from './routes';
 import { LOGIN_SUCCESS } from './auth/types';
