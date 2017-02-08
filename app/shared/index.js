@@ -1,5 +1,6 @@
 import CertificateSelector from './CertificateSelector';
 import DatePicker from './DatePicker';
+import DateTimePicker from './DateTimePicker';
 import FormRow from './FormRow';
 import SelectRow from './SelectRow';
 import GenericErrorMessage from './GenericErrorMessage';
@@ -18,6 +19,7 @@ import createTypes from './createTypes';
 export {
   CertificateSelector,
   DatePicker,
+  DateTimePicker,
   FormRow,
   GenericErrorMessage,
   InlineSpinner,

@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
+import moment from 'moment';
 
 import * as paths from '../paths';
 import { CertificateSelector, PageLoading, RegionFilter } from '../shared';
 import { fetchRegions } from '../regions/actions';
-import { fetchCertificateList, fetchCourseList, hideRegion, showRegion } from './actions';
+import { deleteCourse, fetchCertificateList, fetchCourseList, hideRegion, showRegion } from './actions';
 
 class ViewCourses extends Component {
-
 
   constructor(props) {
     super(props);
     this.handleCertificateSelect = this.handleCertificateSelect.bind(this);
     this.handleRegionToggle = this.handleRegionToggle.bind(this);
+    this.handleCourseDelete = this.handleCourseDelete.bind(this);
     this.state = {
       regionVisibilities: {},
     };
@@ -62,6 +63,14 @@ class ViewCourses extends Component {
     return this.setState({ selectedCertificateId: Number(value) });
   }
 
+  handleCourseDelete(cid) {
+    if (confirm('Are you sure?')) {
+      console.info('deleting...');
+      this.props.deleteCourse(cid)
+      .then(this.props.fetchCourseList);
+    }
+  }
+
   handleRegionToggle(rid, visibility) {
     this.setState({ regionVisibilities: { ...this.state.regionVisibilities, [rid]: visibility } });
   }
@@ -81,7 +90,11 @@ class ViewCourses extends Component {
         <h1 className="sinc-page-header">
           View courses
           {' '}
-          <Link to={paths.ADD_COURSE}>Add</Link>
+          <Link to={paths.ADD_COURSE}>
+            <button className="btn btn-primary">
+              <i className="fa fa-fw fa-file" />
+            </button>
+          </Link>
         </h1>
 
         <h2 className="sinc-section-header sinc-section-header--minor">
@@ -122,6 +135,7 @@ class ViewCourses extends Component {
                 <th>Date</th>
                 <th>Organizer</th>
                 <th>Region</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
@@ -133,9 +147,19 @@ class ViewCourses extends Component {
                     </Link>
                   </td>
                   <td>{course.certificate.name}</td>
-                  <td>{course.date || 'Open'}</td>
+                  <td>{course.datetime ? moment(course.datetime).format('DD/MM/YYYY') : 'Open'}</td>
                   <td>{course.organizer.first_name} {course.organizer.last_name}</td>
                   <td>{course.region.name}</td>
+                  <td className="sinc-cell--buttons">
+                    <Link
+                      className="btn btn-primary sinc-btn--compact"
+                      to={`${paths.EDIT_COURSE}/${course.id}`}>
+                      <i className="fa fa-fw fa-edit" />
+                    </Link>
+                    <button className="btn btn-danger sinc-btn--compact" onClick={() => this.handleCourseDelete(course.id)}>
+                      <i className="fa fa-fw fa-trash" />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -158,6 +182,7 @@ function mapStateToProps(state) {
 }
 
 const actionList = {
+  deleteCourse,
   fetchCertificateList,
   fetchCourseList,
   fetchRegions,

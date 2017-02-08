@@ -1,7 +1,7 @@
 import React from 'react';
 import FlashNotification from './FlashNotification';
 import * as clubTypes from '../clubs/types';
-import { courseAdd } from '../courses/types';
+import { courseAdd, courseDelete } from '../courses/types';
 import * as profileTypes from '../profiles/types';
 
 export default function NotificationContainer() {
@@ -30,6 +30,12 @@ export default function NotificationContainer() {
         message="Course added!"
         status="success"
         trigger={courseAdd.success}
+      />
+      <FlashNotification
+        hideAfter={2000}
+        message="Course deleted!"
+        status="success"
+        trigger={courseDelete.success}
       />
     </div>
   );

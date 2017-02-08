@@ -27,6 +27,7 @@ import ClubRenewalOrders from './renewal-orders/ClubRenewalOrders';
 import ClubQualifications from './qualifications/ClubQualifications';
 import Documents from './documents/Documents';
 import EditClubDetails from './clubs/EditClubDetails';
+import EditCourse from './courses/EditCourse';
 import EditMember from './profiles/EditMember';
 import EditProfile from './profiles/EditProfile';
 import HelpPage from './help-page/HelpPage';
@@ -54,6 +55,7 @@ export default (
     <Route path={paths.CLUB_RENEWAL_ORDERS} component={RequireAuth(ClubRenewalOrders)} />
     <Route path={paths.CONTACT_US} component={RequireAuth(ContactUs)} />
     <Route path={paths.DOCUMENTS} component={RequireAuth(Documents)} />
+    <Route path={`${paths.EDIT_COURSE}/:id`} component={RequireAuth(EditCourse)} />
     <Route path={`${paths.EDIT_MEMBER}/:id`} component={RequireAuth(EditMember)} />
     <Route path={paths.EDIT_PROFILE} component={RequireAuth(EditProfile)} />
     <Route path={paths.HELP_PAGE} component={RequireAuth(HelpPage)} />

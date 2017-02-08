@@ -5,13 +5,17 @@ import Autosuggest from 'react-autosuggest';
 import debounce from 'lodash/debounce';
 
 import * as paths from '../paths';
-import { DatePicker, MemberLineItem, PageLoading, SelectRow, SubmitRow } from '../shared';
+import { DateTimePicker, MemberLineItem, PageLoading, SelectRow, SubmitRow } from '../shared';
 import { fetchRegionList } from '../regions';
 import { addCourse, fetchCertificateList } from './actions';
 import { searchForMember } from '../profiles/actions';
+import * as fields from './fields';
+import validate from './validate';
+import CourseDetailForm from './CourseDetailForm';
 
 const form = reduxForm({
   form: 'addCourse',
+  // validate,
 });
 
 const instructorInputId = 'js-autosuggest-instructor';
@@ -129,6 +133,8 @@ class AddCourse extends Component {
       instructors: instructors.map(u => u.id),
       organizer: organizerId,
     };
+    console.info('data');
+    console.info(data);
     this.props.addCourse(data);
   }
 
@@ -165,127 +171,17 @@ class AddCourse extends Component {
     };
 
     return (
-      <form onSubmit={handleSubmit(this.handleFormSubmit)}>
+      <div>
         <h1 className="sinc-page-header">
           Add course
         </h1>
-        <SelectRow
-          className="form-group row"
-          field="region"
-          label="Region"
-          options={[
-            { label: 'Select region', value: '-1' },
-            ...(regions.map(r => ({ label: r.name, value: r.id })))
-          ]}
+        <CourseDetailForm
+          certificates={certificates}
+          onSubmit={handleSubmit(this.handleFormSubmit)}
+          regions={regions}
         />
-        <SelectRow
-          className="form-group row"
-          field="certificate"
-          label="Certificate"
-          options={[
-            { label: 'Select certification', value: '-1' },
-            ...certificates.map(c => ({ label: c.name, value: c.id }))
-          ]}
-        />
-        <div className="form-group row">
-          <div className="col-xs-12 col-sm-6 col-md-4">
-            <label htmlFor="date col-form-label">
-              Date
-            </label>
-          </div>
-          <div className="col-xs-12 col-sm-6 col-md-8 col-lg-3">
-            <Field name="date" component={DatePicker} aria-describedby="aria-date-help" />
-          </div>
-          <div className="col-xs-12 col-md-8 offset-md-4 col-xl-9">
-            <span className="help-block" id="aria-date-help">
-              Leave this empty for recurring courses.
-            </span>
-          </div>
-        </div>
-        <div className="form-group row">
-          <div className="col-xs-12 col-sm-6 col-md-4">
-            <label htmlFor="maximum_participants">
-              Maximum participants
-            </label>
-          </div>
-          <div className="col-xs-12 col-sm-6 col-md-8 col-lg-3">
-            <Field
-              name="maximum_participants"
-              component="input"
-              className="form-control"
-              aria-describedby="aria-maximum-participants-help"
-            />
-          </div>
-          <div className="col-xs-12 col-md-8 offset-md-4 col-xl-9">
-            <span className="help-block" id="aria-maximum-participants-help">
-              Leave this empty for unlimited participants.
-            </span>
-          </div>
-        </div>
-        <div className="form-group row">
-          <div className="col-xs-12 col-md-3">
-            <label htmlFor="date col-form-label">
-              Organizer
-            </label>
-          </div>
-          {organizer ? (
-            <MemberLineItem inline member={organizer} onClick={this.handleOrganizerClear} />
-          ) : (
-            <div className="col-xs-12 offset-md-1 col-md-8 col-lg-5">
-              <Autosuggest
-                id="js-autosuggest-organizer"
-                name="organizer"
-                suggestions={suggestions}
-                getSuggestionValue={getSuggestionValue}
-                inputProps={organizerInputProps}
-                onSuggestionSelected={this.handleOrganizerSelection}
-                onSuggestionsClearSelected={this.handleOrganizerClear}
-                onSuggestionsFetchRequested={this.onSuggestionsFetchRequested}
-                renderSuggestion={renderSuggestion}
-              />
-            </div>
-          )}
-        </div>
-
-        <h2 className="sinc-section-header sinc-section-header--minor">
-          Instructors
-        </h2>
-        <div>
-          {instructors.map(i => (
-            <div className="form-group row" key={i.id}>
-              <MemberLineItem member={i} onClick={this.handleOnInstructorRemove} />
-            </div>
-          ))}
-          <div className="form-group row">
-            <div className="col-xs-12 col-md-8 offset-md-4 col-lg-5">
-              <Autosuggest
-                id="js-autosuggest-instructor"
-                suggestions={instructorSuggestions}
-                getSuggestionValue={getSuggestionValue}
-                inputProps={instructorInputProps}
-                onSuggestionsFetchRequested={this.onInstructorSuggestionsFetchRequested}
-                onSuggestionSelected={this.handleInstructorSelection}
-                renderSuggestion={renderSuggestion}
-              />
-            </div>
-          </div>
-        </div>
-
-        <SubmitRow />
-      </form>
+      </div>
     );
-
-    function getSuggestionValue(member) {
-      return `${member.first_name} ${member.last_name}`;
-    }
-
-    function renderSuggestion(member) {
-      return (
-        <div>
-          {member.id} | {member.first_name} {member.last_name}
-        </div>
-      );
-    }
   }
 }
 

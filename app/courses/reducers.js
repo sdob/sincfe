@@ -8,7 +8,8 @@ import {
   REGION_SHOW,
 } from './types';
 
-export default function coursesReducer(state = { hiddenRegions: [] }, action) {
+export default function coursesReducer(initialState = {}, action) {
+  const state = { ...initialState, added: false };
   switch (action.type) {
     case certificateList.success:
       return { ...state, certificates: action.payload };

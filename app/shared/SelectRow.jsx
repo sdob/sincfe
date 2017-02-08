@@ -22,7 +22,7 @@ function renderSelect({ field, input, label, options, meta: { touched, error } }
           {options.map(renderOption)}
         </select>
       </div>
-      <div className="col-xs-12 col-sm-6 offset-sm-6 col-md-9 offset-md-3">
+      <div className="col-xs-12 col-sm-6 offset-sm-6 col-md-9 offset-md-4">
         {touched && error && <div className="form-control-feedback text-danger">{error}</div>}
       </div>
     </div>
