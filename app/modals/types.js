@@ -1,0 +1,1 @@
+export const DELETE_COURSE = 'DELETE_COURSE';

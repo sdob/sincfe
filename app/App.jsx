@@ -5,6 +5,7 @@ import { fetchProfile } from './profiles/actions';
 
 import Header from './header/Header';
 import Login from './pages/Login';
+import { ModalRoot } from './modals';
 import NotificationContainer from './notifications/NotificationContainer';
 
 import Sidebar from './sidebar/Sidebar';
@@ -23,11 +24,13 @@ function renderLoginPage() {
 function renderAuthenticated(props) {
   return (
     <div className="container-fluid">
-      <div className="col-xs-12 col-md-4 col-lg-3">
-        <Sidebar />
-      </div>
-      <div className="col-xs-12 col-md-8 col-lg-9">
-        {props.children}
+      <div className="row">
+        <div className="col-12 col-md-4 col-lg-3">
+          <Sidebar />
+        </div>
+        <div className="col-12 col-md-8 col-lg-9">
+          {props.children}
+        </div>
       </div>
     </div>
   );
@@ -51,6 +54,7 @@ class App extends Component {
   render() {
     return (
       <div>
+        <ModalRoot />
         <NotificationContainer />
         <Header />
         { this.props.authenticated ? renderAuthenticated(this.props) : renderLoginPage() }

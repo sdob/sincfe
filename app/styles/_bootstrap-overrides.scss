@@ -20,3 +20,13 @@ h1, h2, h3, h4, h5, h6 {
   border-color: $cft-blue;
   border-radius: 0;
 }
+
+.navbar-toggler {
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 0;
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+  }
+}
