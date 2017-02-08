@@ -8,7 +8,7 @@ import TopNavItem from './TopNavItem';
 function TopNav(props) {
   const { profile } = props;
   return (
-    <nav className="navbar navbar-toggleable-lg navbar-inverse sinc-top-nav">
+    <nav className="navbar navbar-toggleable-sm navbar-inverse sinc-top-nav">
       <button
         aria-controls="navbarNavDropdown"
         aria-expanded="false"

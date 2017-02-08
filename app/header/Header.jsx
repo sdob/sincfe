@@ -7,11 +7,9 @@ function Header(props) {
   return (
     <div className="header">
       <div className="media">
-
-        <div className="media-left media-middle">
+        <div className="d-flex align-self-center mr-3">
           <a href="/">
             <img
-              className="media-object"
               height="120px"
               alt="IUC logo"
               src="/img/CFT_logo1.png"
@@ -19,8 +17,8 @@ function Header(props) {
           </a>
         </div>
 
-        <div className="media-body media-middle header-text">
-          <h1 className="media-heading header-title">
+        <div className="header-text media-body d-flex align-self-center">
+          <h1 className="header-title">
             <span>Comhairle Fó-Thuinn</span>
             <span className="header-subtitle">Irish Underwater Council</span>
           </h1>

@@ -6,7 +6,7 @@ import React from 'react';
  */
 export default function PageLoading(props) {
   return (
-    <div className="sinc-page-loading text-xs-center">
+    <div className="row justify-content-center">
       <p>
         <i className="fa fa-cog fa-spin fa-3x fa-fw" />
       </p>

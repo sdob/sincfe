@@ -118,17 +118,13 @@ class ViewQualifications extends Component {
     return (
       <div>
         <h1 className="sinc-page-header">View qualifications</h1>
-        <div className="row">
-          <h2 className="sinc-section-header sinc-section-header--minor">
-            Filter by region
-          </h2>
-          <RegionFilter regions={regions} onChange={this.handleRegionToggle} />
-        </div>
-        <div className="row">
-          <h2 className="sinc-section-header sinc-section-header--minor">
-            Filter by certification
-          </h2>
-        </div>
+        <h2 className="sinc-section-header sinc-section-header--minor">
+          Filter by region
+        </h2>
+        <RegionFilter regions={regions} onChange={this.handleRegionToggle} />
+        <h2 className="sinc-section-header sinc-section-header--minor">
+          Filter by certification
+        </h2>
         <div className="form-group row">
           <label htmlFor="certificate" className="col-sm-6 col-md-3 col-form-label">
             Certification
@@ -140,11 +136,9 @@ class ViewQualifications extends Component {
             />
           </div>
         </div>
-        <div className="row">
-          <h2 className="sinc-section-header">
-            Results
-          </h2>
-        </div>
+        <h2 className="sinc-section-header">
+          Results
+        </h2>
         <SortedTable
           columns={columns}
           rows={this.getVisibleQualifications()}
