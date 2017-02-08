@@ -9,6 +9,7 @@ import auth from './auth/reducers';
 import clubs from './clubs/reducers';
 import courses from './courses/reducers';
 import membershipStatus from './membership-history/reducers';
+import modal from './modals/reducers';
 import profiles from './profiles/reducers';
 import qualifications from './qualifications/reducers';
 import regions from './regions/reducers';
@@ -21,6 +22,7 @@ export default combineReducers({
   courses,
   form,
   membershipStatus,
+  modal,
   notifications,
   profiles,
   qualifications,
