@@ -2,28 +2,29 @@ import React from 'react';
 
 /* eslint-disable jsx-a11y/href-no-hash */
 export default function SidebarMenu(props) {
+  const { menuId, menuTitle } = props;
   return (
-    <div className="sinc-sidebar__section">
-      <div className="sinc-sidebar__header">
-        <h2>
-          <a
-            className="hidden-md-up sinc-sidebar__collapse-button"
-            data-target={`#${props.menuId}`}
-            data-toggle="collapse"
-            href="#"
-          >
-            {props.menuTitle}
-            <i className="fa fa-bars float-xs-right" />
-          </a>
-          <span className="hidden-sm-down">
-            {props.menuTitle}
-          </span>
-        </h2>
+    <nav className="navbar navbar-inverse navbar-toggleable-sm sinc-sidebar__section">
+      <button
+        className="navbar-toggler navbar-toggler-right sinc-sidebar__toggler"
+        type="button"
+        data-target={`#${menuId}`}
+        data-toggle="collapse"
+        aria-controls={menuId}
+        aria-expanded="false"
+        aria-label="Toggle menu"
+      >
+        <i className="fa fa-fw fa-bars" />
+      </button>
+      <h2 className="navbar-brand sinc-sidebar__header" href="#">
+        {menuTitle}
+      </h2>
+      <div className="collapse navbar-collapse" id={menuId}>
+        <ul className="nav flex-column sinc-sidebar__menu-items">
+          {props.children}
+        </ul>
       </div>
-      <ul id={props.menuId} className="collapse nav sinc-sidebar__menu">
-        {props.children}
-      </ul>
-    </div>
+    </nav>
   );
 }
 /* eslint-enable jsx-a11y/href-no-hash */
