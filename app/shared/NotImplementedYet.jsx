@@ -6,7 +6,7 @@ import React from 'react';
  */
 export default function NotImplementedYet() {
   return (
-    <div className="sinc-not-implemented-yet text-xs-center">
+    <div className="sinc-not-implemented-yet text-center">
       <p>
         <span className="fa fa-stack fa-2x">
           <i className="fa fa-code fa-stack-1x" />
