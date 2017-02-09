@@ -47,8 +47,6 @@ export default class NewMemberTable extends Component {
       return defaultColumnDefinition(prop, label, canBeSorted);
     }) : [];
 
-    console.info(extraColumns);
-
     // Define our columns
     const columns = [
       // Our sorting columns are all defined very similarly
