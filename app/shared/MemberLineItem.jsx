@@ -1,10 +1,12 @@
 import React from 'react';
 
-export default function MemberLineItem({ inline, member, onClick }) {
-  const block = !inline;
+export default function MemberLineItem({ label, member, onClick }) {
   return (
-    <div>
-      <div className={`sinc-member-line-item__id${block ? ' block' : ''}`}>
+    <div className="form-group row">
+      <div className="col-12 col-md-2">
+        {label}
+      </div>
+      <div className="sinc-member-line-item__id">
         {member.id}
       </div>
       <div className="sinc-member-line-item__name">
@@ -14,6 +16,7 @@ export default function MemberLineItem({ inline, member, onClick }) {
         <button
           className="sinc-member-line-item__button"
           onClick={onClick}
+          type="button"
         >
           <i className="fa fa-fw fa-times" />
         </button>

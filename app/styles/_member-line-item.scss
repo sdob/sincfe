@@ -2,11 +2,8 @@
   &__id {
     @extend .col-1;
     @extend .form-control-static;
-    // @extend .text-xs-right;
+    @extend .text-right;
     font-weight: bold;
-  }
-  &__id.block {
-    // @extend .offset-md-3;
   }
   &__name {
     @extend .col-9;
