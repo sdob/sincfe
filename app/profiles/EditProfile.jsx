@@ -5,6 +5,7 @@ import { Field, reduxForm } from 'redux-form';
 import { FormRow, PageLoading, SubmitRow, UneditableProfileHelp } from '../shared';
 
 import { updateOwnProfile } from './actions';
+import ContactDetails from './ContactDetails';
 import PersonalDetails from './PersonalDetails';
 import * as fields from './fields';
 
@@ -52,11 +53,11 @@ class EditProfile extends Component {
           <div className="form-group row">
             <label
               htmlFor="editProfileCftNumber"
-              className="col-xs-6 col-md-3 col-form-label"
+              className="col-6 col-md-3 col-form-label"
             >
               CFT number
             </label>
-            <div className="col-xs-6 col-md-9">
+            <div className="col-6 col-md-9">
               <p className="form-control-static">{profile.id}</p>
             </div>
           </div>
@@ -110,12 +111,7 @@ class EditProfile extends Component {
 
           <h2 className="sinc-section-header">Contact details</h2>
 
-          <FormRow field={fields.EMAIL} label="Email" />
-          <FormRow field={fields.PHONE_HOME} label="Phone (home)" />
-          <FormRow field={fields.PHONE_MOBILE} label="Phone (mobile)" />
-          <FormRow field={fields.ADDRESS} component="textarea" rows="3" label="Address" />
-          <FormRow field={fields.NEXT_OF_KIN_NAME} label="Next of kin" />
-          <FormRow field={fields.NEXT_OF_KIN_PHONE} label="Next of kin (phone)" />
+          <ContactDetails />
 
           <h2 className="sinc-section-header">Mailing</h2>
 
