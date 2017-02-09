@@ -134,6 +134,7 @@ class ViewCourses extends Component {
                 <th>No.</th>
                 <th>Name</th>
                 <th>Date</th>
+                <th>Max</th>
                 <th>Organizer</th>
                 <th>Region</th>
                 <th>Action</th>
@@ -148,6 +149,7 @@ class ViewCourses extends Component {
                     </Link>
                   </td>
                   <td>{course.certificate.name}</td>
+                  <td>{course.maximum_participants}</td>
                   <td>{course.datetime ? moment(course.datetime).format('DD/MM/YYYY') : 'Open'}</td>
                   <td>{course.organizer.first_name} {course.organizer.last_name}</td>
                   <td>{course.region.name}</td>
