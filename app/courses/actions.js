@@ -13,6 +13,7 @@ import {
   courseDelete,
   courseDetail,
   courseList,
+  courseUpdate,
   memberCoursesOrganizedList,
 } from './types';
 
@@ -53,6 +54,13 @@ const fetchCoursesOrganized = uid => createApiAction({
   types: memberCoursesOrganizedList,
 });
 
+const updateCourse = data => createApiAction({
+  data,
+  url: courseDetailUrl(data.id),
+  method: 'put',
+  types: courseUpdate,
+});
+
 export {
   addCourse,
   deleteCourse,
@@ -60,4 +68,5 @@ export {
   fetchCourseDetail,
   fetchCourseList,
   fetchCoursesOrganized,
+  updateCourse,
 };
