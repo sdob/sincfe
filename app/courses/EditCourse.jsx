@@ -52,8 +52,13 @@ class EditCourse extends Component {
   onFormSubmit(formProps) {
     const { instructors, organizer } = this.state;
     const organizerId = organizer ? organizer.id : undefined;
+    // Parse max participants --- if it's empty, then send null
+    const maximum_participants = formProps.maximum_participants;
     const data = {
       ...formProps,
+      certificate: formProps.certificate.id,
+      maximum_participants: maximum_participants === '' ? null : maximum_participants,
+      region: formProps.region.id,
       instructors: instructors.map(u => u.id),
       organizer: organizerId,
     };
