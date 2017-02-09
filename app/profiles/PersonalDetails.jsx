@@ -31,7 +31,7 @@ export default function PersonalDetails() {
         <label htmlFor="date_of_birth" className="col-sm-6 col-md-3 col-form-label">
           Date of birth
         </label>
-        <div className="col-sm-6 col-md-4 col-lg-3">
+        <div className="col-sm-6 col-md-9 col-lg-6">
           <Field
             name={fields.DATE_OF_BIRTH}
             component={DatePicker}
