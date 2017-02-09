@@ -24,27 +24,14 @@ const organizerInputId = 'js-autosuggest-organizer';
 class AddCourse extends Component {
   constructor(props, ctx) {
     super(props, ctx);
-    // Bind methods to the component
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleInstructorAdd = this.handleInstructorAdd.bind(this);
-    this.handleInstructorRemove = this.handleInstructorRemove.bind(this);
-    this.handleInstructorSelection = this.handleInstructorSelection.bind(this);
-    this.handleOrganizerClear = this.handleOrganizerClear.bind(this);
-    this.handleOrganizerSelection = this.handleOrganizerSelection.bind(this);
-    this.onInstructorChange = this.onInstructorChange.bind(this);
-    this.onOrganizerChange = this.onOrganizerChange.bind(this);
-    this.onInstructorSuggestionsFetchRequested = debounce(
-      this.onInstructorSuggestionsFetchRequested.bind(this),
-      250
-    );
-    this.onSuggestionsFetchRequested = debounce(this.onSuggestionsFetchRequested.bind(this), 250);
-    // Initialize state
+    this.onInstructorRemove = this.onInstructorRemove.bind(this);
+    this.onInstructorSuggestionSelected = this.onInstructorSuggestionSelected.bind(this);
+    this.onOrganizerRemove = this.onOrganizerRemove.bind(this);
+    this.onOrganizerSuggestionSelected = this.onOrganizerSuggestionSelected.bind(this);
     this.state = {
-      instructorValue: '',
       instructors: [],
-      instructorSuggestions: [],
-      suggestions: [],
-      value: '',
+      organizer: undefined,
     };
   }
 
@@ -63,67 +50,6 @@ class AddCourse extends Component {
     }
   }
 
-  onInstructorChange(event, { newValue }) {
-    this.setState({ instructorValue: newValue });
-  }
-
-  onOrganizerChange(event, { newValue }) {
-    this.setState({ value: newValue });
-  }
-
-  onInstructorSuggestionsFetchRequested({ value }) {
-    this.props.searchForMember(value)
-    .then((data) => {
-      this.setState({ instructorSuggestions: data });
-    });
-  }
-
-  onSuggestionsFetchRequested({ value }) {
-    // Do a search by name fragment for members and put them into
-    // the state when the data return.
-    this.props.searchForMember(value)
-    .then((data) => {
-      this.setState({ suggestions: data });
-    });
-  }
-
-  handleInstructorAdd() {
-    const { instructors, selectedInstructor } = this.state;
-    this.setState({
-      // Add the selected instructor to the list of instructors
-      instructors: [...instructors, selectedInstructor],
-      // Clear the input
-      instructorValue: '',
-      // Unset the selected instructor
-      selectedInstructor: undefined,
-    });
-  }
-
-  handleInstructorRemove(uid) {
-    this.setState({
-      instructors: this.state.instructors.filter(i => i.id !== uid),
-    });
-  }
-
-  handleInstructorSelection(value, { suggestion }) {
-    // Automatically add the instructor when the user selects them as
-    // an option.
-    const { instructors } = this.state;
-    this.setState({
-      instructors: [...instructors, suggestion],
-      instructorValue: '',
-    });
-  }
-
-  handleOrganizerClear() {
-    this.setState({ organizer: undefined });
-    this.setState({ value: '' });
-  }
-
-  handleOrganizerSelection(value, { suggestion }) {
-    this.setState({ organizer: suggestion });
-  }
-
   handleFormSubmit(formProps) {
     const { instructors, organizer } = this.state;
     const organizerId = organizer ? organizer.id : undefined;
@@ -135,7 +61,33 @@ class AddCourse extends Component {
     };
     console.info('data');
     console.info(data);
-    this.props.addCourse(data);
+    // this.props.addCourse(data);
+  }
+
+  // When the child form removes an instructor, remove the instructor
+  // from our state
+  onInstructorRemove(id) {
+    this.setState({ instructors: this.state.instructors.filter(i => i.id !== id) });
+  }
+
+  // When the user clicks an instructor on the child form, add it to
+  // our state
+  onInstructorSuggestionSelected(value, { suggestion }) {
+    this.setState({
+      instructors: [...this.state.instructors, suggestion],
+    });
+  }
+
+  // When the user removes the organizer from the child form, remove
+  // it from our state
+  onOrganizerRemove() {
+    this.setState({ organizer: undefined, organizerValue: '' });
+  }
+
+  // When the user selects the organizer on the child form, set
+  // our state accordingly
+  onOrganizerSuggestionSelected(value, { suggestion }) {
+    this.setState({ organizer: suggestion });
   }
 
   render() {
@@ -146,29 +98,11 @@ class AddCourse extends Component {
       return <PageLoading />;
     }
 
-    // Extract what we need from the component's state
+    // Extract what we need from state
     const {
       instructors,
-      instructorValue,
-      instructorSuggestions,
       organizer,
-      suggestions,
-      value,
     } = this.state;
-
-    // Set the props that we pass to the autosuggest inputs
-    const organizerInputProps = {
-      placeholder: 'Name or CFT number',
-      id: organizerInputId,
-      value,
-      onChange: this.onOrganizerChange,
-    };
-    const instructorInputProps = {
-      ...organizerInputProps,
-      id: instructorInputId,
-      value: instructorValue,
-      onChange: this.onInstructorChange,
-    };
 
     return (
       <div>
@@ -177,7 +111,13 @@ class AddCourse extends Component {
         </h1>
         <CourseDetailForm
           certificates={certificates}
+          instructors={instructors}
+          onInstructorRemove={this.onInstructorRemove}
+          onInstructorSuggestionSelected={this.onInstructorSuggestionSelected}
+          onOrganizerRemove={this.onOrganizerRemove}
+          onOrganizerSuggestionSelected={this.onOrganizerSuggestionSelected}
           onSubmit={handleSubmit(this.handleFormSubmit)}
+          organizer={organizer}
           regions={regions}
         />
       </div>

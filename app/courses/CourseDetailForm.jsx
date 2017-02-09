@@ -7,6 +7,7 @@ import debounce from 'lodash/debounce';
 import {
   DatePicker,
   DateTimePicker,
+  MemberLineItem,
   SelectRow,
   SubmitRow,
 } from '../shared';
@@ -22,17 +23,35 @@ class CourseDetailForm extends Component {
     super(props, ctx);
 
     this.onInstructorChange = this.onInstructorChange.bind(this);
-    this.onInstructorSuggestionsFetchRequested = this.onInstructorSuggestionsFetchRequested.bind(this);
-
+    // Debounce the API call so that we don't send a request for
+    // every keypress in rapid succession (leading to out-of-order
+    // responses --- still a problem here, but mitigated somewhat).
+    this.onInstructorSuggestionsFetchRequested = debounce(
+      this.onInstructorSuggestionsFetchRequested.bind(this),
+      250
+    );
     this.onOrganizerChange = this.onOrganizerChange.bind(this);
-    this.onOrganizerSuggestionSelected = this.onOrganizerSuggestionSelected.bind(this);
+    // Debounce the API call here too.
     this.onOrganizerSuggestionsFetchRequested = debounce(
       this.onOrganizerSuggestionsFetchRequested.bind(this),
       250
     );
 
+    // Run the parent element's method, then clear our input
+    this.onInstructorSuggestionSelected = (...args) => {
+      this.props.onInstructorSuggestionSelected(...args);
+      this.setState({ instructorValue: '' });
+    }
+
+    // Run the parent element's method, then clear our input
+    this.onOrganizerSuggestionSelected = (...args) => {
+      this.props.onOrganizerSuggestionSelected(...args);
+      this.setState({ organizerValue: '' });
+    }
+
+    // We're only maintaining the inputs' state in this component;
+    // our parent will maintain the form values in their state
     this.state = {
-      instructors: [],
       instructorSuggestions: [],
       instructorValue: '',
       organizerSuggestions: [],
@@ -56,10 +75,6 @@ class CourseDetailForm extends Component {
     this.searchThenSetState(value, 'organizerSuggestions');
   }
 
-  onOrganizerSuggestionSelected(value, { suggestion }) {
-    this.setState({ organizer: suggestion });
-  }
-
   searchThenSetState(value, stateKey) {
     this.props.searchForMember(value)
     .then((data) => {
@@ -70,6 +85,9 @@ class CourseDetailForm extends Component {
   render() {
     const {
       certificates,
+      instructors,
+      onInstructorRemove,
+      onOrganizerRemove,
       onSubmit,
       organizer,
       regions,
@@ -78,10 +96,8 @@ class CourseDetailForm extends Component {
     const {
       instructorSuggestions,
       instructorValue,
-      instructors,
       organizerSuggestions,
       organizerValue,
-      organizers,
     } = this.state;
 
     const placeholder = 'Name or CFT Number';
@@ -120,27 +136,27 @@ class CourseDetailForm extends Component {
           ]}
         />
         <div className="form-group row">
-          <div className="col-12 col-sm-6 col-md-4">
+          <div className="col-12 col-sm-6 col-md-3">
             <label htmlFor="date col-form-label">
               Date
             </label>
           </div>
-          <div className="col-12 col-sm-6 col-md-8 col-lg-3">
+          <div className="col-12 col-sm-6 col-md-9 col-lg-5">
             <Field name={fields.DATETIME} component={DateTimePicker} aria-describedby="aria-date-help" />
           </div>
-          <div className="col-12 col-md-8 offset-md-4 col-xl-9">
+          <div className="col-12 col-md-9 offset-md-3">
             <span className="help-block" id="aria-date-help">
               Leave this empty for recurring courses.
             </span>
           </div>
         </div>
         <div className="form-group row">
-          <div className="col-12 col-sm-6 col-md-4">
+          <div className="col-12 col-sm-6 col-md-3">
             <label htmlFor="maximum_participants">
               Maximum participants
             </label>
           </div>
-          <div className="col-12 col-sm-6 col-md-8 col-lg-3">
+          <div className="col-12 col-sm-6 col-md-9 col-lg-5">
             <Field
               name={fields.MAXIMUM_PARTICIPANTS}
               component="input"
@@ -148,22 +164,22 @@ class CourseDetailForm extends Component {
               aria-describedby="aria-maximum-participants-help"
             />
           </div>
-          <div className="col-12 col-md-8 offset-md-4 col-xl-9">
+          <div className="col-12 col-md-9 offset-md-3">
             <span className="help-block" id="aria-maximum-participants-help">
               Leave this empty for unlimited participants.
             </span>
           </div>
         </div>
-        <div className="form-group row">
-          <div className="col-12 col-md-3">
-            <label htmlFor="date col-form-label">
-              Organizer
-            </label>
-          </div>
-          {organizer ? (
-            <MemberLineItem inline member={organizer} onClick={this.handleOrganizerClear} />
-          ) : (
-            <div className="col-12 offset-md-1 col-md-8 col-lg-5">
+        {organizer ? (
+          <MemberLineItem inline label="Organizer" member={organizer} onClick={onOrganizerRemove} />
+        ) : (
+          <div className="row">
+            <div className="col-12 col-md-3">
+              <label htmlFor="date col-form-label">
+                Organizer
+              </label>
+            </div>
+            <div className="col-12 col-md-9 col-lg-5">
               <Autosuggest
                 getSuggestionValue={getSuggestionValue}
                 id={organizerInputId}
@@ -176,8 +192,10 @@ class CourseDetailForm extends Component {
                 suggestions={organizerSuggestions}
               />
             </div>
-          )}
-          <div className="col-12 col-md-8 offset-md-4 col-xl-9">
+          </div>
+        )}
+        <div className="form-group row">
+          <div className="col-12 col-md-9 offset-md-3">
             <span className="help-block" id="aria-maximum-participants-help">
               Leave this empty if you are organizing this course.
             </span>
@@ -187,14 +205,12 @@ class CourseDetailForm extends Component {
         <h2 className="sinc-section-header sinc-section-header--minor">
           Instructors
         </h2>
+        {instructors.map(i => (
+          <MemberLineItem label="" member={i} onClick={() => onInstructorRemove(i.id)} />
+        ))}
         <div>
-          {instructors.map(i => (
-            <div className="form-group row" key={i.id}>
-              <MemberLineItem member={i} onClick={this.handleOnInstructorRemove} />
-            </div>
-          ))}
           <div className="form-group row">
-            <div className="col-12 col-md-8 offset-md-4 col-lg-5">
+            <div className="col-12 col-md-9 offset-md-3 col-lg-5">
               <Autosuggest
                 id="js-autosuggest-instructor"
                 suggestions={instructorSuggestions}
