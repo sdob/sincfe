@@ -17,11 +17,8 @@ class EditCourse extends Component {
     this.onFormSubmit = this.onFormSubmit.bind(this);
     this.onInstructorRemove = this.onInstructorRemove.bind(this);
     this.onInstructorSuggestionSelected = this.onInstructorSuggestionSelected.bind(this);
-    this.onOrganizerRemove = this.onOrganizerRemove.bind(this);
-    this.onOrganizerSuggestionSelected = this.onOrganizerSuggestionSelected.bind(this);
     this.state = {
       instructors: [],
-      organizer: undefined,
     };
   }
   
@@ -34,7 +31,6 @@ class EditCourse extends Component {
       const { course } = this.props;
       this.setState({
         instructors: course.instructors,
-        organizer: course.organizer,
       });
     }
   }
@@ -44,26 +40,26 @@ class EditCourse extends Component {
       const { course } = nextProps;
       this.setState({
         instructors: nextProps.course.instructors,
-        organizer: nextProps.course.organizer,
       });
     }
   }
 
   onFormSubmit(formProps) {
-    const { instructors, organizer } = this.state;
-    const organizerId = organizer ? organizer.id : undefined;
-    // Parse max participants --- if it's empty, then send null
     const maximum_participants = formProps.maximum_participants;
+    const { organizer } = formProps;
+    // If we have an organizer object, then get their ID
+    const organizerId = organizer ? organizer.id : null;
     const data = {
       ...formProps,
       certificate: formProps.certificate.id,
+      // If max_participants is empty, send null; otherwise send the value
       maximum_participants: maximum_participants === '' ? null : maximum_participants,
       region: formProps.region.id,
-      instructors: instructors.map(u => u.id),
       organizer: organizerId,
     };
     console.info(data);
-    this.props.updateCourse(data);
+    // Send the data
+    // this.props.updateCourse(data);
   }
 
   // When the child form removes an instructor, remove the instructor
