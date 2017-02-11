@@ -5,14 +5,19 @@ import debounce from 'lodash/debounce';
 
 import { searchForMember } from '../profiles/actions';
 
+// Limit the rate at which we hit the API for searches
+const DEBOUNCE_TIME_MILLISECONDS = 250;
+
 class AutosuggestOrMember extends Component {
   constructor(props, ctx) {
     super(props, ctx);
+    // Bind methods to this component
     this.onChange = this.onChange.bind(this);
     this.onClear = this.onClear.bind(this);
+    // Debounce the API calls
     this.onSuggestionsFetchRequested = debounce(
       this.onSuggestionsFetchRequested.bind(this),
-      250,
+      DEBOUNCE_TIME_MILLISECONDS,
     );
     this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
     this.state = {
@@ -83,12 +88,12 @@ class AutosuggestOrMember extends Component {
       const { value } = input;
       return (
         <div className="form-group row">
-          <div className="col-12 col-md-2"> {label} </div>
-          <div className="col-md-1 text-right"> {value.id} </div>
-          <div className="col-form-static col-md-7 col-lg-4">
+          <label className="col-12 col-md-2 col-form-label"> {label} </label>
+          <div className="col-1 text-right form-control-static"> {value.id} </div>
+          <div className="col-8 col-sm-8 col-md-7 col-lg-4 form-control-static">
             {value.first_name} {value.last_name}
           </div>
-          <div className="col-md-2 text-md-right">
+          <div className="col-3 col-sm-3 col-md-2 text-right">
             <button
               type="button"
               className="btn btn-danger"
