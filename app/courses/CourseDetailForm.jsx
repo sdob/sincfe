@@ -13,9 +13,7 @@ import * as fields from './fields';
 export default function CourseDetailForm(props) {
   const {
     certificates,
-    instructors,
     onSubmit,
-    organizer,
     regions,
   } = props;
 
@@ -41,26 +39,11 @@ export default function CourseDetailForm(props) {
       />
       <div className="form-group row">
         <div className="col-12 col-sm-6 col-md-3">
-          <label htmlFor="date col-form-label">
-            Date
-          </label>
-        </div>
-        <div className="col-12 col-sm-6 col-md-9 col-lg-5">
-          <Field name={fields.DATETIME} component={DateTimePicker} aria-describedby="aria-date-help" />
-        </div>
-        <div className="col-12 col-md-9 offset-md-3">
-          <span className="help-block" id="aria-date-help">
-            Leave this empty for recurring courses.
-          </span>
-        </div>
-      </div>
-      <div className="form-group row">
-        <div className="col-12 col-sm-6 col-md-3">
-          <label htmlFor="maximum_participants">
+          <label htmlFor="maximum_participants" className="col-form-label">
             Maximum participants
           </label>
         </div>
-        <div className="col-12 col-sm-6 col-md-9 col-lg-5">
+        <div className="col-12 col-sm-6 col-md-9 col-lg-3">
           <Field
             name={fields.MAXIMUM_PARTICIPANTS}
             component="input"
@@ -74,10 +57,24 @@ export default function CourseDetailForm(props) {
           </span>
         </div>
       </div>
+      <div className="form-group row">
+        <div className="col-12 col-sm-6 col-md-3">
+          <label htmlFor="date" className="col-form-label">
+            Date
+          </label>
+        </div>
+        <div className="col-12 col-sm-6 col-md-9 col-lg-6 col-xl-3">
+          <Field name={fields.DATETIME} component={DateTimePicker} aria-describedby="aria-date-help" />
+        </div>
+        <div className="col-12 col-md-9 offset-md-3">
+          <span className="help-block" id="aria-date-help">
+            Leave this empty for recurring courses.
+          </span>
+        </div>
+      </div>
       <Field
         name="organizer"
         component={AutosuggestOrMember}
-        inputId="js-autosuggest-organizer"
         label="Organizer"
       />
       <div className="form-group row">
@@ -90,6 +87,5 @@ export default function CourseDetailForm(props) {
 
       <SubmitRow />
     </form>
-
   );
 }
