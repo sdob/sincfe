@@ -3,6 +3,9 @@
  */
 .react-autosuggest {
   &__container {
+    @extend .col-12;
+    @extend .col-md-9;
+    @extend .col-lg-6;
   }
   &__container--open {
   }
