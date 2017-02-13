@@ -11,7 +11,7 @@ export default function validate(values) {
     fields.EMAIL,
   ];
   requiredFields.forEach((field) => {
-    if (!values[field]) {
+    if (values[field] === undefined) {
       errors[field] = 'This field may not be blank.';
     }
   });
@@ -19,7 +19,7 @@ export default function validate(values) {
   // Handle selects
   const requiredSelects = [fields.TITLE, fields.GENDER];
   requiredSelects.forEach((field) => {
-    if (!values[field] || values[field] < 0) {
+    if (values[field] === undefined || values[field] < 0) {
       errors[field] = 'This field may not be blank.';
     }
   });
