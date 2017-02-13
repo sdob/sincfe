@@ -3,8 +3,16 @@ import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { PageLoading } from '../shared';
 import { fetchRegionList } from '../regions';
-import { fetchCourseDetail, fetchCertificateList, updateCourse } from './actions';
+import {
+  addCourseInstruction,
+  deleteCourseInstruction,
+  fetchCourseDetail,
+  fetchCertificateList,
+  fetchCourseInstructionList,
+  updateCourse,
+} from './actions';
 import CourseDetailForm from './CourseDetailForm';
+import CourseInstructionListForm from './CourseInstructionListForm';
 
 const form = reduxForm({
   form: 'editCourse',
@@ -14,97 +22,70 @@ class EditCourse extends Component {
 
   constructor(props, ctx) {
     super(props, ctx);
+    this.addInstructor = this.addInstructor.bind(this);
+    this.deleteInstruction = this.deleteInstruction.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
-    this.onInstructorRemove = this.onInstructorRemove.bind(this);
-    this.onInstructorSuggestionSelected = this.onInstructorSuggestionSelected.bind(this);
-    this.state = {
-      instructors: [],
-    };
   }
   
   componentDidMount() {
     const courseId = this.context.router.params.id;
+    // Retrieve the course detail and supporting cert and region data
     this.props.fetchCourseDetail(courseId);
     this.props.fetchCertificateList();
     this.props.fetchRegionList();
-    if (this.props.course) {
-      const { course } = this.props;
-      this.setState({
-        instructors: course.instructors,
-      });
-    }
+    // Retrieve the instructor data
+    this.props.fetchCourseInstructionList(courseId);
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.course !== this.props.course) {
       const { course } = nextProps;
-      this.setState({
-        instructors: nextProps.course.instructors,
-      });
     }
   }
 
   onFormSubmit(formProps) {
-    const maximum_participants = formProps.maximum_participants;
-    const { organizer } = formProps;
-    // If we have an organizer object, then get their ID
-    const organizerId = organizer ? organizer.id : null;
+    const { certificate, maximum_participants, organizer } = formProps;
+    const { profile } = this.props;
+    // If we have an organizer object, then extract their ID; otherwise,
+    // the requesting user is the organizer.
+    const organizerId = organizer ? organizer.id : profile.id;
+    console.info('organizer ID is ' + organizerId);
     const data = {
       ...formProps,
-      certificate: formProps.certificate.id,
       // If max_participants is empty, send null; otherwise send the value
       maximum_participants: maximum_participants === '' ? null : maximum_participants,
-      region: formProps.region.id,
+      // If we have an organizer, then extract their ID
       organizer: organizerId,
     };
-    console.info(data);
     // Send the data
-    // this.props.updateCourse(data);
+    this.props.updateCourse(data);
   }
 
-  // When the child form removes an instructor, remove the instructor
-  // from our state
-  onInstructorRemove(id) {
-    this.setState({
-      instructors: this.state.instructors.filter(i => i.id !== id),
-    });
+  addInstructor(instructor) {
+    const { course } = this.props;
+    const data = {
+      course: course.id,
+      user: instructor.id,
+    };
+    this.props.addCourseInstruction(course.id, data)
+    .then(() => this.props.fetchCourseInstructionList(course.id));
   }
 
-  // When the user clicks an instructor on the child form, add it to
-  // our state
-  onInstructorSuggestionSelected(value, { suggestion }) {
-    console.info('EditCourse.onInsSugSel');
-    this.setState({
-      instructors: [...this.state.instructors, suggestion],
-    });
-  }
-
-  // When the user removes the organizer from the child form, remove
-  // it from our state
-  onOrganizerRemove() {
-    this.setState({
-      organizer: undefined,
-    });
-  }
-
-  // When the user selects the organizer on the child form, set
-  // our state accordingly
-  onOrganizerSuggestionSelected(value, { suggestion }) {
-    console.info('EditCourse.onOrgSugSel');
-    console.info(suggestion);
-    this.setState({ organizer: suggestion });
+  deleteInstruction(instruction) {
+    const { course: {id: courseId} } = this.props;
+    const instructionId = instruction.id;
+    this.props.deleteCourseInstruction(courseId, instructionId)
+    .then(() => this.props.fetchCourseInstructionList(courseId));
   }
 
   render() {
-    const { handleSubmit, certificates, regions } = this.props;
-
-    const { instructors, organizer } = this.state;
-
-    const course = {
-      ...this.props.course,
-      instructors,
-      organizer,
-    };
+    const {
+      course,
+      handleSubmit,
+      certificates,
+      courseInstructions,
+      regions,
+    } = this.props;
 
     if (!(course && certificates && regions)) {
       return <PageLoading />;
@@ -116,14 +97,18 @@ class EditCourse extends Component {
         <CourseDetailForm
           certificates={certificates}
           instructors={course.instructors}
-          organizer={course.organizer}
-          onInstructorRemove={this.onInstructorRemove}
-          onInstructorSuggestionSelected={this.onInstructorSuggestionSelected}
-          onOrganizerRemove={this.onOrganizerRemove}
-          onOrganizerSuggestionSelected={this.onOrganizerSuggestionSelected}
           onSubmit={handleSubmit(this.onFormSubmit)}
           regions={regions}
         />
+        <h2 className="sinc-section-header">Instructors</h2>
+        {typeof courseInstructions === 'undefined' ? <PageLoading /> : (
+          <CourseInstructionListForm
+            className="sinc-edit-course-form"
+            courseInstructions={courseInstructions}
+            onAdd={this.addInstructor}
+            onRemove={this.deleteInstruction}
+          />
+        )}
       </div>
     );
   }
@@ -138,14 +123,32 @@ function mapStateToProps(state) {
   return {
     certificates: courses.certificates,
     course: courses.course,
-    initialValues: courses.course,
+    initialValues: formatCourseForInitialValues(courses.course),
+    courseInstructions: courses.courseInstructions,
+    profile: state.profiles.profile,
     regions: state.regions.regions,
   };
+
+  function formatCourseForInitialValues(course) {
+    // We want to pass the course and region IDs into the form so that
+    // it knows which of the <option>s to select
+    if (course) {
+      return {
+        ...course,
+        certificate: course.certificate.id,
+        region: course.region.id,
+      };
+    }
+    return course;
+  }
 }
 
 export default connect(mapStateToProps, {
+  addCourseInstruction,
+  deleteCourseInstruction,
   fetchCourseDetail,
   fetchCertificateList,
+  fetchCourseInstructionList,
   fetchRegionList,
   updateCourse,
 })(form(EditCourse));
