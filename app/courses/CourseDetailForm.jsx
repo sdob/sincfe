@@ -74,6 +74,7 @@ export default function CourseDetailForm(props) {
       </div>
       <Field
         name="organizer"
+        className="sinc-edit-course-form__organizer"
         component={AutosuggestOrMember}
         label="Organizer"
       />
