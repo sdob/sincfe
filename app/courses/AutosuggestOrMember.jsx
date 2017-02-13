@@ -65,6 +65,7 @@ class AutosuggestOrMember extends Component {
 
   render() {
     const {
+      className,
       input,
       inputId,
       label,
@@ -87,7 +88,7 @@ class AutosuggestOrMember extends Component {
     if (input && input.value) {
       const { value } = input;
       return (
-        <div className="form-group row">
+        <div className={className}>
           <label className="col-12 col-md-2 col-form-label"> {label} </label>
           <div className="col-1 text-right form-control-static"> {value.id} </div>
           <div className="col-8 col-sm-8 col-md-7 col-lg-4 form-control-static">
@@ -107,7 +108,7 @@ class AutosuggestOrMember extends Component {
     }
 
     return (
-      <div className="form-group row">
+      <div className={className}>
         <div className="col-12 col-md-3">
           {label}
         </div>
@@ -132,9 +133,7 @@ function getSuggestionValue(member) {
 
 function renderInputComponent(inputProps) {
   return (
-    <div>
-      <input className="form-control" {...inputProps} />
-    </div>
+    <input className="form-control" {...inputProps} />
   );
 }
 
