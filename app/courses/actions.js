@@ -3,6 +3,8 @@ import { createApiAction } from '../api';
 import {
   certificateListUrl,
   courseDetailUrl,
+  courseInstructionDetailUrl,
+  courseInstructionListUrl,
   coursesListUrl,
   memberCoursesOrganizedListUrl,
 } from '../api/urls';
@@ -12,6 +14,9 @@ import {
   courseAdd,
   courseDelete,
   courseDetail,
+  courseInstructionAdd,
+  courseInstructionDelete,
+  courseInstructionList,
   courseList,
   courseUpdate,
   memberCoursesOrganizedList,
@@ -24,10 +29,23 @@ const addCourse = data => createApiAction({
   types: courseAdd,
 });
 
+const addCourseInstruction = (cid, data) => createApiAction({
+  data,
+  url: courseInstructionListUrl(cid),
+  method: 'post',
+  types: courseInstructionAdd,
+});
+
 const deleteCourse = cid => createApiAction({
   url: courseDetailUrl(cid),
   method: 'delete',
   types: courseDelete,
+});
+
+const deleteCourseInstruction = (courseId, instructionId) => createApiAction({
+  method: 'delete',
+  url: courseInstructionDetailUrl(courseId, instructionId),
+  types: courseInstructionDelete,
 });
 
 const fetchCertificateList = () => createApiAction({
@@ -40,6 +58,12 @@ const fetchCourseDetail = cid => createApiAction({
   url: courseDetailUrl(cid),
   method: 'get',
   types: courseDetail,
+});
+
+const fetchCourseInstructionList = cid => createApiAction({
+  url: courseInstructionListUrl(cid),
+  method: 'get',
+  types: courseInstructionList,
 });
 
 const fetchCourseList = () => createApiAction({
@@ -63,9 +87,12 @@ const updateCourse = data => createApiAction({
 
 export {
   addCourse,
+  addCourseInstruction,
   deleteCourse,
+  deleteCourseInstruction,
   fetchCertificateList,
   fetchCourseDetail,
+  fetchCourseInstructionList,
   fetchCourseList,
   fetchCoursesOrganized,
   updateCourse,

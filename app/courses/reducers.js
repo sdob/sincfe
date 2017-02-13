@@ -2,7 +2,9 @@ import {
   certificateList,
   courseAdd,
   courseDetail,
+  courseInstructionList,
   courseList,
+  courseUpdate,
   memberCoursesOrganizedList,
   REGION_HIDE,
   REGION_SHOW,
@@ -16,7 +18,10 @@ export default function coursesReducer(initialState = {}, action) {
     case courseAdd.success:
       return {...state, added: true };
     case courseDetail.success:
+    case courseUpdate.success:
       return { ...state, course: action.payload };
+    case courseInstructionList.success:
+      return { ...state, courseInstructions: action.payload };
     case courseList.success:
       return { ...state, courses: action.payload };
     case memberCoursesOrganizedList.success:
