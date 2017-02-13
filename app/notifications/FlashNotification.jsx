@@ -2,15 +2,18 @@ import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { InlineNotification } from 'react-redux-notifications';
 
+const DEFAULT_HIDE_AFTER = 2000;
+
 /* eslint-disable jsx-a11y/href-no-hash */
 export default function FlashNotification(props) {
-  const { message, status, trigger } = props;
+  const { hideAfter, message, status, trigger } = props;
 
   const divClass = (status !== 'undefined') ? `sinc-notification--${status}` : '';
 
   return (
     <InlineNotification
       defaultMessage={message}
+      hideAfter={hideAfter ? hideAfter : DEFAULT_HIDE_AFTER}
       triggeredBy={trigger}
       showDismiss
       renderNotification={(notification, dismiss) => (
