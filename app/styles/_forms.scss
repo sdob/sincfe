@@ -3,3 +3,27 @@
 .sinc-form__submit-row {
   text-align: right;
 }
+
+.sinc-edit-course-form {
+  & .react-autosuggest__container {
+    @extend .col-12;
+    @extend .col-md-9;
+    @extend .col-lg-6;
+    @extend .col-xl-3;
+  }
+}
+
+.sinc-edit-course-form__instructor,
+.sinc-edit-course-form__organizer {
+  @extend .form-group;
+  @extend .row;
+  // This isn't pleasant, but because of the Flexbox-based implementation
+  // of BS4 columns, we have to be able to apply .col-x-y definitions to
+  // the containers of React components directly.
+  & .react-autosuggest__container {
+    @extend .col-12;
+    @extend .col-md-9;
+    @extend .col-lg-6;
+    @extend .col-xl-3;
+  }
+}
