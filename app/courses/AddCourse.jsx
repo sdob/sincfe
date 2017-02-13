@@ -61,7 +61,7 @@ class AddCourse extends Component {
     };
     console.info('data');
     console.info(data);
-    // this.props.addCourse(data);
+    this.props.addCourse(data);
   }
 
   // When the child form removes an instructor, remove the instructor
