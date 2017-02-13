@@ -32,6 +32,14 @@ function courseDetailUrl(cid) {
   return `${API_URL}/courses/${cid}/`;
 }
 
+function courseInstructionDetailUrl(courseId, instructionId) {
+  return `${API_URL}/courses/${courseId}/instructions/${instructionId}/`;
+}
+
+function courseInstructionListUrl(cid) {
+  return `${API_URL}/courses/${cid}/instructions/`;
+}
+
 function coursesListUrl() {
   return `${API_URL}/courses/`;
 }
@@ -93,6 +101,8 @@ export {
   clubListUrl,
   clubMemberListUrl,
   courseDetailUrl,
+  courseInstructionDetailUrl,
+  courseInstructionListUrl,
   coursesListUrl,
   currentMembershipStatusUrl,
   loginUrl,
