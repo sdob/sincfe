@@ -133,8 +133,8 @@ class ViewCourses extends Component {
               <tr>
                 <th>No.</th>
                 <th>Name</th>
-                <th>Date</th>
                 <th>Max</th>
+                <th>Date</th>
                 <th>Organizer</th>
                 <th>Region</th>
                 <th>Action</th>
