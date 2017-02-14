@@ -11,6 +11,7 @@ import NotImplementedYet from './NotImplementedYet';
 import PageLoading from './PageLoading';
 import RegionFilter from './RegionFilter';
 import SortedTable from './SortedTable';
+import StaticFormRow from './StaticFormRow';
 import SubmitRow from './SubmitRow';
 import UneditableProfileHelp from './UneditableProfileHelp';
 
@@ -30,6 +31,7 @@ export {
   RegionFilter,
   SelectRow,
   SortedTable,
+  StaticFormRow,
   SubmitRow,
   UneditableProfileHelp,
   createTypes,
