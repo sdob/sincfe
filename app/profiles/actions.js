@@ -63,7 +63,12 @@ const updateOwnProfile = user => createApiAction({
 });
 
 function formatUserDOB(user) {
-  return { ...user, date_of_birth: date2django(user.date_of_birth) };
+  // If we've been passed a Date object, then format it appropriately
+  // for Django; otherwise, return the string
+  const date_of_birth = (user.date_of_birth instanceof Date)
+    ? date2django(user.date_of_birth)
+    : user.date_of_birth;
+  return { ...user, date_of_birth };
 }
 
 export {
