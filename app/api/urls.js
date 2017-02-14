@@ -84,6 +84,10 @@ function qualificationListUrl() {
   return `${API_URL}/qualifications/`;
 }
 
+function regionClubListUrl(rid) {
+  return `${API_URL}/regions/${rid}/clubs/`;
+}
+
 function regionDetailUrl(rid) {
   return `${API_URL}/regions/${rid}/`;
 }
@@ -113,6 +117,7 @@ export {
   memberQualificationListUrl,
   ownProfileUrl,
   qualificationListUrl,
+  regionClubListUrl,
   regionDetailUrl,
   regionsListUrl,
 };
