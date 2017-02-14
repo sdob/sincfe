@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import * as sort from 'sortabular';
 import { Link } from 'react-router';
-import EDIT_CLUB from '../paths';
+import { EDIT_CLUB } from '../paths';
 import { SortedTable } from '../shared';
 
 export default class ClubTable extends Component {
@@ -75,7 +75,14 @@ export default class ClubTable extends Component {
           label: 'Action',
         },
         cell: {
-          formatters: [id => <Link to={`/${EDIT_CLUB}/${id}`}><i className="fa fa-fw fa-edit" /></Link>],
+          formatters: [id => (
+            <Link
+              className="btn btn-primary sinc-btn--compact"
+              to={`${EDIT_CLUB}/${id}`}
+            >
+              <i className="fa fa-fw fa-edit" />
+            </Link>
+          )],
         }
       });
     }
