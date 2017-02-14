@@ -25,7 +25,10 @@ class ViewClubs extends Component {
     return (
       <div>
         <h1 className="sinc-page-header">View clubs</h1>
-        <ClubTable clubs={clubs} />
+        <ClubTable
+          clubs={clubs}
+          editable={true}
+        />
       </div>
     );
   }
