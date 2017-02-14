@@ -26,7 +26,7 @@ import ClubMemberList from './clubs/ClubMemberList';
 import ClubRenewalOrders from './renewal-orders/ClubRenewalOrders';
 import ClubQualifications from './qualifications/ClubQualifications';
 import Documents from './documents/Documents';
-import EditClubDetails from './clubs/EditClubDetails';
+import EditClub from './clubs/EditClub';
 import EditCourse from './courses/EditCourse';
 import EditMember from './profiles/EditMember';
 import EditProfile from './profiles/EditProfile';
@@ -51,18 +51,18 @@ export default (
     <Route path={paths.ACTIVE_INSTRUCTORS} component={RequireAuth(ActiveInstructors)} />
     <Route path={paths.ADD_COURSE} component={RequireAuth(AddCourse)} />
     <Route path={paths.ADD_MEMBER} component={RequireAuth(AddMember)} />
-    <Route path={paths.CLUB_DETAILS} component={RequireAuth(EditClubDetails)} />
     <Route path={paths.CLUB_QUALIFICATIONS} component={RequireAuth(ClubQualifications)} />
     <Route path={paths.CLUB_RENEWAL_ORDERS} component={RequireAuth(ClubRenewalOrders)} />
     <Route path={paths.CONTACT_US} component={RequireAuth(ContactUs)} />
     <Route path={paths.DOCUMENTS} component={RequireAuth(Documents)} />
+    <Route path={`${paths.EDIT_CLUB}/:id`} component={RequireAuth(EditClub)} />
     <Route path={`${paths.EDIT_COURSE}/:id`} component={RequireAuth(EditCourse)} />
     <Route path={`${paths.EDIT_MEMBER}/:id`} component={RequireAuth(EditMember)} />
     <Route path={`${paths.EDIT_REGION}/:id`} component={RequireAuth(ViewRegionDetail)} />
     <Route path={paths.EDIT_PROFILE} component={RequireAuth(EditProfile)} />
     <Route path={paths.HELP_PAGE} component={RequireAuth(HelpPage)} />
     <Route path={paths.LOGIN} component={Login} />
-    <Route path={paths.LOGOUT} component={Logout} />
+    <Route path={paths.LOGOUT} component={RequireAuth(Logout)} />
     <Route path={paths.MEDICAL_DISCLAIMER} component={RequireAuth(MedicalDisclaimer)} />
     <Route path={paths.MEMBER_QUALIFICATIONS} component={RequireAuth(MemberQualifications)} />
     <Route path={paths.MEMBERSHIP_HISTORY} component={RequireAuth(MembershipHistory)} />
