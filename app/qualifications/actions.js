@@ -1,8 +1,16 @@
-import { clubQualificationsUrl, memberQualificationListUrl, qualificationListUrl } from '../api/urls';
+import {
+  clubQualificationsUrl,
+  memberQualificationListUrl,
+  qualificationDetailUrl,
+  qualificationListUrl,
+} from '../api/urls';
+
 import { createApiAction } from '../api';
+
 import {
   clubQualificationList,
   memberQualificationList,
+  qualificationDetail,
   qualificationList,
 } from './types';
 
@@ -20,6 +28,12 @@ const fetchMemberQualifications = uid => createApiAction({
   types: memberQualificationList,
 });
 
+const fetchQualification = (qid) => createApiAction({
+  url: qualificationDetailUrl(qid),
+  method: 'get',
+  types: qualificationDetail,
+});
+
 /* Retrieve ALL qualifications in the system */
 const fetchQualifications = () => createApiAction({
   url: qualificationListUrl(),
@@ -30,5 +44,6 @@ const fetchQualifications = () => createApiAction({
 export {
   fetchClubQualifications,
   fetchMemberQualifications,
+  fetchQualification,
   fetchQualifications,
 };
