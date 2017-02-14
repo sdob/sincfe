@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
 import * as sort from 'sortabular';
+import moment from 'moment';
 
 import * as paths from '../paths';
 import { fetchQualifications } from './actions';
@@ -21,7 +22,7 @@ class ViewQualifications extends Component {
       columns,
       regionVisibilities: {},
       sortingColumns: {
-        id: { direction: 'desc', position: 0 },
+        date_granted: { direction: 'desc', position: 0 },
         first_name: { direction: 'desc', position: 1 },
         last_name: { direction: 'none', position: 2 },
       },
@@ -174,6 +175,14 @@ function columnDefinitions(getSortingColumns) {
   });
 
   return [
+    defaultColumn('date_granted', 'Date granted', {
+      // Format the date granted in the table as DD/MM/YYYY
+      cell: {
+        formatters: [
+          dateString => moment(dateString, 'YYYY-MM-DD').format('DD/MM/YYYY')
+        ],
+      },
+    }),
     defaultColumn('user.id', 'CFT #'),
     defaultColumn('user.first_name', 'First name'),
     defaultColumn('user.last_name', 'Last name'),
