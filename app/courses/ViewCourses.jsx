@@ -90,13 +90,13 @@ class ViewCourses extends Component {
     const { certificates, courses, regions } = this.props;
     return (
       <div>
-        <h1 className="sinc-page-header">
+        <h1 className="sinc-page-header d-flex justify-content-between">
           View courses
           {' '}
           <Link to={paths.ADD_COURSE}>
-            <button className="btn btn-primary">
+            <span className="btn btn-primary">
               <i className="fa fa-fw fa-file" />
-            </button>
+            </span>
           </Link>
         </h1>
 
