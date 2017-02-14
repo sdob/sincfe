@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
-import { fetchClub, updateClub } from './actions';
-import { FormRow, InlineSpinner, PageLoading } from '../shared';
+import { fetchClub, fetchClubMemberList, updateClub } from './actions';
+import { FormRow, InlineSpinner, MemberTable, PageLoading } from '../shared';
+import { getMemberRoles, profileRoles } from '../profiles';
 import ClubDetailForm from './ClubDetailForm';
 
 import * as fields from './fields';
@@ -26,6 +27,25 @@ class EditClub extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // This is an ugly hack to avoid a race condition; we don't know
+    // whether the club or the profile will arrive first, and we
+    // need both in order to check whether the user is an admin.
+    // TODO: spread this.
+    const isNewClub = nextProps.club !== this.props.club;
+    const isNewProfile = nextProps.profile !== this.props.profile;
+    if (isNewProfile && this.props.club) {
+      const { club } = this.props;
+      const { profile } = nextProps;
+      if (getMemberRoles(profile).includes(profileRoles.ADMINISTRATOR)) {
+        this.props.fetchClubMemberList(club.id);
+      }
+    } else if (isNewClub && this.props.profile) {
+      const { club } = nextProps;
+      const { profile } = this.props;
+      if (getMemberRoles(profile).includes(profileRoles.ADMINISTRATOR)) {
+        this.props.fetchClubMemberList(club.id);
+      }
+    }
   }
 
   handleFormSubmit(formProps) {
@@ -36,17 +56,27 @@ class EditClub extends Component {
   }
 
   render() {
-    const { club, handleSubmit, submitting } = this.props;
+    const { club, handleSubmit, members, profile, submitting } = this.props;
     if (!club) {
       return <PageLoading />;
     }
 
     return (
-      <ClubDetailForm
-        club={club}
-        onSubmit={handleSubmit(this.handleFormSubmit)}
-        submitting={submitting}
-      />
+      <div>
+        <ClubDetailForm
+          club={club}
+          onSubmit={handleSubmit(this.handleFormSubmit)}
+          submitting={submitting}
+        />
+        {members && (
+          <div>
+            <h2 className="sinc-section-header">Members</h2>
+            <MemberTable
+              rows={members}
+            />
+          </div>
+        )}
+      </div>
     );
   }
 }
@@ -56,10 +86,13 @@ EditClub.contextTypes = {
 };
 
 function mapStateToProps(state) {
-  const { club } = state.clubs;
+  const { club, memberList } = state.clubs;
+  const { profile } = state.profiles;
   return {
     club,
     initialValues: club, // populate form
+    members: memberList,
+    profile,
   };
 }
 
@@ -75,4 +108,8 @@ function validate(values) {
   return errors;
 }
 
-export default connect(mapStateToProps, { fetchClub, updateClub })(form(EditClub));
+export default connect(mapStateToProps, {
+  fetchClub,
+  fetchClubMemberList,
+  updateClub,
+})(form(EditClub));
