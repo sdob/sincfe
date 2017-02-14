@@ -1,9 +1,28 @@
 import { createApiAction } from '../api';
-import { regionDetailUrl, regionsListUrl } from '../api/urls';
 import {
+  regionClubListUrl,
+  regionDetailUrl,
+  regionsListUrl,
+  regionMemberListUrl,
+} from '../api/urls';
+import {
+  regionClubList,
   regionDetail,
   regionList,
+  regionMemberList,
 } from './types';
+
+const fetchRegionClubList = rid => createApiAction({
+  url: regionClubListUrl(rid),
+  types: regionClubList,
+  method: 'get',
+});
+
+const fetchRegionMemberList = rid => createApiAction({
+  url: regionMemberListUrl(rid),
+  types: regionMemberList,
+  method: 'get',
+});
 
 const fetchRegionDetail = rid => createApiAction({
   url: regionDetailUrl(rid),
@@ -18,6 +37,8 @@ const fetchRegions = () => createApiAction({
 });
 
 export {
+  fetchRegionClubList,
   fetchRegionDetail,
+  fetchRegionMemberList,
   fetchRegions,
 };
