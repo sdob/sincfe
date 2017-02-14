@@ -71,7 +71,10 @@ export default class NewMemberTable extends Component {
         cell: {
           formatters: [
             id => (
-              <Link href={`/edit-member/${id}/`}>
+              <Link
+                className="btn btn-primary sinc-btn--compact"
+                to={`/edit-member/${id}/`}
+              >
                 <i className="fa fa-fw fa-edit" />
               </Link>
             ),
