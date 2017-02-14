@@ -80,6 +80,10 @@ function ownProfileUrl() {
   return `${API_URL}/users/me/`;
 }
 
+function qualificationDetailUrl(qid) {
+  return `${API_URL}/qualifications/${qid}/`;
+}
+
 function qualificationListUrl() {
   return `${API_URL}/qualifications/`;
 }
@@ -120,6 +124,7 @@ export {
   memberNameSearchUrl,
   memberQualificationListUrl,
   ownProfileUrl,
+  qualificationDetailUrl,
   qualificationListUrl,
   regionClubListUrl,
   regionDetailUrl,
