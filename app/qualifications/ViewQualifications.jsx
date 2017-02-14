@@ -186,7 +186,10 @@ function columnDefinitions(getSortingColumns) {
       cell: {
         formatters: [
           id => (
-            <Link to={`${paths.EDIT_QUALIFICATION}/${id}`}>
+            <Link
+              to={`${paths.EDIT_QUALIFICATION}/${id}`}
+              className="btn btn-primary sinc-btn--compact"
+            >
               <i className="fa fa-fw fa-edit" />
             </Link>
           ),
