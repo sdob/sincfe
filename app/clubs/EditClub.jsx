@@ -9,11 +9,11 @@ import ClubDetailForm from './ClubDetailForm';
 import * as fields from './fields';
 
 const form = reduxForm({
-  form: 'editClubDetails',
+  form: 'editClub',
   validate,
 });
 
-class EditClubDetails extends Component {
+class EditClub extends Component {
 
   constructor(props, ctx) {
     super(props, ctx);
@@ -21,17 +21,11 @@ class EditClubDetails extends Component {
   }
 
   componentDidMount() {
-    const { profile } = this.props;
-    if (profile && profile.club) {
-      this.retrieveData(profile);
-    }
+    const clubId = this.context.router.params.id;
+    this.props.fetchClub(clubId);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { profile } = this.props;
-    if (nextProps.profile !== profile) {
-      this.retrieveData(nextProps.profile);
-    }
   }
 
   handleFormSubmit(formProps) {
@@ -41,14 +35,8 @@ class EditClubDetails extends Component {
     this.props.updateClub(rest);
   }
 
-  retrieveData(profile) {
-    this.props.fetchClub(profile.club.id);
-  }
-
   render() {
     const { club, handleSubmit, submitting } = this.props;
-    console.info('form props');
-    console.info(this.props);
     if (!club) {
       return <PageLoading />;
     }
@@ -63,10 +51,16 @@ class EditClubDetails extends Component {
   }
 }
 
+EditClub.contextTypes = {
+  router: React.PropTypes.object.isRequired,
+};
+
 function mapStateToProps(state) {
-  const { club, sending } = state.clubs;
-  const { profile } = state.profiles;
-  return { club, initialValues: club, profile, sending };
+  const { club } = state.clubs;
+  return {
+    club,
+    initialValues: club, // populate form
+  };
 }
 
 function validate(values) {
@@ -81,4 +75,4 @@ function validate(values) {
   return errors;
 }
 
-export default connect(mapStateToProps, { fetchClub, updateClub })(form(EditClubDetails));
+export default connect(mapStateToProps, { fetchClub, updateClub })(form(EditClub));
