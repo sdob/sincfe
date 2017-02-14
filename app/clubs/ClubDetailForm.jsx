@@ -5,7 +5,7 @@ import * as fields from './fields';
 export default function ClubDetailForm(props) {
   const { club, onSubmit, submitting } = props;
   return (
-    <form onSubmit={onSubmit}>
+    <form className="sinc-club-detail-form" onSubmit={onSubmit}>
       <h1 className="sinc-page-header">Club details ({club.name})</h1>
 
       <div className="form-group row">
