@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form';
 import { PageLoading } from '../shared';
 import { roles } from '../profiles';
 import { fetchCertificateList } from '../courses/actions';
-import { fetchQualification } from './actions';
+import { fetchQualification, updateQualification } from './actions';
 import QualificationDetailForm from './QualificationDetailForm';
 
 const form = reduxForm({
@@ -24,7 +24,11 @@ class EditQualification extends Component {
   }
 
   handleFormSubmit(formProps) {
-    console.info(formProps);
+    const data = {
+      ...formProps,
+      user: formProps.user.id,
+    };
+    this.props.updateQualification(data);
   }
 
   render() {
@@ -76,4 +80,5 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
   fetchCertificateList,
   fetchQualification,
+  updateQualification,
 })(form(EditQualification));
