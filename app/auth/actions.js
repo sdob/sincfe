@@ -55,8 +55,6 @@ function loginUser({ username, password }) {
       // If we're here, then the server responded with a 2xx response and a
       // token. Start by storing the authentication token as a cookie
       cookie.save('token', response.data.token, { path: '/' });
-      // Redirect to the main page
-      window.location.href = '/';
       // Set the authorization header for all outgoing requests
       axios.defaults.headers.common.Authorization = `Token ${response.data.token}`;
       // Dispatch the login success event
@@ -77,6 +75,7 @@ function logoutUser() {
     // Remove the default header
     delete axios.defaults.headers.common.Authorization;
     dispatch({ type: types.LOGOUT_USER });
-    window.location.href = '/main';
+    // Return to the main page, which will nuke state
+    window.location.href = '/';
   };
 }
