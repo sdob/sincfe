@@ -30,6 +30,7 @@ import EditClub from './clubs/EditClub';
 import EditCourse from './courses/EditCourse';
 import EditMember from './profiles/EditMember';
 import EditProfile from './profiles/EditProfile';
+import EditQualification from './qualifications/EditQualification';
 import HelpPage from './help-page/HelpPage';
 import MemberQualifications from './qualifications/MemberQualifications';
 import MedicalDisclaimer from './medical-disclaimer/MedicalDisclaimer';
@@ -58,6 +59,7 @@ export default (
     <Route path={`${paths.EDIT_CLUB}/:id`} component={RequireAuth(EditClub)} />
     <Route path={`${paths.EDIT_COURSE}/:id`} component={RequireAuth(EditCourse)} />
     <Route path={`${paths.EDIT_MEMBER}/:id`} component={RequireAuth(EditMember)} />
+    <Route path={`${paths.EDIT_QUALIFICATION}/:id`} component={RequireAuth(EditQualification)} />
     <Route path={`${paths.EDIT_REGION}/:id`} component={RequireAuth(ViewRegionDetail)} />
     <Route path={paths.EDIT_PROFILE} component={RequireAuth(EditProfile)} />
     <Route path={paths.HELP_PAGE} component={RequireAuth(HelpPage)} />
