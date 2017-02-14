@@ -4,10 +4,12 @@ const clubQualificationList = createTypes('CLUB_QUALIFICATION_LIST');
 const memberQualificationList = createTypes('MEMBER_QUAlIFICATION_LIST');
 const qualificationDetail = createTypes('QUALIFICATION_DETAIL');
 const qualificationList = createTypes('QUALIFICATION_LIST');
+const qualificationUpdate = createTypes('QUALIFICATION_UPDATE');
 
 export {
   clubQualificationList,
   memberQualificationList,
   qualificationDetail,
   qualificationList,
+  qualificationUpdate,
 };
