@@ -12,6 +12,7 @@ import {
   memberQualificationList,
   qualificationDetail,
   qualificationList,
+  qualificationUpdate,
 } from './types';
 
 /* Retrieve all qualifications for the club with ID 'cid' */
@@ -41,9 +42,17 @@ const fetchQualifications = () => createApiAction({
   types: qualificationList,
 });
 
+const updateQualification = data => createApiAction({
+  data,
+  url: qualificationDetailUrl(data.id),
+  method: 'put',
+  types: qualificationUpdate,
+});
+
 export {
   fetchClubQualifications,
   fetchMemberQualifications,
   fetchQualification,
   fetchQualifications,
+  updateQualification,
 };
