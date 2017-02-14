@@ -42,6 +42,7 @@ import ViewCourses from './courses/ViewCourses';
 import ViewMembers from './profiles/ViewMembers';
 import ViewQualifications from './qualifications/ViewQualifications';
 import ViewRegions from './regions/ViewRegions';
+import ViewRegionDetail from './regions/ViewRegionDetail';
 
 // Define and export app routes
 export default (
@@ -57,6 +58,7 @@ export default (
     <Route path={paths.DOCUMENTS} component={RequireAuth(Documents)} />
     <Route path={`${paths.EDIT_COURSE}/:id`} component={RequireAuth(EditCourse)} />
     <Route path={`${paths.EDIT_MEMBER}/:id`} component={RequireAuth(EditMember)} />
+    <Route path={`${paths.EDIT_REGION}/:id`} component={RequireAuth(ViewRegionDetail)} />
     <Route path={paths.EDIT_PROFILE} component={RequireAuth(EditProfile)} />
     <Route path={paths.HELP_PAGE} component={RequireAuth(HelpPage)} />
     <Route path={paths.LOGIN} component={Login} />
