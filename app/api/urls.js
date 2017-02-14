@@ -92,6 +92,10 @@ function regionDetailUrl(rid) {
   return `${API_URL}/regions/${rid}/`;
 }
 
+function regionMemberListUrl(rid) {
+  return `${regionDetailUrl(rid)}users/`;
+}
+
 function regionsListUrl() {
   return `${API_URL}/regions/`;
 }
@@ -120,4 +124,5 @@ export {
   regionClubListUrl,
   regionDetailUrl,
   regionsListUrl,
+  regionMemberListUrl,
 };
