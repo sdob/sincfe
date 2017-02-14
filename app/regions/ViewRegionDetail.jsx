@@ -4,6 +4,7 @@ import {
   MemberTable,
   PageLoading,
 } from '../shared';
+import { ClubTable } from '../clubs'
 import { fetchRegionClubList, fetchRegionDetail, fetchRegionMemberList } from './actions';
 
 class ViewRegionDetail extends Component {
@@ -40,11 +41,11 @@ class ViewRegionDetail extends Component {
         return <PageLoading />;
       }
       return (
-        <div>
-          {clubs.map(c => (
-            <div>{c.name}</div>
-          ))}
-        </div>
+        <ClubTable
+          clubs={clubs}
+          editable={true}
+          showRegions={false}
+        />
       );
     }
 
