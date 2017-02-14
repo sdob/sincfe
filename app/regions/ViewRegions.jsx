@@ -39,7 +39,7 @@ class ViewRegions extends Component {
                   {region.name}
                 </td>
                 <td>
-                  <Link to={`${paths.EDIT_REGION}/:id`}>
+                  <Link to={`${paths.EDIT_REGION}/${region.id}`}>
                     <i className="fa fa-fw fa-edit" />
                   </Link>
                 </td>
