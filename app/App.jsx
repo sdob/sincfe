@@ -45,7 +45,14 @@ class App extends Component {
   componentDidMount() {
     if (this.props.authenticated) {
       this.props.fetchProfile();
+    } else {
+      // If the user isn't authenticated, then nuke any paths beyond the
+      // app root
+      this.context.router.push('/');
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
   }
 
   // Render the app. We're rendering either of two things here: the
@@ -63,11 +70,14 @@ class App extends Component {
   }
 }
 
+App.contextTypes = {
+  router: React.PropTypes.object.isRequired,
+};
+
 function mapStateToProps(state) {
-  return {
-    authenticated: state.auth.authenticated,
-    profile: state.profiles.profile,
-  };
+  const { authenticated } = state.auth;
+  const { profile } = state.profiles;
+  return { authenticated, profile };
 }
 
 export default connect(mapStateToProps, { fetchProfile })(App);
