@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { hideModal } from'./actions';
 
 function Modal(props) {
   const {
@@ -7,12 +8,13 @@ function Modal(props) {
     confirmIsDangerous,
     // confirmAction,
     confirmText,
+    hideModal,
     title,
   } = props;
 
   // If we're provided with an 'onCancel' action, then perform it when
   // the 'Cancel' button is clicked; otherwise, just close the modal
-  const onCancel = props.onCancel ? props.onCancel : closeModal;
+  const onCancel = props.onCancel ? props.onCancel : hideModal;
 
   // If we're provided with an 'onConfirm' action, then perform it when
   // the 'OK' button is clicked; otherwise, just close the modal
@@ -38,7 +40,7 @@ function Modal(props) {
           </div>
           <div className="modal-footer">
             <button type="button" className="btn btn-secondary"
-              onClick={() => onCancel()}
+              onClick={onCancel}
             >
               {cancelText ? cancelText : 'Cancel'}
             </button>
@@ -53,12 +55,6 @@ function Modal(props) {
       </div>
     </div>
   );
-
-  // This is the default behaviour when the 'Cancel' button is clicked:
-  // dispatch an action to close the modal
-  function closeModal() {
-    props.dispatch({ type: 'HIDE_MODAL' });
-  }
 }
 
-export default connect()(Modal);
+export default connect(null, { hideModal })(Modal);
