@@ -13,7 +13,7 @@ export default function (ComposedComponent) {
     // redirect the user to the login page
     componentWillMount() {
       if (!this.props.authenticated) {
-        this.context.router.push(LOGIN);
+        return this.context.router.push(LOGIN);
       }
     }
 
@@ -21,7 +21,7 @@ export default function (ComposedComponent) {
     // if we're logged out, then redirect the user to the login page
     componentWillUpdate(nextProps) {
       if (!nextProps.authenticated) {
-        this.context.router.push(LOGIN);
+        return this.context.router.push(LOGIN);
       }
     }
 
