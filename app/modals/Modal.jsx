@@ -12,13 +12,16 @@ function Modal(props) {
     title,
   } = props;
 
+  // closeButton defaults to True
+  const closeButton = props.closeButton === undefined ? true : !!props.closeButton;
+
   // If we're provided with an 'onCancel' action, then perform it when
   // the 'Cancel' button is clicked; otherwise, just close the modal
   const onCancel = props.onCancel ? props.onCancel : hideModal;
 
   // If we're provided with an 'onConfirm' action, then perform it when
   // the 'OK' button is clicked; otherwise, just close the modal
-  const onConfirm = props.onConfirm ? props.onConfirm : closeModal;
+  const onConfirm = props.onConfirm ? props.onConfirm : hideModal;
 
   return (
     <div
@@ -34,6 +37,16 @@ function Modal(props) {
         <div className="modal-content">
           <div className="modal-header">
             <h5>{props.title}</h5>
+            {closeButton && (
+              <button
+                type="button"
+                className="close"
+                aria-label="Close"
+                onClick={hideModal}
+              >
+                <i className="fa fa-fw fa-times" />
+              </button>
+            )}
           </div>
           <div className="modal-body">
             {props.children}
