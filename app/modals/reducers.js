@@ -1,6 +1,7 @@
 const initialState = {
   modalType: null,
   modalProps: {},
+  showBackdrop: false,
 };
 
 export default function modalReducer(state = initialState, action) {
@@ -10,6 +11,7 @@ export default function modalReducer(state = initialState, action) {
         ...state,
         modalType: action.modalType,
         modalProps: action.modalProps,
+        showBackdrop: true,
       };
     case 'HIDE_MODAL':
       return initialState;
