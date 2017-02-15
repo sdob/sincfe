@@ -4,11 +4,7 @@ import { FormRow, InlineSpinner, PageLoading, SelectRow, SubmitRow } from '../sh
 import * as fields from './fields';
 
 function ClubDetailForm(props) {
-  const { club, onSubmit, regions, submitting } = props;
-
-  console.info('submitting? ' + submitting);
-
-  const isAdmin = true;
+  const { isAdmin, club, onSubmit, regions, submitting } = props;
 
   if (!regions) {
     return <PageLoading />;
