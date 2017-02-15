@@ -1,9 +1,11 @@
 const path = require('path');
 const express = require('express');
+const compression = require('compression');
 
 const port = process.env.PORT;
 const app = express();
 
+app.use(compression());
 app.use(express.static(__dirname + '/build'));
 app.get('*', function response(req, res) {
   res.sendFile(path.join(__dirname, 'build/index.html'));
