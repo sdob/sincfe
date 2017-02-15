@@ -3,6 +3,7 @@ import * as sort from 'sortabular';
 import { Link } from 'react-router';
 import { EDIT_CLUB } from '../paths';
 import { SortedTable } from '../shared';
+import { roles } from '../profiles';
 
 export default class ClubTable extends Component {
   constructor(props, ctx) {
@@ -66,8 +67,10 @@ export default class ClubTable extends Component {
       );
     }
 
-    // editable defaults to false
+    // editable defaults to false (as does isAdmin)
     const editable = !!this.props.editable;
+    const isAdmin = !!this.props.isAdmin;
+    const { handleDelete } = this.props;
     if (editable) {
       this.state.columns.push({
         property: 'id',
@@ -76,12 +79,23 @@ export default class ClubTable extends Component {
         },
         cell: {
           formatters: [id => (
-            <Link
-              className="btn btn-primary sinc-btn--compact"
-              to={`${EDIT_CLUB}/${id}`}
-            >
-              <i className="fa fa-fw fa-edit" />
-            </Link>
+            <div>
+              <Link
+                className="btn btn-primary sinc-btn--compact"
+                to={`${EDIT_CLUB}/${id}`}
+              >
+                <i className="fa fa-fw fa-edit" />
+              </Link>
+              {isAdmin && (
+                <button
+                  className="btn btn-danger sinc-btn--compact"
+                  type="button"
+                  onClick={() => handleDelete(id)}
+                >
+                  <i className="fa fa-fw fa-trash" />
+                </button>
+              )}
+            </div>
           )],
         }
       });

@@ -15,6 +15,12 @@ const addClub = data => createApiAction({
     types: clubAdd,
 });
 
+const deleteClub = cid => createApiAction({
+  url: clubDetailUrl(cid),
+  method: 'delete',
+  types: clubDelete,
+});
+
 const fetchClub = cid => createApiAction({
   url: clubDetailUrl(cid), method: 'get', types: clubDetail,
 });

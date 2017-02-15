@@ -5,16 +5,30 @@ import { fetchRegions } from '../regions/actions';
 import { AddLink, PageLoading, SortedTable } from '../shared';
 import { roles } from '../profiles';
 import * as paths from '../paths';
+import { showModal } from '../modals/actions';
 import { fetchClubList } from './actions';
 import ClubTable from './ClubTable';
 
 class ViewClubs extends Component {
+
+  constructor(props, ctx) {
+    super(props, ctx);
+    this.handleDelete = this.handleDelete.bind(this);
+  }
 
   componentDidMount() {
     // Fetch the list of regions first, so that we can populate
     // the 'Region' field in the table
     this.props.fetchRegions()
     .then(this.props.fetchClubList);
+  }
+
+  handleDelete(cid) {
+    console.info('handling delete');
+    this.props.showModal({
+      modalType: 'DELETE_CLUB',
+      modalProps: { clubId: cid },
+    });
   }
 
   render() {
@@ -36,6 +50,8 @@ class ViewClubs extends Component {
         <ClubTable
           clubs={clubs}
           editable={true}
+          handleDelete={this.handleDelete}
+          isAdmin={isAdmin}
         />
       </div>
     );
@@ -54,4 +70,5 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps, {
   fetchClubList,
   fetchRegions,
+  showModal,
 })(ViewClubs);

@@ -1,6 +1,7 @@
 import { createTypes } from '../shared';
 
 const clubAdd = createTypes('CLUB_ADD');
+const clubDelete = createTypes('CLUB_DELETE');
 
 const clubDetail = {
   success: 'CLUB_DETAIL_RECEIVED',
@@ -28,6 +29,7 @@ const clubUpdate = {
 
 export {
   clubAdd,
+  clubDelete,
   clubDetail,
   clubList,
   clubMemberList,
