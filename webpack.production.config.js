@@ -27,6 +27,7 @@ module.exports = {
   plugins: [
     new webpack.optimize.UglifyJsPlugin(),
     plugins.defineApiUrl,
+    plugins.provideJQuery,
     new CopyWebpackPlugin([
       { from: './app/index.html', to: './index.html' },
       { from: './app/img/', to:'./img/' },

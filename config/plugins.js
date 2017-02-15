@@ -8,6 +8,13 @@ const defineApiUrl = new webpack.DefinePlugin({
   }
 });
 
+const provideJQuery = new webpack.ProvidePlugin({
+  $: 'jquery',
+  jQuery: 'jquery',
+  Tether: 'tether',
+});
+
 module.exports = {
   defineApiUrl: defineApiUrl,
+  provideJQuery: provideJQuery
 };

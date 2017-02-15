@@ -6,12 +6,6 @@ const rules = require('./config/rules');
 // Load environment variables
 require('dotenv').config();
 
-const provideJQuery = new webpack.ProvidePlugin({
-  $: 'jquery',
-  jQuery: 'jquery',
-  Tether: 'tether',
-});
-
 module.exports = {
   devServer: {
     historyApiFallback: true,
@@ -35,7 +29,7 @@ module.exports = {
     extensions: [ '.js', '.jsx' ],
   },
   plugins: [
-    provideJQuery,
+    plugins.provideJQuery,
     new webpack.HotModuleReplacementPlugin(),
     plugins.defineApiUrl,
   ]
