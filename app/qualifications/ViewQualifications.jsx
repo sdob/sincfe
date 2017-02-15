@@ -19,11 +19,14 @@ class ViewQualifications extends Component {
     this.handleQualificationDelete = this.handleQualificationDelete.bind(this);
     this.getSortingColumns = this.getSortingColumns.bind(this);
 
+    this.refreshColumnDefinitions = this.refreshColumnDefinitions.bind(this);
+
     this.columnDefinitions = columnDefinitions.bind(this);
 
     // Set initial state
     // const columns = columnDefinitions.bind(this)(this.getSortingColumns, props.isAdmin);
     this.state = {
+      columns: [],
       regionVisibilities: {},
       sortingColumns: {
         date_granted: { direction: 'desc', position: 0 },
@@ -58,18 +61,17 @@ class ViewQualifications extends Component {
       const { regions } = nextProps;
       this.initializeVisibilities(regions);
     }
-    if (nextProps.isAdmin !== this.props.isAdmin) {
-      this.refreshColumnDefinitions(nextProps.isAdmin);
-    }
+    this.refreshColumnDefinitions(nextProps.isAdmin);
   }
 
   refreshColumnDefinitions(isAdmin) {
+    const columns = columnDefinitions(
+      this.getSortingColumns.bind(this),
+      isAdmin,
+      this.handleQualificationDelete,
+    );
     this.setState({
-      columns: columnDefinitions(
-        this.getSortingColumns.bind(this),
-        isAdmin,
-        this.handleQualificationDelete,
-      ),
+      columns,
     });
   }
 
