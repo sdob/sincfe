@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as sort from 'sortabular';
-import { fetchClubList } from './actions';
 import { fetchRegions } from '../regions/actions';
-import { PageLoading, SortedTable } from '../shared';
+import { AddLink, PageLoading, SortedTable } from '../shared';
+import { roles } from '../profiles';
+import * as paths from '../paths';
+import { fetchClubList } from './actions';
 import ClubTable from './ClubTable';
 
 class ViewClubs extends Component {
@@ -16,15 +18,21 @@ class ViewClubs extends Component {
   }
 
   render() {
-    const { clubs } = this.props;
+    const { clubs, profile } = this.props;
 
-    if (!clubs) {
+    if (!(clubs && profile)) {
       return <PageLoading />;
     }
 
+    const isAdmin = roles.isAdministrator(profile);
+
     return (
       <div>
-        <h1 className="sinc-page-header">View clubs</h1>
+        <h1 className="sinc-page-header d-flex justify-content-between">
+          View clubs
+          {' '}
+          {isAdmin && <AddLink to={paths.ADD_CLUB} />}
+        </h1>
         <ClubTable
           clubs={clubs}
           editable={true}
@@ -35,8 +43,10 @@ class ViewClubs extends Component {
 }
 
 function mapStateToProps(state) {
+  const { profile } = state.profiles;
   return {
     clubs: state.clubs.clubList,
+    profile,
     regions: state.regions.regions,
   };
 }
