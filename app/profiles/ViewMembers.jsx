@@ -52,7 +52,8 @@ class ViewMembers extends Component {
   }
 
   render() {
-    const { members,regions } = this.props;
+    const { isAdmin, members,regions } = this.props;
+
     if (!members) {
       return (
         <div>
@@ -69,12 +70,13 @@ class ViewMembers extends Component {
       'club.name': { label: 'Club', canBeSorted: true },
       'club.region.name': { label: 'Region', canBeSorted: true },
     };
+
     return (
       <div>
         <h1 className="sinc-page-header">View members ({visibleMembers.length} / {members.length})</h1>
         <RegionFilter regions={regions} onChange={this.onRegionToggle} />
         <MemberTable
-          extraColumns={extraColumns}
+          isAdmin={isAdmin}
           rows={visibleMembers}
         />
       </div>
