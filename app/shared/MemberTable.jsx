@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import * as sort from 'sortabular';
 import SortedTable from './SortedTable';
+import DeleteButton from './DeleteButton';
 
 // Handle state and sorting for SortableTable
 export default class NewMemberTable extends Component {
@@ -70,12 +71,15 @@ export default class NewMemberTable extends Component {
         cell: {
           formatters: [
             id => (
-              <Link
-                className="btn btn-primary sinc-btn--compact"
-                to={`/edit-member/${id}/`}
-              >
-                <i className="fa fa-fw fa-edit" />
-              </Link>
+              <div className="d-flex">
+                <Link
+                  className="btn btn-primary sinc-btn--compact"
+                  to={`/edit-member/${id}/`}
+                >
+                  <i className="fa fa-fw fa-edit" />
+                </Link>
+                {props.isAdmin && <DeleteButton />}
+              </div>
             ),
           ],
         },
