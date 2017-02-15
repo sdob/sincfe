@@ -4,7 +4,6 @@ import { reduxForm } from 'redux-form';
 
 import { fetchClub, fetchClubMemberList, updateClub } from './actions';
 import { FormRow, InlineSpinner, MemberTable, PageLoading } from '../shared';
-import { getMemberRoles, roles } from '../profiles';
 import { fetchRegionList } from '../regions/';
 import ClubDetailForm from './ClubDetailForm';
 

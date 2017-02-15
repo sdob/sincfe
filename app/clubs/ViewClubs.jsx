@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import * as sort from 'sortabular';
 import { fetchRegions } from '../regions/actions';
 import { AddLink, PageLoading, RegionFilter, SortedTable } from '../shared';
-import { roles } from '../profiles';
 import * as paths from '../paths';
 import { showModal } from '../modals/actions';
 import { fetchClub, fetchClubList } from './actions';
@@ -66,13 +65,11 @@ class ViewClubs extends Component {
   }
 
   render() {
-    const { clubs, profile, regions } = this.props;
+    const { clubs, isAdmin, profile, regions } = this.props;
 
     if (!(clubs && profile)) {
       return <PageLoading />;
     }
-
-    const isAdmin = roles.isAdministrator(profile);
 
     return (
       <div>

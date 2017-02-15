@@ -3,7 +3,6 @@ import * as sort from 'sortabular';
 import { Link } from 'react-router';
 import { EDIT_CLUB } from '../paths';
 import { SortedTable } from '../shared';
-import { roles } from '../profiles';
 
 export default class ClubTable extends Component {
   constructor(props, ctx) {

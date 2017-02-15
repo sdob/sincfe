@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 import { PageLoading } from '../shared';
-import { roles } from '../profiles';
 import { fetchCertificateList } from '../courses/actions';
 import { fetchQualification, updateQualification } from './actions';
 import QualificationDetailForm from './QualificationDetailForm';
@@ -32,7 +31,7 @@ class EditQualification extends Component {
   }
 
   render() {
-    const { certificates, handleSubmit, profile, qualification } = this.props;
+    const { certificates, handleSubmit, isAdmin, profile, qualification } = this.props;
     if (!(profile && qualification)) {
       return <PageLoading />;
     }
@@ -42,7 +41,7 @@ class EditQualification extends Component {
         <QualificationDetailForm
           certificates={certificates}
           qualification={qualification}
-          editable={true && roles.isAdministrator(profile)}
+          editable={isAdmin}
           onSubmit={handleSubmit(this.handleFormSubmit)}
         />
       </div>
