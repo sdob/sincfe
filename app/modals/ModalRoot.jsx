@@ -1,19 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import DeleteClubModal from './DeleteClubModal';
 import DeleteCourseModal from './DeleteCourseModal';
 import * as types from './types';
 
 const MODAL_COMPONENTS = {
   [types.DELETE_COURSE]: DeleteCourseModal,
+  [types.DELETE_CLUB]: DeleteClubModal,
 };
 
 function ModalRoot({ modalType, modalProps }) {
   if (!modalType) {
     return null;
   }
-  // console.info('i should show something');
   const ModalComponent = MODAL_COMPONENTS[modalType];
-  // console.info(ModalComponent);
   return <ModalComponent {...modalProps} />;
 }
 
