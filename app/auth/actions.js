@@ -1,5 +1,6 @@
 import axios from 'axios';
 import cookie from 'react-cookie';
+import { browserHistory } from 'react-router';
 // import STATUS_CODES from 'http';
 import HTTP from 'http-status-codes';
 import * as types from './types';
@@ -74,8 +75,9 @@ function logoutUser() {
     cookie.remove('token');
     // Remove the default header
     delete axios.defaults.headers.common.Authorization;
+    // Dispatch a logout event
     dispatch({ type: types.LOGOUT_USER });
     // Return to the main page, which will nuke state
-    window.location.href = '/';
+    browserHistory.push('/');
   };
 }
