@@ -26,7 +26,8 @@ momentLocalizer(moment);
 const createStoreWithMiddleware = applyMiddleware(reduxThunk, NotificationMiddleware)(createStore);
 const store = createStoreWithMiddleware(rootReducer);
 
-// Check whether we're logged in at page load and dispatch an action
+// Check whether we're logged in at page load and perform the necessary
+// configuration
 const token = cookie.load('token');
 if (token) {
   // TODO: Check that this token is OK (in case it's expired) and redirect to login
