@@ -2,4 +2,8 @@
   // Override Bootstrap's attempt to control this through
   // JQuery
   display: block;
+  pointer-events: none; // Otherwise it blocks backdrop clicks
+}
+.modal-content {
+  pointer-events: auto;
 }
