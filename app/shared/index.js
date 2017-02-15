@@ -1,3 +1,4 @@
+import AddLink from './AddLink';
 import CertificateSelector from './CertificateSelector';
 import DatePicker from './DatePicker';
 import DateTimePicker from './DateTimePicker';
@@ -18,6 +19,7 @@ import UneditableProfileHelp from './UneditableProfileHelp';
 import createTypes from './createTypes';
 
 export {
+  AddLink,
   CertificateSelector,
   DatePicker,
   DateTimePicker,
