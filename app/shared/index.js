@@ -2,6 +2,7 @@ import AddLink from './AddLink';
 import CertificateSelector from './CertificateSelector';
 import DatePicker from './DatePicker';
 import DateTimePicker from './DateTimePicker';
+import DeleteButton from './DeleteButton';
 import FormRow from './FormRow';
 import SelectRow from './SelectRow';
 import GenericErrorMessage from './GenericErrorMessage';
@@ -23,6 +24,7 @@ export {
   CertificateSelector,
   DatePicker,
   DateTimePicker,
+  DeleteButton,
   FormRow,
   GenericErrorMessage,
   InlineSpinner,
