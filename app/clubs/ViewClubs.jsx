@@ -29,7 +29,7 @@ class ViewClubs extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps !== this.props.regions) {
+    if (nextProps.regions !== this.props.regions) {
       const visibilities = {};
       nextProps.regions.forEach((region) => {
         visibilities[region.id] = true;
