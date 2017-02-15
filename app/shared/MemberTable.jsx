@@ -49,10 +49,9 @@ export default class NewMemberTable extends Component {
 
     // Define our columns
     const columns = [
-      // Our sorting columns are all defined very similarly
+      // Our sorting columns are defined very similarly
       defaultColumnDefinition('id', 'CFT number'),
-      defaultColumnDefinition('first_name', 'First name'),
-      defaultColumnDefinition('last_name', 'Last name'),
+      defaultColumnDefinition('name', 'Name'),
       // Email column: not sortable
       {
         property: 'email',
@@ -122,7 +121,13 @@ export default class NewMemberTable extends Component {
   }
 
   render() {
-    const { rows } = this.props;
+
+    // Add unified 'name' property to each member object
+    const rows = this.props.rows.map(row => ({
+      ...row,
+      name: `${row.first_name} ${row.last_name}`,
+    }));
+
     const { columns, searchingColumns, sortingColumns } = this.state;
     return (
       <SortedTable
