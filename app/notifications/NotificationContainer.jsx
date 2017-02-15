@@ -1,6 +1,10 @@
 import React from 'react';
 import FlashNotification from './FlashNotification';
-import * as clubTypes from '../clubs/types';
+// import * as clubTypes from '../clubs/types';
+import {
+  clubAdd,
+  clubUpdate,
+} from '../clubs/types';
 import {
   courseAdd,
   courseDelete,
@@ -15,9 +19,9 @@ export default function NotificationContainer() {
     <div className="sinc-notification-container">
       <FlashNotification
         hideAfter={2000}
-        message="Changes saved!"
+        message="Club updated!"
         status="success"
-        trigger={clubTypes.CLUB_UPDATE_SUCCESS}
+        trigger={clubUpdate.success}
       />
       <FlashNotification
         hideAfter={2000}

@@ -12,6 +12,7 @@
  */
 
 export const ACTIVE_INSTRUCTORS = '/active-instructors';
+export const ADD_CLUB = '/add-club';
 export const ADD_COURSE = '/add-course';
 export const ADD_MEMBER = '/add-member';
 export const CLUB_DETAILS = '/club-details';

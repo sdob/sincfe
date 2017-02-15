@@ -1,6 +1,11 @@
 import * as types from './types';
 
-const { clubDetail, clubList, clubMemberList, clubUpdate } = types;
+const {
+  clubDetail,
+  clubList,
+  clubMemberList,
+  clubUpdate,
+} = types;
 
 export default function clubsReducer(initialState = {}, action) {
   const state = { ...initialState, sending: false };
@@ -13,6 +18,7 @@ export default function clubsReducer(initialState = {}, action) {
       return { ...state, sending: true };
 
     // Handle 'success' events
+    case clubUpdate.success:
     case clubDetail.success:
       return { ...state, club: action.payload };
     case clubList.success:

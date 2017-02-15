@@ -1,3 +1,7 @@
+import { createTypes } from '../shared';
+
+const clubAdd = createTypes('CLUB_ADD');
+
 const clubDetail = {
   success: 'CLUB_DETAIL_RECEIVED',
   pending: 'CLUB_DETAIL_FETCHING',
@@ -23,6 +27,7 @@ const clubUpdate = {
 };
 
 export {
+  clubAdd,
   clubDetail,
   clubList,
   clubMemberList,

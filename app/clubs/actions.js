@@ -1,11 +1,19 @@
 import { clubDetailUrl, clubListUrl, clubMemberListUrl } from '../api/urls';
 import { createApiAction } from '../api';
 import {
+  clubAdd,
   clubDetail,
   clubList,
   clubMemberList,
   clubUpdate,
 } from './types';
+
+const addClub = data => createApiAction({
+    data,
+    url: clubListUrl(),
+    method: 'post',
+    types: clubAdd,
+});
 
 const fetchClub = cid => createApiAction({
   url: clubDetailUrl(cid), method: 'get', types: clubDetail,
@@ -20,11 +28,15 @@ const fetchClubMemberList = cid => createApiAction({
 });
 
 /* Update a club, using the ID attribute of the data passed in */
-const updateClub = club => createApiAction({
-  url: clubDetailUrl(club.id), method: 'patch', types: clubUpdate, data: club
+const updateClub = data => createApiAction({
+  data,
+  url: clubDetailUrl(data.id),
+  method: 'patch',
+  types: clubUpdate,
 });
 
 export {
+  addClub,
   fetchClub,
   fetchClubList,
   fetchClubMemberList,
