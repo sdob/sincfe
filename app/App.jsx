@@ -44,6 +44,7 @@ class App extends Component {
   // their profile from the back-end
   componentDidMount() {
     if (this.props.authenticated) {
+      // If we're authenticated, retrieve the user's profile
       this.props.fetchProfile();
     } else {
       // If the user isn't authenticated, then nuke any paths beyond the
@@ -53,6 +54,12 @@ class App extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // App has mounted but user may be logging in; check whether
+    // the user is authenticated
+    if (!this.props.authenticated && nextProps.authenticated) {
+      // If we're authenticated, retrieve the user's profile
+      this.props.fetchProfile();
+    }
   }
 
   // Render the app. We're rendering either of two things here: the
