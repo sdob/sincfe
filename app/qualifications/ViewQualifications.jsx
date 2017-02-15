@@ -9,17 +9,21 @@ import { fetchQualifications } from './actions';
 import { fetchClubList } from '../clubs/actions';
 import { fetchCertificateList } from '../courses/actions';
 import { fetchRegions } from '../regions/actions';
-import { CertificateSelector, PageLoading, RegionFilter, SortedTable } from '../shared';
+import { CertificateSelector, DeleteButton, PageLoading, RegionFilter, SortedTable } from '../shared';
 
 class ViewQualifications extends Component {
   constructor(props, ctx) {
     super(props, ctx);
     this.handleRegionToggle = this.handleRegionToggle.bind(this);
     this.handleCertificateSelect = this.handleCertificateSelect.bind(this);
-    const getSortingColumns = this.getSortingColumns.bind(this);
-    const columns = columnDefinitions.bind(this)(getSortingColumns);
+    this.handleQualificationDelete = this.handleQualificationDelete.bind(this);
+    this.getSortingColumns = this.getSortingColumns.bind(this);
+
+    this.columnDefinitions = columnDefinitions.bind(this);
+
+    // Set initial state
+    // const columns = columnDefinitions.bind(this)(this.getSortingColumns, props.isAdmin);
     this.state = {
-      columns,
       regionVisibilities: {},
       sortingColumns: {
         date_granted: { direction: 'desc', position: 0 },
@@ -27,6 +31,7 @@ class ViewQualifications extends Component {
         last_name: { direction: 'none', position: 2 },
       },
     };
+    this.refreshColumnDefinitions(props.isAdmin);
   }
 
   componentDidMount() {
@@ -42,6 +47,8 @@ class ViewQualifications extends Component {
     this.props.fetchRegions()
     .then(this.props.fetchClubList)
     .then(this.props.fetchQualifications);
+
+    this.refreshColumnDefinitions(this.props.isAdmin);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,6 +58,19 @@ class ViewQualifications extends Component {
       const { regions } = nextProps;
       this.initializeVisibilities(regions);
     }
+    if (nextProps.isAdmin !== this.props.isAdmin) {
+      this.refreshColumnDefinitions(nextProps.isAdmin);
+    }
+  }
+
+  refreshColumnDefinitions(isAdmin) {
+    this.setState({
+      columns: columnDefinitions(
+        this.getSortingColumns.bind(this),
+        isAdmin,
+        this.handleQualificationDelete,
+      ),
+    });
   }
 
   getSortingColumns() {
@@ -92,6 +112,10 @@ class ViewQualifications extends Component {
     }
   }
 
+  handleQualificationDelete() {
+    // TODO: bring up a modal, etc., etc.
+  }
+
   handleRegionToggle(rid, visibility) {
     // When a change to one of the filter checkboxes occurs, update the
     // visibility for that region
@@ -107,7 +131,7 @@ class ViewQualifications extends Component {
   }
 
   render() {
-    const { certificates, qualifications, regions } = this.props;
+    const { certificates, isAdmin, qualifications, regions } = this.props;
     if (!(qualifications && regions)) {
       return <PageLoading />;
     }
@@ -151,7 +175,7 @@ class ViewQualifications extends Component {
   }
 }
 
-function columnDefinitions(getSortingColumns) {
+function columnDefinitions(getSortingColumns, isAdmin, onClickToDelete) {
   const strategy = sort.strategies.byProperty;
 
   const resetable = sort.reset({
@@ -195,12 +219,15 @@ function columnDefinitions(getSortingColumns) {
       cell: {
         formatters: [
           id => (
-            <Link
-              to={`${paths.EDIT_QUALIFICATION}/${id}`}
-              className="btn btn-primary sinc-btn--compact"
-            >
-              <i className="fa fa-fw fa-edit" />
-            </Link>
+            <div className="d-flex">
+              <Link
+                to={`${paths.EDIT_QUALIFICATION}/${id}`}
+                className="btn btn-primary sinc-btn--compact"
+              >
+                <i className="fa fa-fw fa-edit" />
+              </Link>
+              {isAdmin && <DeleteButton onClick={onClickToDelete} />}
+            </div>
           ),
         ],
       },

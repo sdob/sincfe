@@ -16,7 +16,7 @@ class ViewRegionDetail extends Component {
   }
 
   render() {
-    const { clubs, members, region } = this.props;
+    const { isAdmin, clubs, members, region } = this.props;
     return (
       <div>
         <h1 className="sinc-page-header">
@@ -32,7 +32,7 @@ class ViewRegionDetail extends Component {
           Members
           {members === undefined ? '' : ` (${members.length})`}
         </h2>
-        {renderMemberList(members)}
+        {renderMemberList(members, isAdmin)}
       </div>
     );
 
@@ -49,12 +49,13 @@ class ViewRegionDetail extends Component {
       );
     }
 
-    function renderMemberList(members) {
+    function renderMemberList(members, isAdmin) {
       if (!members) {
         return <PageLoading />;
       }
       return (
         <MemberTable
+          isAdmin={isAdmin}
           rows={members}
         />
       );
