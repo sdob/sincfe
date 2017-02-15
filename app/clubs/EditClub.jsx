@@ -4,7 +4,7 @@ import { reduxForm } from 'redux-form';
 
 import { fetchClub, fetchClubMemberList, updateClub } from './actions';
 import { FormRow, InlineSpinner, MemberTable, PageLoading } from '../shared';
-import { getMemberRoles, profileRoles } from '../profiles';
+import { getMemberRoles, roles } from '../profiles';
 import ClubDetailForm from './ClubDetailForm';
 
 import * as fields from './fields';
@@ -31,18 +31,27 @@ class EditClub extends Component {
     // whether the club or the profile will arrive first, and we
     // need both in order to check whether the user is an admin.
     // TODO: spread this.
+    /*
     const isNewClub = nextProps.club !== this.props.club;
     const isNewProfile = nextProps.profile !== this.props.profile;
     if (isNewProfile && this.props.club) {
       const { club } = this.props;
       const { profile } = nextProps;
-      if (getMemberRoles(profile).includes(profileRoles.ADMINISTRATOR)) {
+      if (roles.isAdministrator(profile)) {
         this.props.fetchClubMemberList(club.id);
       }
     } else if (isNewClub && this.props.profile) {
       const { club } = nextProps;
       const { profile } = this.props;
-      if (getMemberRoles(profile).includes(profileRoles.ADMINISTRATOR)) {
+      if (roles.isAdministrator(profile)) {
+        this.props.fetchClubMemberList(club.id);
+      }
+    }
+    */
+    const club = this.props.club || nextProps.club;
+    const profile = this.props.profile || nextProps.profile;
+    if (club && profile) {
+      if (roles.isAdministrator(profile)) {
         this.props.fetchClubMemberList(club.id);
       }
     }
