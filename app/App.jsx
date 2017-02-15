@@ -5,7 +5,7 @@ import { fetchProfile } from './profiles/actions';
 
 import Header from './header/Header';
 import Login from './pages/Login';
-import { ModalRoot } from './modals';
+import { ModalBackdrop, ModalRoot } from './modals';
 import NotificationContainer from './notifications/NotificationContainer';
 
 import Sidebar from './sidebar/Sidebar';
@@ -66,12 +66,20 @@ class App extends Component {
   // main app (if the user is authenticated), or the login page
   // (if not)
   render() {
+    // Handle modal backdrop here
+    const { showBackdrop } = this.props;
+    if (showBackdrop) {
+      document.body.classList.add('modal-open');
+    } else {
+      document.body.classList.remove('modal-open');
+    }
     return (
       <div>
         <ModalRoot />
         <NotificationContainer />
         <Header />
         { this.props.authenticated ? renderAuthenticated(this.props) : renderLoginPage() }
+        {showBackdrop && <ModalBackdrop />}
       </div>
     );
   }
@@ -83,8 +91,9 @@ App.contextTypes = {
 
 function mapStateToProps(state) {
   const { authenticated } = state.auth;
+  const { showBackdrop } = state.modal;
   const { profile } = state.profiles;
-  return { authenticated, profile };
+  return { authenticated, profile, showBackdrop };
 }
 
 export default connect(mapStateToProps, { fetchProfile })(App);
