@@ -6,25 +6,25 @@ import Modal from './Modal';
 import { hideModal } from './actions';
 
 function DeleteClubModal(props) {
-  const { courseId, fetchClubList, hideModal } = props;
+  const { club, fetchClubList, hideModal } = props;
   console.info(props);
   return (
     <Modal
       confirmIsDangerous={true}
       confirmText="Delete"
       onConfirm={() => {
-        // Delete the course, then reload the course list,
+        // Delete the club, then reload the club list,
         // then hide the modal
-        props.deleteClub(courseId)
+        props.deleteClub(club.id)
         .then(fetchClubList)
         .then(hideModal);
       }}
-      title={`Really delete Club #${courseId}?`}
+      title={`Really delete ${club.name}?`}
     >
       <p>
         Are you sure you want to go ahead and delete
         this club? All of its members (if any) will
-        be assigned to the National club.
+        be assigned to the National club instead.
       </p>
     </Modal>
   );

@@ -6,7 +6,7 @@ import { AddLink, PageLoading, SortedTable } from '../shared';
 import { roles } from '../profiles';
 import * as paths from '../paths';
 import { showModal } from '../modals/actions';
-import { fetchClubList } from './actions';
+import { fetchClub, fetchClubList } from './actions';
 import ClubTable from './ClubTable';
 
 class ViewClubs extends Component {
@@ -25,9 +25,13 @@ class ViewClubs extends Component {
 
   handleDelete(cid) {
     console.info('handling delete');
-    this.props.showModal({
-      modalType: 'DELETE_CLUB',
-      modalProps: { clubId: cid },
+    this.props.fetchClub(cid)
+    .then((club) => {
+      console.info(club);
+      this.props.showModal({
+        modalType: 'DELETE_CLUB',
+        modalProps: { club },
+      });
     });
   }
 
@@ -68,6 +72,7 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps, {
+  fetchClub,
   fetchClubList,
   fetchRegions,
   showModal,

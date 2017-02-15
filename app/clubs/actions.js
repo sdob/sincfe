@@ -2,6 +2,7 @@ import { clubDetailUrl, clubListUrl, clubMemberListUrl } from '../api/urls';
 import { createApiAction } from '../api';
 import {
   clubAdd,
+  clubDelete,
   clubDetail,
   clubList,
   clubMemberList,
@@ -43,6 +44,7 @@ const updateClub = data => createApiAction({
 
 export {
   addClub,
+  deleteClub,
   fetchClub,
   fetchClubList,
   fetchClubMemberList,
