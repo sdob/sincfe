@@ -27,37 +27,20 @@ class EditClub extends Component {
     const clubId = this.context.router.params.id;
     this.props.fetchClub(clubId);
     this.props.fetchRegionList();
+    if (this.props.isAdmin) {
+      this.props.fetchClubMemberList(clubId);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
-    // This is an ugly hack to avoid a race condition; we don't know
-    // whether the club or the profile will arrive first, and we
-    // need both in order to check whether the user is an admin.
-    // TODO: spread this.
-    const isNewClub = nextProps.club !== this.props.club;
-    const isNewProfile = nextProps.profile !== this.props.profile;
-    if (isNewProfile && this.props.club) {
-      const { club } = this.props;
-      const { profile } = nextProps;
-      if (roles.isAdministrator(profile)) {
-        this.props.fetchClubMemberList(club.id);
-      }
-    } else if (isNewClub && this.props.profile) {
-      const { club } = nextProps;
-      const { profile } = this.props;
-      if (roles.isAdministrator(profile)) {
-        this.props.fetchClubMemberList(club.id);
+    // If props are updating, and the user is an admin, then fetch the
+    // list of members
+    if (nextProps.isAdmin !== this.props.isAdmin) {
+      if (nextProps.isAdmin) {
+        const clubId = this.context.router.params.id;
+        this.props.fetchClubMemberList(clubId);
       }
     }
-    /*
-    const club = this.props.club || nextProps.club;
-    const profile = this.props.profile || nextProps.profile;
-    if (club && profile) {
-      if (roles.isAdministrator(profile)) {
-        this.props.fetchClubMemberList(club.id);
-      }
-    }
-    */
   }
 
   handleFormSubmit(formProps) {
@@ -68,7 +51,7 @@ class EditClub extends Component {
   }
 
   render() {
-    const { club, handleSubmit, members, profile, submitting } = this.props;
+    const { club, handleSubmit, isAdmin, members, profile, submitting } = this.props;
     if (!club) {
       return <PageLoading />;
     }
@@ -85,6 +68,7 @@ class EditClub extends Component {
           <div>
             <h2 className="sinc-section-header">Members</h2>
             <MemberTable
+              isAdmin={isAdmin}
               rows={members}
             />
           </div>
