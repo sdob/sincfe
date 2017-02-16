@@ -9,35 +9,11 @@ import { LOGIN } from '../paths';
 export default function (ComposedComponent) {
   class Authentication extends Component {
 
-    constructor(props, ctx) {
-      super(props, ctx);
-      this.state = {
-        isAdmin: false,
-      };
-    }
-
     // When the component mounts, if we're not authenticated,
     // redirect the user to the login page
     componentWillMount() {
       if (!this.props.authenticated) {
         return this.context.router.push(LOGIN);
-      }
-    }
-
-    componentDidMount() {
-      const { profile } = this.props;
-      if (profile) {
-        this.setState({
-          isAdmin: profile.is_staff,
-        });
-      }
-    }
-
-    componentWillReceiveProps(nextProps) {
-      if (nextProps.profile !== this.props.profile) {
-        this.setState({
-          isAdmin: nextProps.profile.is_staff,
-        });
       }
     }
 
@@ -51,15 +27,13 @@ export default function (ComposedComponent) {
 
     // Render: return the component that we're wrapping
     render() {
-      const { isAdmin } = this.state;
-      return <ComposedComponent isAdmin={isAdmin} {...this.props} />;
+      return <ComposedComponent {...this.props} />;
     }
   }
 
   function mapStateToProps(state) {
     return {
       authenticated: state.auth.authenticated,
-      profile: state.profiles.profile,
     };
   }
 
