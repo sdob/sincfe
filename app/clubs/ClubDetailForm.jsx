@@ -34,22 +34,7 @@ function ClubDetailForm(props) {
         component="textarea"
         rows="3"
       />
-
       <SubmitRow sending={submitting} />
-
-      {/*
-      <div className="row">
-        <div className="col-md-9 col-lg-6 offset-md-3 sinc-form__submit-row">
-          <button
-            className="btn btn-primary"
-            disabled={submitting}
-            type="submit"
-          >
-            { submitting ? <InlineSpinner /> : 'Save' }
-          </button>
-        </div>
-      </div>
-      */}
     </form>
   );
 

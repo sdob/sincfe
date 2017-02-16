@@ -28,12 +28,13 @@ class AddClub extends Component {
   }
 
   render () {
-    const { handleSubmit, submitting } = this.props;
+    const { handleSubmit, isAdmin, submitting } = this.props;
     return (
       <div>
         <h1 className="sinc-page-header">Add club</h1>
         <ClubDetailForm
           addNew={true}
+          isAdmin={isAdmin}
           onSubmit={handleSubmit(this.handleFormSubmit)}
           submitting={submitting}
         />
