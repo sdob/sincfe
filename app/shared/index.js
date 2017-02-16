@@ -18,6 +18,7 @@ import SubmitRow from './SubmitRow';
 import UneditableProfileHelp from './UneditableProfileHelp';
 
 import createTypes from './createTypes';
+import getDisplayName from './get-display-name';
 
 export {
   AddLink,
@@ -39,4 +40,5 @@ export {
   SubmitRow,
   UneditableProfileHelp,
   createTypes,
+  getDisplayName,
 };
