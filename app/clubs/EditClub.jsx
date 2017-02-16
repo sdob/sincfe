@@ -57,7 +57,7 @@ class EditClub extends Component {
   }
 
   render() {
-    const { club, handleSubmit, isAdmin, members, profile, submitting } = this.props;
+    const { club, handleSubmit, members, profile, roles, submitting } = this.props;
     if (!club) {
       return <PageLoading />;
     }
@@ -74,7 +74,7 @@ class EditClub extends Component {
           <div>
             <h2 className="sinc-section-header">Members</h2>
             <MemberTable
-              isAdmin={isAdmin}
+              roles={roles}
               rows={members}
             />
           </div>

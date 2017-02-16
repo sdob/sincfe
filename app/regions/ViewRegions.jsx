@@ -12,7 +12,7 @@ class ViewRegions extends Component {
   }
 
   render() {
-    const { isAdmin, errorMsg, regions } = this.props;
+    const { errorMsg, regions } = this.props;
 
     if (errorMsg) {
       return <GenericErrorMessage error={errorMsg} />;

@@ -18,7 +18,7 @@ const Administrator = makeComposableRole({
 
 const DiveOfficer = makeComposableRole({
   name: 'Dive Officer',
-  isHeldBy: member => member && member.readable_committee_roles.includes('Dive Officer'),
+  isHeldBy: member => member && member.readable_committee_positions.includes('Dive Officer'),
 });
 
 const Member = makeComposableRole({

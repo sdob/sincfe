@@ -16,7 +16,7 @@ class ViewRegionDetail extends Component {
   }
 
   render() {
-    const { isAdmin, clubs, members, region } = this.props;
+    const { roles: { isAdmin }, clubs, members, region } = this.props;
     return (
       <div>
         <h1 className="sinc-page-header">

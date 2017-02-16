@@ -10,17 +10,24 @@ export default function withRoleProps(WrappedComponent) {
     if (!props.profile) {
       return null;
     }
+
     const {
       profile: {
         is_staff,
         readable_committee_positions,
       }
     } = props;
+
     const isAdmin = !!is_staff;
     const isDiveOfficer = !!readable_committee_positions.includes('Dive Officer');
+
+    const roles = {
+      isAdmin,
+      isDiveOfficer,
+    };
+
     return <WrappedComponent
-      isAdmin={isAdmin}
-      isDiveOfficer={isDiveOfficer}
+      roles={roles}
       {...props}
     />;
   }

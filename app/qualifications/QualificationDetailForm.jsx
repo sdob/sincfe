@@ -2,11 +2,12 @@ import React from 'react';
 import { Field } from 'redux-form';
 import moment from 'moment';
 
-import { DatePicker, FormRow, SelectRow, StaticFormRow, SubmitRow } from '../shared';
+import { AutosuggestOrMember, DatePicker, FormRow, SelectRow, StaticFormRow, SubmitRow } from '../shared';
 import * as fields from './fields';
 
 export default function QualificationDetailForm(props) {
   const {
+    addNew,
     certificates,
     editable,
     onSubmit,
@@ -16,11 +17,20 @@ export default function QualificationDetailForm(props) {
 
   return (
     <form onSubmit={onSubmit}>
-      <StaticFormRow
-        field={fields.USER}
-        label="Member"
-        value={`${qualification.user.first_name} ${qualification.user.last_name} (CFT# ${qualification.user.id})`}
-      />
+      {addNew ? (
+        <Field
+          className="sinc-edit-course-form__organizer"
+          component={AutosuggestOrMember}
+          name="user"
+          label="Member"
+        />
+      ): (
+        <StaticFormRow
+          field={fields.USER}
+          label="Member"
+          value={`${qualification.user.first_name} ${qualification.user.last_name} (CFT# ${qualification.user.id})`}
+        />
+      )}
       {editable ? (
         <SelectRow
           field={fields.CERTIFICATE}

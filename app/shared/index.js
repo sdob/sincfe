@@ -1,4 +1,5 @@
 import AddLink from './AddLink';
+import AutosuggestOrMember from './AutosuggestOrMember';
 import CertificateSelector from './CertificateSelector';
 import DatePicker from './DatePicker';
 import DateTimePicker from './DateTimePicker';
@@ -22,6 +23,7 @@ import getDisplayName from './get-display-name';
 
 export {
   AddLink,
+  AutosuggestOrMember,
   CertificateSelector,
   DatePicker,
   DateTimePicker,

@@ -48,6 +48,8 @@ import ViewQualifications from './qualifications/ViewQualifications';
 import ViewRegions from './regions/ViewRegions';
 import ViewRegionDetail from './regions/ViewRegionDetail';
 
+import { AddQualification } from './qualifications';
+
 // Define privileges
 const { Administrator, DiveOfficer, Member } = roles;
 const RequireAdmin = requireRole(Administrator);
@@ -60,6 +62,7 @@ export default (
   <Route path="/" component={App}>
     <IndexRoute component={RequireAuth(Main)} />
     {/* Routes that require admin privileges */}
+    <Route path={paths.ADD_QUALIFICATION} component={RequireAdmin(AddQualification)} />
     <Route path={paths.VIEW_CLUBS} component={RequireAdmin(ViewClubs)} />
     <Route path={paths.VIEW_MEMBERS} component={RequireAdmin(ViewMembers)} />
     <Route path={paths.ADD_CLUB} component={RequireAdmin(AddClub)} />
@@ -67,6 +70,7 @@ export default (
     {/* Routes that require admin or DO privileges */}
     <Route path={`${paths.EDIT_MEMBER}/:id`} component={RequireAdminOrDiveOfficer(EditMember)} />
     <Route path={paths.ADD_MEMBER} component={RequireAdminOrDiveOfficer(AddMember)} />
+    <Route path={`${paths.EDIT_CLUB}/:id`} component={RequireAdminOrDiveOfficer(EditClub)} />
 
     {/* Routes that require DO privileges */}
 
@@ -77,7 +81,6 @@ export default (
     <Route path={paths.CLUB_RENEWAL_ORDERS} component={RequireAuth(ClubRenewalOrders)} />
     <Route path={paths.CONTACT_US} component={RequireAuth(ContactUs)} />
     <Route path={paths.DOCUMENTS} component={RequireAuth(Documents)} />
-    <Route path={`${paths.EDIT_CLUB}/:id`} component={RequireAuth(EditClub)} />
     <Route path={`${paths.EDIT_COURSE}/:id`} component={RequireAuth(EditCourse)} />
     <Route path={`${paths.EDIT_QUALIFICATION}/:id`} component={RequireAuth(EditQualification)} />
     <Route path={`${paths.EDIT_REGION}/:id`} component={RequireAuth(ViewRegionDetail)} />

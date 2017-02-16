@@ -25,7 +25,7 @@ class ClubMemberList extends Component {
   }
 
   render() {
-    const { errorMsg, profile, members } = this.props;
+    const { errorMsg, profile, members, roles } = this.props;
     if (errorMsg) {
       return (<GenericErrorMessage error={errorMsg} />);
     }
@@ -39,7 +39,7 @@ class ClubMemberList extends Component {
     return (
       <div>
         <h1 className="sinc-page-header">Search current members ({scope})</h1>
-        <MemberTable rows={members} />
+        <MemberTable roles={roles} rows={members} />
       </div>
     );
   }

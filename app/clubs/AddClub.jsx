@@ -28,7 +28,7 @@ class AddClub extends Component {
   }
 
   render () {
-    const { handleSubmit, isAdmin, submitting } = this.props;
+    const { handleSubmit, roles: { isAdmin }, submitting } = this.props;
     return (
       <div>
         <h1 className="sinc-page-header">Add club</h1>

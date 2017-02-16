@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { FormRow, InlineSpinner, PageLoading, SelectRow, SubmitRow } from '../shared';
+import { Field } from 'redux-form';
+import { FormRow, InlineSpinner, PageLoading, SelectRow, StaticFormRow, SubmitRow } from '../shared';
 import * as fields from './fields';
 
 function ClubDetailForm(props) {

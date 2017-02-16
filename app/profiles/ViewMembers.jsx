@@ -52,7 +52,7 @@ class ViewMembers extends Component {
   }
 
   render() {
-    const { isAdmin, members,regions } = this.props;
+    const { roles, members,regions } = this.props;
 
     if (!members) {
       return (
@@ -76,7 +76,7 @@ class ViewMembers extends Component {
         <h1 className="sinc-page-header">View members ({visibleMembers.length} / {members.length})</h1>
         <RegionFilter regions={regions} onChange={this.onRegionToggle} />
         <MemberTable
-          isAdmin={isAdmin}
+          roles={roles}
           rows={visibleMembers}
         />
       </div>

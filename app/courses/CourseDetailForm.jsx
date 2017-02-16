@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field } from 'redux-form';
-import AutosuggestOrMember from './AutosuggestOrMember';
+import AutosuggestOrMember from '../shared';
 
 import {
   DateTimePicker,

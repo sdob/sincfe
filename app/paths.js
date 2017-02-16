@@ -15,6 +15,7 @@ export const ACTIVE_INSTRUCTORS = '/active-instructors';
 export const ADD_CLUB = '/add-club';
 export const ADD_COURSE = '/add-course';
 export const ADD_MEMBER = '/add-member';
+export const ADD_QUALIFICATION = '/add-qualification';
 export const CLUB_DETAILS = '/club-details';
 export const CLUB_QUALIFICATIONS = '/club-qualifications';
 export const CLUB_RENEWAL_ORDERS = '/club-renewal-orders';

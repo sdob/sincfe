@@ -9,7 +9,7 @@ import { fetchQualifications } from './actions';
 import { fetchClubList } from '../clubs/actions';
 import { fetchCertificateList } from '../courses/actions';
 import { fetchRegions } from '../regions/actions';
-import { CertificateSelector, DeleteButton, PageLoading, RegionFilter, SortedTable } from '../shared';
+import { AddLink, CertificateSelector, DeleteButton, PageLoading, RegionFilter, SortedTable } from '../shared';
 
 class ViewQualifications extends Component {
   constructor(props, ctx) {
@@ -24,7 +24,6 @@ class ViewQualifications extends Component {
     this.columnDefinitions = columnDefinitions.bind(this);
 
     // Set initial state
-    // const columns = columnDefinitions.bind(this)(this.getSortingColumns, props.isAdmin);
     this.state = {
       columns: [],
       regionVisibilities: {},
@@ -34,7 +33,7 @@ class ViewQualifications extends Component {
         last_name: { direction: 'none', position: 2 },
       },
     };
-    this.refreshColumnDefinitions(props.isAdmin);
+    this.refreshColumnDefinitions(props.roles.isAdmin);
   }
 
   componentDidMount() {
@@ -51,7 +50,7 @@ class ViewQualifications extends Component {
     .then(this.props.fetchClubList)
     .then(this.props.fetchQualifications);
 
-    this.refreshColumnDefinitions(this.props.isAdmin);
+    this.refreshColumnDefinitions(this.props.roles.isAdmin);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -61,7 +60,7 @@ class ViewQualifications extends Component {
       const { regions } = nextProps;
       this.initializeVisibilities(regions);
     }
-    this.refreshColumnDefinitions(nextProps.isAdmin);
+    this.refreshColumnDefinitions(nextProps.roles.isAdmin);
   }
 
   refreshColumnDefinitions(isAdmin) {
@@ -73,6 +72,9 @@ class ViewQualifications extends Component {
     this.setState({
       columns,
     });
+  }
+
+  setScopeFromProps(props) {
   }
 
   getSortingColumns() {
@@ -133,7 +135,7 @@ class ViewQualifications extends Component {
   }
 
   render() {
-    const { certificates, isAdmin, qualifications, regions } = this.props;
+    const { certificates, roles: { isAdmin }, qualifications, regions } = this.props;
     if (!(qualifications && regions)) {
       return <PageLoading />;
     }
@@ -144,7 +146,10 @@ class ViewQualifications extends Component {
     const searchingColumns = columns.filter(col => !unsearchableProperties.includes(col.property));
     return (
       <div>
-        <h1 className="sinc-page-header">View qualifications</h1>
+        <h1 className="sinc-page-header d-flex justify-content-between">
+          View qualifications
+          {isAdmin && <AddLink to={paths.ADD_QUALIFICATION} />}
+        </h1>
         <h2 className="sinc-section-header sinc-section-header--minor">
           Filter by region
         </h2>
@@ -228,7 +233,6 @@ function columnDefinitions(getSortingColumns, isAdmin, onClickToDelete) {
               >
                 <i className="fa fa-fw fa-edit" />
               </Link>
-              {isAdmin && <DeleteButton onClick={onClickToDelete} />}
             </div>
           ),
         ],

@@ -11,7 +11,9 @@ export default function modalReducer(state = initialState, action) {
         ...state,
         modalType: action.modalType,
         modalProps: action.modalProps,
-        showBackdrop: true,
+        // SHOW_MODAL actions with no modalType won't cause the backdrop
+        // to appear
+        showBackdrop: !!action.modalType,
       };
     case 'HIDE_MODAL':
       return initialState;
