@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as paths from '../paths';
 import {
+  AddLink,
   MemberTable,
   PageLoading,
   RegionFilter,
@@ -57,7 +59,10 @@ class ViewMembers extends Component {
     if (!members) {
       return (
         <div>
-          <h1 className="sinc-page-header">View members</h1>
+          <h1 className="sinc-page-header d-flex justify-content-between">
+            View members
+            <AddLink to={paths.ADD_MEMBER} />
+          </h1>
           <PageLoading />
         </div>
       );
@@ -73,7 +78,10 @@ class ViewMembers extends Component {
 
     return (
       <div>
-        <h1 className="sinc-page-header">View members ({visibleMembers.length} / {members.length})</h1>
+        <h1 className="sinc-page-header d-flex justify-content-between">
+          View members ({visibleMembers.length} / {members.length})
+          <AddLink to={paths.ADD_MEMBER} />
+        </h1>
         <RegionFilter regions={regions} onChange={this.onRegionToggle} />
         <MemberTable
           roles={roles}
