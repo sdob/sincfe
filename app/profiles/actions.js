@@ -36,6 +36,7 @@ const fetchProfile = () => createApiAction({
   url: ownProfileUrl(),
   method: 'get',
   types: ownProfileRetrieve,
+  formatResponse: addMemberMethods,
 });
 
 const searchForMember = name => createApiAction({
@@ -69,6 +70,20 @@ function formatUserDOB(user) {
     ? date2django(user.date_of_birth)
     : user.date_of_birth;
   return { ...user, date_of_birth };
+}
+
+/* Add convenience methods for checking member properties */
+function addMemberMethods(response) {
+  const { data } = response;
+  return {
+    ...response,
+    data: {
+      ...data,
+      isDiveOfficerOf: clubId => (
+        data.club.id === clubId && data.readable_committee_positions.includes('Dive Officer')
+      ),
+    },
+  };
 }
 
 export {
