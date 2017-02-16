@@ -26,7 +26,7 @@ class EditClub extends Component {
     const clubId = this.context.router.params.id;
     this.props.fetchClub(clubId);
     this.props.fetchRegionList();
-    const { isAdmin, profile } = this.props;
+    const { roles: { isAdmin, profile } } = this.props;
     const isDiveOfficer = profile && profile.isDiveOfficerOf(clubId);
     if (this.props.isAdmin || isDiveOfficer) {
       this.props.fetchClubMemberList(clubId);
@@ -37,8 +37,8 @@ class EditClub extends Component {
     // If props are updating, and the user is an admin, then fetch the
     // list of members
     const clubId = this.context.router.params.id;
-    if (nextProps.isAdmin !== this.props.isAdmin) {
-      if (nextProps.isAdmin) {
+    if (nextProps.roles !== this.props.roles) {
+      if (nextProps.roles.isAdmin) {
         return this.props.fetchClubMemberList(clubId);
       }
     }
