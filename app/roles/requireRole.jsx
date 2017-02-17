@@ -25,9 +25,7 @@ export default function requireRole(role) {
       }
 
       render() {
-        console.info('rendering requireRole');
         if (!this.props.profile) {
-          console.info('no profile');
           return null;
         }
         return <WrappedComponent {...this.props} />
