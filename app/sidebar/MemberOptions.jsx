@@ -1,9 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import SidebarMenu from './SidebarMenu';
 import SidebarItem from './SidebarItem';
 import * as paths from '../paths';
 
-export default function MemberOptions() {
+function MemberOptions(props) {
+  const { profile } = props;
   return (
     <SidebarMenu
       menuTitle="Member options"
@@ -14,7 +16,18 @@ export default function MemberOptions() {
       <SidebarItem icon="clock-o" to={paths.MEMBERSHIP_HISTORY} text="Membership history" />
       <SidebarItem icon="list" to={paths.VIEW_COURSES} text="View courses" />
       <SidebarItem icon="list" to={paths.ORGANIZE_COURSES} text="Organize courses" />
-      <SidebarItem icon="mortar-board" to={paths.TEACH_COURSES} text="Teach courses" />
+      {profile.is_instructor && (
+        <SidebarItem icon="mortar-board" to={paths.TEACH_COURSES} text="Teach courses" />
+      )}
     </SidebarMenu>
   );
 }
+
+function mapStateToProps(state) {
+  const { profile } = state.profiles;
+  return {
+    profile,
+  };
+}
+
+export default connect(mapStateToProps)(MemberOptions);
