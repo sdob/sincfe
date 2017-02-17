@@ -85,15 +85,6 @@ export default class ClubTable extends Component {
               >
                 <i className="fa fa-fw fa-edit" />
               </Link>
-              {isAdmin && (
-                <button
-                  className="btn btn-danger sinc-btn--compact"
-                  type="button"
-                  onClick={() => handleDelete(id)}
-                >
-                  <i className="fa fa-fw fa-trash" />
-                </button>
-              )}
             </div>
           )],
         }
