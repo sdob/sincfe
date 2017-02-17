@@ -40,7 +40,7 @@ class ViewCourses extends Component {
   }
 
   getVisibleCourses() {
-    const { courses } = this.props;
+    const { courses, isAdmin } = this.props;
     const { regionVisibilities, selectedCertificateId } = this.state;
     return courses.filter(isWithinVisibleRegion).filter(isSelectedCertificate);
 
@@ -89,7 +89,7 @@ class ViewCourses extends Component {
   }
 
   render() {
-    const { certificates, courses, regions } = this.props;
+    const { certificates, courses, roles: { isAdmin }, regions } = this.props;
     if (!courses) {
       return <PageLoading />
     }
@@ -98,11 +98,13 @@ class ViewCourses extends Component {
         <h1 className="sinc-page-header d-flex justify-content-between">
           View courses
           {' '}
-          <Link to={paths.ADD_COURSE}>
-            <span className="btn btn-primary">
-              <i className="fa fa-fw fa-file" />
-            </span>
-          </Link>
+          {isAdmin && (
+            <Link to={paths.ADD_COURSE}>
+              <span className="btn btn-primary">
+                <i className="fa fa-fw fa-file" />
+              </span>
+            </Link>
+          )}
         </h1>
 
         <h2 className="sinc-section-header sinc-section-header--minor">
