@@ -26,9 +26,7 @@ class OrganizeCourses extends Component {
     return (
       <div>
         <h1 className="sinc-page-header">Organize courses</h1>
-        <CourseTable
-          rows={courses}
-        />
+        {courses.length ? <CourseTable rows={courses} /> : renderNoCourses()}
       </div>
     );
   }
@@ -39,6 +37,12 @@ function mapStateToProps(state) {
     courses: state.courses.courses,
     profile: state.profiles.profile,
   };
+}
+
+function renderNoCourses() {
+  return (
+    <p>You aren't listed as an organizer on any courses.</p>
+  );
 }
 
 export default connect(mapStateToProps, {
