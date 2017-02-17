@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import { deleteCourse, fetchCourseList } from '../courses/actions';
 import Modal from './Modal';
@@ -17,7 +18,12 @@ function DeleteCourseModal(props) {
         // then hide the modal
         props.deleteCourse(courseId)
         .then(fetchCourseList)
-        .then(hideModal);
+        .then(hideModal)
+        .then(() => {
+          if (props.goBack) {
+            browserHistory.goBack();
+          }
+        });
       }}
       title={`Really delete Course #${courseId}?`}
     >
