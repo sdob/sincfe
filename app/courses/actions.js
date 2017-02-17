@@ -27,6 +27,7 @@ const addCourse = data => createApiAction({
   url: coursesListUrl(),
   method: 'post',
   types: courseAdd,
+  formatRequest: formatCoursePostData,
 });
 
 const addCourseInstruction = (cid, data) => createApiAction({
@@ -83,7 +84,16 @@ const updateCourse = data => createApiAction({
   url: courseDetailUrl(data.id),
   method: 'put',
   types: courseUpdate,
+  formatRequest: formatCoursePostData,
 });
+
+function formatCoursePostData(data) {
+  const { organizer } = data;
+  return {
+    ...data,
+    organizer: organizer ? organizer.id : null,
+  };
+}
 
 export {
   addCourse,

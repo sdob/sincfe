@@ -22,6 +22,7 @@ class EditCourse extends Component {
 
   constructor(props, ctx) {
     super(props, ctx);
+    // Bind methods
     this.addInstructor = this.addInstructor.bind(this);
     this.deleteInstruction = this.deleteInstruction.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -37,28 +38,9 @@ class EditCourse extends Component {
     this.props.fetchCourseInstructionList(courseId);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.course !== this.props.course) {
-      const { course } = nextProps;
-    }
-  }
-
   onFormSubmit(formProps) {
-    const { certificate, maximum_participants, organizer } = formProps;
-    const { profile } = this.props;
-    // If we have an organizer object, then extract their ID; otherwise,
-    // the requesting user is the organizer.
-    const organizerId = organizer ? organizer.id : profile.id;
-    console.info('organizer ID is ' + organizerId);
-    const data = {
-      ...formProps,
-      // If max_participants is empty, send null; otherwise send the value
-      maximum_participants: maximum_participants === '' ? null : maximum_participants,
-      // If we have an organizer, then extract their ID
-      organizer: organizerId,
-    };
     // Send the data
-    this.props.updateCourse(data);
+    return this.props.updateCourse(formProps);
   }
 
   addInstructor(instructor) {
@@ -67,6 +49,10 @@ class EditCourse extends Component {
       course: course.id,
       user: instructor.id,
     };
+    // Add the instructor immediately
+    // TODO: we should hold this in state until the user clicks 'Save';
+    // it's not intuitive that this is updated immediately while the
+    // other data aren't sent until the user dictates.
     this.props.addCourseInstruction(course.id, data)
     .then(() => this.props.fetchCourseInstructionList(course.id));
   }
@@ -74,6 +60,10 @@ class EditCourse extends Component {
   deleteInstruction(instruction) {
     const { course: {id: courseId} } = this.props;
     const instructionId = instruction.id;
+    // Remove the instructor immediately
+    // TODO: we should hold this in state until the user clicks 'Save';
+    // it's not intuitive that this is updated immediately while the
+    // other data aren't sent until the user dictates.
     this.props.deleteCourseInstruction(courseId, instructionId)
     .then(() => this.props.fetchCourseInstructionList(courseId));
   }
@@ -82,24 +72,19 @@ class EditCourse extends Component {
     const {
       course,
       handleSubmit,
-      certificates,
       courseInstructions,
-      regions,
     } = this.props;
 
-    if (!(course && certificates && regions)) {
+    // Don't display the form until we've received the course data
+    if (!course) {
       return <PageLoading />;
     }
 
     return (
       <div>
         <h1 className="sinc-page-header">Edit course No. {course.id}</h1>
-        <CourseDetailForm
-          certificates={certificates}
-          instructors={course.instructors}
-          onSubmit={handleSubmit(this.onFormSubmit)}
-          regions={regions}
-        />
+        <CourseDetailForm onSubmit={handleSubmit(this.onFormSubmit)} {...this.props} />
+
         <h2 className="sinc-section-header">Instructors</h2>
         {typeof courseInstructions === 'undefined' ? <PageLoading /> : (
           <CourseInstructionListForm

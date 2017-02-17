@@ -1,21 +1,40 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field } from 'redux-form';
-import AutosuggestOrMember from '../profiles';
+import { AutosuggestOrMember } from '../profiles';
 
 import {
   DateTimePicker,
+  PageLoading,
   SelectRow,
   SubmitRow,
 } from '../shared';
 import * as fields from './fields';
 
-export default function CourseDetailForm(props) {
+function CourseDetailForm(props) {
   const {
     certificates,
     onSubmit,
     regions,
+    submitting,
   } = props;
+
+  // Don't display the form until we have regions and certificates
+  if (!(regions && certificates)) {
+    return <PageLoading />;
+  }
+
+  // Format the certificates in the way that SelectRow expects
+  const certificateOptions = [
+    { label: 'Select certification', value: '-1' },
+    ...certificates.map(c => ({ label: c.name, value: c.id }))
+  ];
+
+  // Format the regions in the way that SelectRow expects
+  const regionOptions = [
+    { label: 'Select region', value: '-1' },
+    ...(regions.map(r => ({ label: r.name, value: r.id })))
+  ];
 
   return (
     <form onSubmit={onSubmit}>
@@ -23,19 +42,13 @@ export default function CourseDetailForm(props) {
         className="form-group row"
         field={fields.REGION}
         label="Region"
-        options={[
-          { label: 'Select region', value: '-1' },
-          ...(regions.map(r => ({ label: r.name, value: r.id })))
-        ]}
+        options={regionOptions}
       />
       <SelectRow
         className="form-group row"
         field={fields.CERTIFICATE}
-        label="Certificate"
-        options={[
-          { label: 'Select certification', value: '-1' },
-          ...certificates.map(c => ({ label: c.name, value: c.id }))
-        ]}
+        label="Certification"
+        options={certificateOptions}
       />
       <div className="form-group row">
         <div className="col-12 col-sm-6 col-md-3">
@@ -57,6 +70,7 @@ export default function CourseDetailForm(props) {
           </span>
         </div>
       </div>
+
       <div className="form-group row">
         <div className="col-12 col-sm-6 col-md-3">
           <label htmlFor="date" className="col-form-label">
@@ -86,7 +100,18 @@ export default function CourseDetailForm(props) {
         </div>
       </div>
 
-      <SubmitRow />
+      <SubmitRow sending={submitting} />
     </form>
   );
 }
+
+function mapStateToProps(state) {
+  const { certificates } = state.courses;
+  const { regions } = state.regions;
+  return {
+    certificates,
+    regions,
+  };
+}
+
+export default connect(mapStateToProps)(CourseDetailForm);
