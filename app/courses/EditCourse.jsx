@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { store } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
+import { reduxForm, initialize, reset } from 'redux-form';
 import { PageLoading } from '../shared';
 import { fetchRegionList } from '../regions';
 import {
@@ -14,8 +15,14 @@ import {
 import CourseDetailForm from './CourseDetailForm';
 import CourseInstructionListForm from './CourseInstructionListForm';
 
+const FORM_NAME = 'EditCourse';
+
 const form = reduxForm({
-  form: 'editCourse',
+  form: FORM_NAME,
+  // This allows us to replace state.course when switching from one
+  // course view to another (by default, redux-form allows us one
+  // and only one initialization pass. We reinitialize
+  enableReinitialize: true,
 });
 
 class EditCourse extends Component {
@@ -40,7 +47,11 @@ class EditCourse extends Component {
 
   onFormSubmit(formProps) {
     // Send the data
-    return this.props.updateCourse(formProps);
+    return this.props.updateCourse(formProps)
+    .then(course => {
+      const values = formatCourseForInitialValues(course);
+      this.props.reset(FORM_NAME);
+    });
   }
 
   addInstructor(instructor) {
@@ -113,19 +124,19 @@ function mapStateToProps(state) {
     profile: state.profiles.profile,
     regions: state.regions.regions,
   };
+}
 
-  function formatCourseForInitialValues(course) {
-    // We want to pass the course and region IDs into the form so that
-    // it knows which of the <option>s to select
-    if (course) {
-      return {
-        ...course,
-        certificate: course.certificate.id,
-        region: course.region.id,
-      };
-    }
-    return course;
+function formatCourseForInitialValues(course) {
+  // We want to pass the course and region IDs into the form so that
+  // it knows which of the <option>s to select
+  if (course) {
+    return {
+      ...course,
+      certificate: course.certificate.id,
+      region: course.region.id,
+    };
   }
+  return course;
 }
 
 export default connect(mapStateToProps, {
@@ -135,5 +146,6 @@ export default connect(mapStateToProps, {
   fetchCertificateList,
   fetchCourseInstructionList,
   fetchRegionList,
+  reset,
   updateCourse,
 })(form(EditCourse));
