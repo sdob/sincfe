@@ -9,6 +9,8 @@ import { fetchRegions } from '../regions/actions';
 import { deleteCourse, fetchCertificateList, fetchCourseList } from './actions';
 import { showModal } from '../modals/actions';
 
+import CourseTable from './CourseTable';
+
 class ViewCourses extends Component {
 
   constructor(props) {
@@ -88,6 +90,9 @@ class ViewCourses extends Component {
 
   render() {
     const { certificates, courses, regions } = this.props;
+    if (!courses) {
+      return <PageLoading />
+    }
     return (
       <div>
         <h1 className="sinc-page-header d-flex justify-content-between">
@@ -127,51 +132,7 @@ class ViewCourses extends Component {
         <h2 className="sinc-section-header sinc-section-header-minor">
           Results
         </h2>
-        {courses ? (
-          <table className="table">
-            <thead>
-              <tr>
-                <th>No.</th>
-                <th>Name</th>
-                <th>Max</th>
-                <th>Date</th>
-                <th>Organizer</th>
-                <th>Region</th>
-                <th>Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              {this.getVisibleCourses().map(course => (
-                <tr key={course.id}>
-                  <td>
-                    <Link to={`${paths.VIEW_COURSES}/${course.id}`}>
-                      {course.id}
-                    </Link>
-                  </td>
-                  <td>{course.certificate.name}</td>
-                  <td>{course.maximum_participants}</td>
-                  <td>{course.datetime ? moment(course.datetime).format('DD/MM/YYYY') : 'Open'}</td>
-                  <td>{course.organizer.first_name} {course.organizer.last_name}</td>
-                  <td>{course.region.name}</td>
-                  <td className="sinc-cell--buttons">
-                    <Link
-                      className="btn btn-primary sinc-btn--compact"
-                      to={`${paths.EDIT_COURSE}/${course.id}`}>
-                      <i className="fa fa-fw fa-edit" />
-                    </Link>
-                    <button
-                      className="btn btn-danger sinc-btn--compact"
-                      onClick={() => this.handleCourseDelete(course.id)}
-                    >
-                      <i className="fa fa-fw fa-trash" />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-         ) : <PageLoading />}
-
+        <CourseTable rows={this.getVisibleCourses()} />
       </div>
     );
   }
