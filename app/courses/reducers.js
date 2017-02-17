@@ -18,6 +18,7 @@ export default function coursesReducer(initialState = {}, action) {
     case courseAdd.success:
       return {...state, added: true };
     case courseDetail.success:
+      return { ...state, course: action.payload };
     case courseUpdate.success:
       return { ...state, course: action.payload };
     case courseInstructionList.success:
