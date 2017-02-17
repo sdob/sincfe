@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
-import { reduxForm } from 'redux-form';
+import { SubmissionError, reduxForm } from 'redux-form';
 import { fetchRegionList } from '../regions';
 import { addClub } from './actions';
 
@@ -23,8 +24,20 @@ class AddClub extends Component {
   }
 
   handleFormSubmit(formProps) {
-    console.info(formProps);
-    return this.props.addClub(formProps);
+    const data = {
+      ...formProps,
+      region: formProps.region < 0 ? null : formProps.region,
+    };
+    // Make the POST request and go back to the previous view if
+    // successful; if there are errors, display them on the form.
+    return this.props.addClub(data)
+    .then(() => browserHistory.goBack())
+    .catch((error) => {
+      if (error.response) {
+        const { data } = error.response;
+        throw new SubmissionError(data);
+      }
+    });
   }
 
   render () {

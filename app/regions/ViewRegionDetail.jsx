@@ -9,6 +9,7 @@ import { fetchRegionClubList, fetchRegionDetail, fetchRegionMemberList } from '.
 
 class ViewRegionDetail extends Component {
   componentDidMount() {
+    console.info('component mounted');
     const regionId = this.context.router.params.id;
     this.props.fetchRegionClubList(regionId);
     this.props.fetchRegionDetail(regionId);
@@ -16,7 +17,7 @@ class ViewRegionDetail extends Component {
   }
 
   render() {
-    const { roles: { isAdmin }, clubs, members, region } = this.props;
+    const { roles, clubs, members, region } = this.props;
     return (
       <div>
         <h1 className="sinc-page-header">
@@ -32,7 +33,7 @@ class ViewRegionDetail extends Component {
           Members
           {members === undefined ? '' : ` (${members.length})`}
         </h2>
-        {renderMemberList(members, isAdmin)}
+        {renderMemberList(members, roles)}
       </div>
     );
 
@@ -49,13 +50,13 @@ class ViewRegionDetail extends Component {
       );
     }
 
-    function renderMemberList(members, isAdmin) {
+    function renderMemberList(members, roles) {
       if (!members) {
         return <PageLoading />;
       }
       return (
         <MemberTable
-          isAdmin={isAdmin}
+          roles={roles}
           rows={members}
         />
       );

@@ -66,6 +66,7 @@ export default (
     <Route path={paths.VIEW_CLUBS} component={RequireAdmin(ViewClubs)} />
     <Route path={paths.VIEW_MEMBERS} component={RequireAdmin(ViewMembers)} />
     <Route path={paths.ADD_CLUB} component={RequireAdmin(AddClub)} />
+    <Route path={paths.VIEW_REGIONS} component={RequireAdmin(ViewRegions)} />
 
     {/* Routes that require admin or DO privileges */}
     <Route path={`${paths.EDIT_MEMBER}/:id`} component={RequireAdminOrDiveOfficer(EditMember)} />
@@ -96,7 +97,6 @@ export default (
     <Route path={paths.TEACH_COURSES} component={RequireAuth(TeachCourses)} />
     <Route path={paths.VIEW_COURSES} component={RequireAuth(ViewCourses)} />
     <Route path={`${paths.VIEW_COURSES}/:id`} component={RequireAuth(CourseDetail)} />
-    <Route path={paths.VIEW_REGIONS} component={RequireAuth(ViewRegions)} />
     <Route path={paths.VIEW_QUALIFICATIONS} component={RequireAuth(ViewQualifications)} />
     <Redirect path="*" to="/" />
   </Route>

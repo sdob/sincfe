@@ -1,3 +1,12 @@
+import { createTypes } from '../shared';
+//import * as shared from '../shared';
+//console.info(shared);
+
+// import * as shared from '../shared';
+// console.info('shared');
+// console.info(shared);
+
+
 export const OWN_PROFILE_RECEIVED = 'OWN_PROFILE_RECEIVED';
 export const OWN_PROFILE_FETCHING = 'OWN_PROFILE_FETCHING';
 export const OWN_PROFILE_ERROR = 'OWN_PROFILE_ERROR';
@@ -22,44 +31,17 @@ export const UPDATE_MEMBER_SENDING = 'UPDATE_MEMBER_SENDING';
 export const UPDATE_MEMBER_SUCCESS = 'UPDATE_MEMBER_SUCCESS';
 export const UPDATE_MEMBER_ERROR = 'UPDATE_MEMBER_ERROR';
 
-const memberCreate = {
-  pending: PROFILE_CREATE_SENDING,
-  success: PROFILE_CREATE_SUCCESS,
-  error: PROFILE_CREATE_ERROR,
-};
-
-const memberDetail = {
-  pending: MEMBER_DETAIL_FETCHING,
-  success: MEMBER_DETAIL_RECEIVED,
-  error: MEMBER_LIST_ERROR,
-};
-
-const memberList = {
-  pending: MEMBER_LIST_FETCHING,
-  success: MEMBER_LIST_RECEIVED,
-  error: MEMBER_LIST_ERROR,
-};
-
-const ownProfileRetrieve = {
-  pending: OWN_PROFILE_FETCHING,
-  success: OWN_PROFILE_RECEIVED,
-  error: OWN_PROFILE_ERROR,
-};
-
-const memberUpdate = {
-  pending: 'UPDATE_MEMBER_SENDING',
-  success: 'UPDATE_MEMBER_SUCCESS',
-  error: 'UPDATE_MEMBER_ERROR',
-};
-
-const ownProfileUpdate = {
-  pending: PROFILE_UPDATE_SENDING,
-  success: PROFILE_UPDATE_SUCCESS,
-  error: PROFILE_UPDATE_ERROR,
-};
+const memberCreate = createTypes('MEMBER_CREATE');
+const memberDelete = createTypes('MEMBER_DELETE');
+const memberDetail = createTypes('MEMBER_DETAIL');
+const memberList = createTypes('MEMBER_LIST');
+const ownProfileRetrieve = createTypes('OWN_PROFILE_RETRIEVE');
+const memberUpdate = createTypes('UPDATE_MEMBER');
+const ownProfileUpdate = createTypes('OWN_PROFILE_UPDATE');
 
 export {
   memberCreate,
+  memberDelete,
   memberDetail,
   memberList,
   memberUpdate,

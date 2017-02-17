@@ -20,7 +20,7 @@ function DeleteQualificationModal(props) {
         .then(hideModal)
         .then(() => {
           fetchQualifications();
-          browserHistory.push(nextView)
+          browserHistory.goBack();
         });
       }}
       title={`Really delete this qualification?`}

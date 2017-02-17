@@ -1,12 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 
 import { deleteClub, fetchClubList } from '../clubs/actions';
 import Modal from './Modal';
 import { hideModal } from './actions';
 
 function DeleteClubModal(props) {
-  const { club, fetchClubList, hideModal } = props;
+  const { club, fetchClubList, goBack, hideModal } = props;
   console.info(props);
   return (
     <Modal
@@ -16,8 +17,13 @@ function DeleteClubModal(props) {
         // Delete the club, then reload the club list,
         // then hide the modal
         props.deleteClub(club.id)
-        .then(fetchClubList)
-        .then(hideModal);
+        .then(hideModal)
+        .then(() => {
+          fetchClubList();
+          if (goBack) {
+            browserHistory.goBack();
+          }
+        })
       }}
       title={`Really delete ${club.name}?`}
     >

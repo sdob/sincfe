@@ -8,6 +8,7 @@ function Modal(props) {
     confirmIsDangerous,
     // confirmAction,
     confirmText,
+    disableConfirmCondition,
     hideModal,
     title,
   } = props;
@@ -59,6 +60,7 @@ function Modal(props) {
             </button>
             <button type="button"
               className={`btn ${confirmIsDangerous ? 'btn-danger' : 'btn-primary'}`}
+              disabled={disableConfirmCondition}
               onClick={() => onConfirm()}
             >
               {confirmText ? confirmText : 'OK'}

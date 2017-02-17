@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
 import { fetchClub, fetchClubMemberList, updateClub } from './actions';
-import { FormRow, InlineSpinner, MemberTable, PageLoading } from '../shared';
+import { DeleteButton, FormRow, InlineSpinner, MemberTable, PageLoading } from '../shared';
 import { fetchRegionList } from '../regions/';
+import { showModal } from '../modals';
 import ClubDetailForm from './ClubDetailForm';
 
 import * as fields from './fields';
@@ -19,6 +21,7 @@ class EditClub extends Component {
 
   constructor(props, ctx) {
     super(props, ctx);
+    this.handleDelete = this.handleDelete.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
 
@@ -49,6 +52,14 @@ class EditClub extends Component {
     }
   }
 
+  handleDelete() {
+    const { club } = this.props;
+    this.props.showModal({
+      modalType: 'DELETE_CLUB',
+      modalProps: { club, goBack: true },
+    });
+  }
+
   handleFormSubmit(formProps) {
     // Don't send the users list. When linting, ignore the fact that
     // we're not using the variable.
@@ -64,7 +75,12 @@ class EditClub extends Component {
 
     return (
       <div>
-        <h1 className="sinc-page-header">Club details ({club.name})</h1>
+        <h1 className="sinc-page-header d-flex justify-content-between">
+          Club details ({club.name})
+          {roles.isAdmin && (
+            <DeleteButton compact={false} onClick={this.handleDelete} />
+          )}
+        </h1>
         <ClubDetailForm
           club={club}
           onSubmit={handleSubmit(this.handleFormSubmit)}
@@ -116,5 +132,6 @@ export default connect(mapStateToProps, {
   fetchClub,
   fetchClubMemberList,
   fetchRegionList,
+  showModal,
   updateClub,
 })(form(EditClub));

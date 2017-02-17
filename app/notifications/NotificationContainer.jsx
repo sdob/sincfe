@@ -3,6 +3,7 @@ import FlashNotification from './FlashNotification';
 // import * as clubTypes from '../clubs/types';
 import {
   clubAdd,
+  clubDelete,
   clubUpdate,
 } from '../clubs/types';
 import {
@@ -17,6 +18,18 @@ import * as profileTypes from '../profiles/types';
 export default function NotificationContainer() {
   return (
     <div className="sinc-notification-container">
+      <FlashNotification
+        hideAfter={2000}
+        message="Club created!"
+        status="success"
+        trigger={clubAdd.success}
+      />
+      <FlashNotification
+        hideAfter={2000}
+        message="Club deleted!"
+        status="success"
+        trigger={clubDelete.success}
+      />
       <FlashNotification
         hideAfter={2000}
         message="Club updated!"

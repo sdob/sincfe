@@ -6,7 +6,7 @@ export default function DeleteButton(props) {
   const isCompact = compact === undefined ? true : compact;
   return (
     <button
-      className={`btn btn-danger ${isCompact ? 'sinc-btn--compact' : ''}`}
+      className={`btn btn-danger sinc-btn ${isCompact ? 'sinc-btn--compact' : ''}`}
       onClick={onClick}
       type="button"
     >

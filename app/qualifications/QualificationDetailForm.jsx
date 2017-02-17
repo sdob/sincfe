@@ -2,7 +2,8 @@ import React from 'react';
 import { Field } from 'redux-form';
 import moment from 'moment';
 
-import { AutosuggestOrMember, DatePicker, FormRow, SelectRow, StaticFormRow, SubmitRow } from '../shared';
+import { DatePicker, FormRow, SelectRow, StaticFormRow, SubmitRow } from '../shared';
+import { AutosuggestOrMember } from '../profiles';
 import * as fields from './fields';
 
 export default function QualificationDetailForm(props) {

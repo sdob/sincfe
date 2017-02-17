@@ -25,6 +25,7 @@ function authReducer(state = INITIAL_STATE, action) {
     // PROFILE_RECEIVED means that the user's profile info was successfully
     // received; add it to state
     case types.PROFILE_RECEIVED: // The user's info was successfully received
+      console.info('profile received');
       return { ...state, profile: action.payload };
 
     // Default case: just return the state as-is

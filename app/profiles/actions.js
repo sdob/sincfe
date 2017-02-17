@@ -3,6 +3,7 @@ import { createApiAction } from '../api';
 import { date2django } from '../shared/dateUtils';
 import {
   memberCreate,
+  memberDelete,
   memberDetail,
   memberList,
   memberUpdate,
@@ -17,6 +18,12 @@ const addMember = user => createApiAction({
   types: memberCreate,
   data: user,
   formatRequest: formatUserDOB,
+});
+
+const deleteMember = user => createApiAction({
+  url: memberDetailUrl(user.id),
+  method: 'delete',
+  types: memberDelete,
 });
 
 /* Retrieve a user's profile by ID. */
@@ -74,6 +81,7 @@ function formatUserDOB(user) {
 
 /* Add convenience methods for checking member properties */
 function addMemberMethods(response) {
+  console.info('adding member methods');
   const { data } = response;
   return {
     ...response,
@@ -88,6 +96,7 @@ function addMemberMethods(response) {
 
 export {
   addMember,
+  deleteMember,
   fetchMember,
   fetchMembers,
   fetchProfile,

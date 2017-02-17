@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
-import { PageLoading, SubmitRow } from '../shared';
+import { DeleteButton, PageLoading, SubmitRow } from '../shared';
+import { showModal } from '../modals';
 import { fetchMember, updateMember } from './actions';
 import ContactDetails from './ContactDetails';
 import PersonalDetails from './PersonalDetails';
@@ -18,6 +19,7 @@ class EditMember extends Component {
   constructor(props, ctx) {
     super(props, ctx);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -25,19 +27,35 @@ class EditMember extends Component {
     this.props.fetchMember(uid);
   }
 
+  handleDelete() {
+    const { member } = this.props;
+    this.props.showModal({
+      modalType: 'DELETE_MEMBER',
+      modalProps: {
+        goBack: true,
+        member,
+      },
+    });
+  }
+
   handleFormSubmit(formProps) {
     this.props.updateMember(formProps);
   }
 
   render() {
-    const { handleSubmit, member, sending } = this.props;
+    const { handleSubmit, member, roles: { isAdmin }, sending } = this.props;
     if (!member) {
       return <PageLoading />;
     }
 
     return (
       <div>
-        <h1 className="sinc-page-header">Edit member (CFT # {member.id})</h1>
+        <h1 className="sinc-page-header d-flex justify-content-between">
+          Edit member (CFT # {member.id})
+          {isAdmin && (
+            <DeleteButton compact={false} onClick={this.handleDelete} />
+          )}
+        </h1>
         <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           <h2 className="sinc-section-header">Personal details</h2>
           <PersonalDetails />
@@ -63,4 +81,8 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, { fetchMember, updateMember })(form(EditMember));
+export default connect(mapStateToProps, {
+  fetchMember,
+  showModal,
+  updateMember,
+})(form(EditMember));

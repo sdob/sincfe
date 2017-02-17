@@ -78,7 +78,6 @@ export default class NewMemberTable extends Component {
                 >
                   <i className="fa fa-fw fa-edit" />
                 </Link>
-                {props.roles.isAdmin && <DeleteButton />}
               </div>
             ),
           ],

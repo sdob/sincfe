@@ -7,9 +7,11 @@ import { connect } from 'react-redux';
  */
 export default function withRoleProps(WrappedComponent) {
   function WithRoleProps(props) {
+    console.info('rendering withRoleProps');
     if (!props.profile) {
       return null;
     }
+    console.info('profile is here');
 
     const {
       profile: {

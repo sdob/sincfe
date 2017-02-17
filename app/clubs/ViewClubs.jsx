@@ -65,7 +65,7 @@ class ViewClubs extends Component {
   }
 
   render() {
-    const { clubs, isAdmin, profile, regions } = this.props;
+    const { clubs, roles: { isAdmin }, profile, regions } = this.props;
 
     if (!(clubs && profile)) {
       return <PageLoading />;
