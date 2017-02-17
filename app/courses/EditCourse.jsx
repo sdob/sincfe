@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { store } from 'redux';
 import { connect } from 'react-redux';
 import { reduxForm, initialize, reset } from 'redux-form';
-import { PageLoading } from '../shared';
+import { DeleteButton, PageLoading } from '../shared';
 import { fetchRegionList } from '../regions';
+import { showModal } from '../modals';
 import {
   addCourseInstruction,
   deleteCourseInstruction,
@@ -32,6 +33,7 @@ class EditCourse extends Component {
     // Bind methods
     this.addInstructor = this.addInstructor.bind(this);
     this.deleteInstruction = this.deleteInstruction.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
   
@@ -43,6 +45,18 @@ class EditCourse extends Component {
     this.props.fetchRegionList();
     // Retrieve the instructor data
     this.props.fetchCourseInstructionList(courseId);
+  }
+
+  handleDelete() {
+    const { course, showModal } = this.props;
+    console.info('deleting course');
+    showModal({
+      modalType: 'DELETE_COURSE',
+      modalProps: {
+        courseId: course.id,
+        goBack: true,
+      },
+    });
   }
 
   onFormSubmit(formProps) {
@@ -84,6 +98,7 @@ class EditCourse extends Component {
       course,
       handleSubmit,
       courseInstructions,
+      roles: { isAdmin },
     } = this.props;
 
     // Don't display the form until we've received the course data
@@ -93,7 +108,10 @@ class EditCourse extends Component {
 
     return (
       <div>
-        <h1 className="sinc-page-header">Edit course No. {course.id}</h1>
+        <h1 className="sinc-page-header d-flex justify-content-between">
+          Edit course No. {course.id}
+          {isAdmin && <DeleteButton compact={false} onClick={this.handleDelete} />}
+        </h1>
         <CourseDetailForm onSubmit={handleSubmit(this.onFormSubmit)} {...this.props} />
 
         <h2 className="sinc-section-header">Instructors</h2>
@@ -147,5 +165,6 @@ export default connect(mapStateToProps, {
   fetchCourseInstructionList,
   fetchRegionList,
   reset,
+  showModal,
   updateCourse,
 })(form(EditCourse));
