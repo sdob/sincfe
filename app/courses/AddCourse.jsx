@@ -16,7 +16,7 @@ import CourseDetailForm from './CourseDetailForm';
 
 const form = reduxForm({
   form: 'addCourse',
-  // validate,
+  validate,
 });
 
 const instructorInputId = 'js-autosuggest-instructor';
