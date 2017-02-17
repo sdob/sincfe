@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router';
 import * as sort from 'sortabular';
+import * as paths from '../paths';
 import { SortedTable } from '../shared';
 
 export default class CourseTable extends Component {
@@ -27,7 +28,7 @@ export default class CourseTable extends Component {
       },
     });
 
-    const columns = [
+    const defaultColumns = [
       {
         property: 'id',
         header: {
@@ -45,6 +46,14 @@ export default class CourseTable extends Component {
         },
       },
       {
+        property: 'organizer.full_name',
+        header: {
+          label: 'Organizer',
+          transforms: [resetable],
+          formatters: [sort.header({ getSortingColumns, sortable, strategy })],
+        },
+      },
+      {
         property: 'region.name',
         header: {
           label: 'Region',
@@ -57,13 +66,21 @@ export default class CourseTable extends Component {
         },
         cell: {
           formatters: [id => (
-            <Link to={`paths.EDIT_COURSE/${id}`} title="Edit">
+            <Link
+              className="btn btn-primary sinc-btn sinc-btn--compact"
+              to={`${paths.EDIT_COURSE}/${id}`}
+              title="Edit"
+            >
               <i className="fa fa-fw fa-edit" />
             </Link>
           )],
         },
       },
     ];
+
+    // If we have a list of excluded columns, then don't show those; otherwise show the default columns
+    const { excludedColumns } = props;
+    const columns = excludedColumns ? defaultColumns.filter(c => !excludedColumns.includes(c.property)) : defaultColumns;
 
     const unsearchableProperties = ['region.name'];
     // const searchingColumns = columns.filter(c => !unsearchableProperties.includes(c.property));
@@ -85,13 +102,14 @@ export default class CourseTable extends Component {
   }
 
   render() {
-    const { rows } = this.props;
+    const rows = this.props.rows.map(row => ({
+      ...row,
+      organizer: {
+        ...row.organizer,
+        full_name: `${row.organizer.first_name} ${row.organizer.last_name}`,
+      },
+    }));
     const { columns, searchingColumns, sortingColumns } = this.state;
-    console.info(columns);
-    console.info(searchingColumns);
-    console.info(sortingColumns);
-    // console.info('rows?');
-    // console.info(rows);
     return (
       <div>
         <SortedTable
