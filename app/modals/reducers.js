@@ -19,5 +19,5 @@ export default function modalReducer(state = initialState, action) {
       return initialState;
     default:
       return state;
-  };
+  }
 }

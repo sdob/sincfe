@@ -4,7 +4,7 @@ import { getDisplayName } from '../shared';
 import withRoleProps from './withRoleProps';
 
 export default function requireRole(role) {
-  return function (WrappedComponent) {
+  return function _requireRole(WrappedComponent) {
     class RequireRole extends Component {
       componentDidMount() {
         const { profile } = this.props;
@@ -28,7 +28,7 @@ export default function requireRole(role) {
         if (!this.props.profile) {
           return null;
         }
-        return <WrappedComponent {...this.props} />
+        return <WrappedComponent {...this.props} />;
       }
     }
 
@@ -44,5 +44,5 @@ export default function requireRole(role) {
     }
 
     return connect(mapStateToProps)(withRoleProps(RequireRole));
-  }
+  };
 }

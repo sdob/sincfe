@@ -21,8 +21,8 @@ class DeleteMemberModal extends Component {
   }
 
   handleConfirm() {
-    const { deleteMember, goBack, member } = this.props;
-    deleteMember(member)
+    const { goBack, member } = this.props;
+    this.props.deleteMember(member)
     .then(() => {
       this.props.hideModal();
       if (goBack) {
@@ -32,15 +32,14 @@ class DeleteMemberModal extends Component {
   }
 
   render() {
-    const { member, fetchQualifications, nextView, hideModal } = this.props;
     const { inputChecked } = this.state;
     return (
       <Modal
-        confirmIsDangerous={true}
+        confirmIsDangerous
         confirmText="Delete"
         disableConfirmCondition={!inputChecked}
         onConfirm={this.handleConfirm}
-        title={`Really delete this member?`}
+        title={'Really delete this member?'}
       >
         <p>
           Are you sure you want to go ahead and delete
@@ -58,7 +57,6 @@ class DeleteMemberModal extends Component {
         </p>
       </Modal>
     );
-
   }
 }
 

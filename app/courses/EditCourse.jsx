@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { store } from 'redux';
 import { connect } from 'react-redux';
-import { reduxForm, initialize, reset } from 'redux-form';
+import { reduxForm, reset } from 'redux-form';
 import { DeleteButton, PageLoading } from '../shared';
 import { fetchRegionList } from '../regions';
 import { showModal } from '../modals';
@@ -36,7 +35,7 @@ class EditCourse extends Component {
     this.handleDelete = this.handleDelete.bind(this);
     this.onFormSubmit = this.onFormSubmit.bind(this);
   }
-  
+
   componentDidMount() {
     const courseId = this.context.router.params.id;
     // Retrieve the course detail and supporting cert and region data
@@ -47,10 +46,18 @@ class EditCourse extends Component {
     this.props.fetchCourseInstructionList(courseId);
   }
 
+  onFormSubmit(formProps) {
+    // Send the data
+    return this.props.updateCourse(formProps)
+    .then(() => {
+      this.props.reset(FORM_NAME);
+    });
+  }
+
   handleDelete() {
-    const { course, showModal } = this.props;
+    const { course } = this.props;
     console.info('deleting course');
-    showModal({
+    this.props.showModal({
       modalType: 'DELETE_COURSE',
       modalProps: {
         courseId: course.id,
@@ -59,14 +66,6 @@ class EditCourse extends Component {
     });
   }
 
-  onFormSubmit(formProps) {
-    // Send the data
-    return this.props.updateCourse(formProps)
-    .then(course => {
-      const values = formatCourseForInitialValues(course);
-      this.props.reset(FORM_NAME);
-    });
-  }
 
   addInstructor(instructor) {
     const { course } = this.props;
@@ -83,7 +82,7 @@ class EditCourse extends Component {
   }
 
   deleteInstruction(instruction) {
-    const { course: {id: courseId} } = this.props;
+    const { course: { id: courseId } } = this.props;
     const instructionId = instruction.id;
     // Remove the instructor immediately
     // TODO: we should hold this in state until the user clicks 'Save';

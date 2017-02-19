@@ -27,25 +27,11 @@ class ViewMembers extends Component {
     };
   }
 
-  getVisibleMembers() {
-    const { members } = this.props;
-    const { inputIsEmpty } = this.state;
-    // If the input is empty or we have no members to show, then
-    // return an empty list
-    if (inputIsEmpty || !members) {
-      return [];
-    }
-    // Otherwise, filter the users by the region filter
-    const { regionVisibilities } = this.state;
-    return members.filter(m => regionVisibilities[m.club.region.id]);
-  }
-
   componentDidMount() {
     this.props.fetchRegions();
   }
 
   componentWillReceiveProps(nextProps) {
-    const { regionVisibilities } = this.state;
     if (nextProps.regions !== this.props.regions) {
       const visibilities = {};
       nextProps.regions.forEach((region) => {
@@ -74,6 +60,26 @@ class ViewMembers extends Component {
     }
   }
 
+  getVisibleMembers() {
+    const { members } = this.props;
+    const { inputIsEmpty } = this.state;
+    // If the input is empty or we have no members to show, then
+    // return an empty list
+    if (inputIsEmpty || !members) {
+      return [];
+    }
+    // Otherwise, filter the users by the region filter
+    const { regionVisibilities } = this.state;
+    return members.filter(m => regionVisibilities[m.club.region.id]);
+  }
+
+  renderRegions(regions) {
+    if (!regions) {
+      return <PageLoading />;
+    }
+    return <RegionFilter regions={regions} onChange={this.onRegionToggle} />;
+  }
+
   render() {
     const { roles, regions } = this.props;
 
@@ -92,7 +98,7 @@ class ViewMembers extends Component {
           View members
           <AddLink to={paths.ADD_MEMBER} />
         </h1>
-        Start typing a user's name or CFT number to view matching results.
+        Start typing a user&rsquo;s name or CFT number to view matching results.
         <div className="form-group row">
           <div className="col-12">
             <input
@@ -110,22 +116,12 @@ class ViewMembers extends Component {
           Results ({visibleMembers.length})
         </h2>
         <MemberTable
-          extraColumns={{
-            'club.name': { label: 'Club' },
-            'club.region.name': { label: 'Region' },
-          }}
+          extraColumns={extraColumns}
           roles={roles}
           rows={visibleMembers}
         />
       </div>
     );
-  }
-
-  renderRegions(regions) {
-    if (!regions) {
-      return <PageLoading />;
-    }
-    return <RegionFilter regions={regions} onChange={this.onRegionToggle} />
   }
 }
 

@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { reduxForm } from 'redux-form';
 
 import { fetchClub, fetchClubMemberList, updateClub } from './actions';
-import { DeleteButton, FormRow, InlineSpinner, MemberTable, PageLoading } from '../shared';
+import { DeleteButton, MemberTable, PageLoading } from '../shared';
 import { fetchRegionList } from '../regions/';
 import { showModal } from '../modals';
 import ClubDetailForm from './ClubDetailForm';
 
-import * as fields from './fields';
 import validate from './validate';
 
 const form = reduxForm({
@@ -29,24 +27,25 @@ class EditClub extends Component {
     const clubId = this.context.router.params.id;
     this.props.fetchClub(clubId);
     this.props.fetchRegionList();
-    const { roles: { isAdmin, profile } } = this.props;
+    const { profile, roles: { isAdmin } } = this.props;
     const isDiveOfficer = profile && profile.isDiveOfficerOf(clubId);
-    if (this.props.isAdmin || isDiveOfficer) {
+    if (isAdmin || isDiveOfficer) {
       this.props.fetchClubMemberList(clubId);
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    // If props are updating, and the user is an admin, then fetch the
+    // If props are updating, and the user is an admin or a DO, then fetch the
     // list of members
     const clubId = this.context.router.params.id;
-    if (nextProps.roles !== this.props.roles) {
-      if (nextProps.roles.isAdmin) {
-        return this.props.fetchClubMemberList(clubId);
-      }
-    }
-    if (nextProps.profile !== this.props.profile) {
-      if (nextProps.profile.isDiveOfficerOf(clubId)) {
+    if (
+      nextProps.roles !== this.props.roles ||
+      nextProps.roles !== this.props.profile
+    ) {
+      if (
+        nextProps.roles.isAdmin ||
+        nextProps.profile.isDiveOfficerOf(clubId)
+      ) {
         this.props.fetchClubMemberList(clubId);
       }
     }
@@ -68,7 +67,7 @@ class EditClub extends Component {
   }
 
   render() {
-    const { club, handleSubmit, members, profile, roles, submitting } = this.props;
+    const { club, handleSubmit, members, roles, submitting } = this.props;
     if (!club) {
       return <PageLoading />;
     }
@@ -110,13 +109,13 @@ function mapStateToProps(state) {
   const { regions } = state.regions;
   return {
     club,
-    initialValues: formatClub(club), // populate form
+    initialValues: formatClub(), // populate form
     members: memberList,
     profile,
     regions,
   };
 
-  function formatClub(club) {
+  function formatClub() {
     if (club) {
       return {
         ...club,

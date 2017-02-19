@@ -47,7 +47,7 @@ const fetchMemberQualifications = uid => createApiAction({
   types: memberQualificationList,
 });
 
-const fetchQualification = (qid) => createApiAction({
+const fetchQualification = qid => createApiAction({
   url: qualificationDetailUrl(qid),
   method: 'get',
   types: qualificationDetail,

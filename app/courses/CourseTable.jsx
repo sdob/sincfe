@@ -8,7 +8,7 @@ export default class CourseTable extends Component {
 
   constructor(props, ctx) {
     super(props, ctx);
-  
+
     const getSortingColumns = this.getSortingColumns.bind(this);
     const strategy = sort.strategies.byProperty;
     const resetable = sort.reset({
@@ -78,12 +78,13 @@ export default class CourseTable extends Component {
       },
     ];
 
-    // If we have a list of excluded columns, then don't show those; otherwise show the default columns
+    // If we have a list of excluded columns, then don't show those;
+    // otherwise show the default columns
     const { excludedColumns } = props;
-    const columns = excludedColumns ? defaultColumns.filter(c => !excludedColumns.includes(c.property)) : defaultColumns;
+    const columns = excludedColumns ? defaultColumns.filter(c => (
+      !excludedColumns.includes(c.property)
+    )) : defaultColumns;
 
-    const unsearchableProperties = ['region.name'];
-    // const searchingColumns = columns.filter(c => !unsearchableProperties.includes(c.property));
     const searchingColumns = [];
     const sortingColumns = {
       id: { direction: 'desc', position: 0 },
@@ -96,7 +97,7 @@ export default class CourseTable extends Component {
       sortingColumns,
     };
   }
-  
+
   getSortingColumns() {
     return this.state.sortingColumns || {};
   }

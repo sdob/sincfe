@@ -86,13 +86,18 @@ class AutosuggestOrMember extends Component {
     // If we have a value, render the member's name as a static
     // field with a 'clear' button
     if (input && input.value) {
-      const { value } = input;
+      const { value: member } = input;
       return (
         <div className={className}>
-          <label className="col-12 col-md-2 col-form-label"> {label} </label>
-          <div className="col-1 text-right form-control-static"> {value.id} </div>
+          <label
+            className="col-12 col-md-2 col-form-label"
+            htmlFor="name"
+          >
+            {label}
+          </label>
+          <div className="col-1 text-right form-control-static"> {member.id} </div>
           <div className="col-8 col-sm-8 col-md-7 col-lg-4 form-control-static">
-            {value.first_name} {value.last_name}
+            {member.first_name} {member.last_name}
           </div>
           <div className="col-3 col-sm-3 col-md-2 text-right">
             <button
@@ -141,7 +146,7 @@ function renderSuggestion(member) {
   return `${member.id} | ${member.first_name} ${member.last_name}`;
 }
 
-function mapStateToProps(state) {
+function mapStateToProps() {
   return {};
 }
 

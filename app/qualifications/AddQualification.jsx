@@ -5,7 +5,6 @@ import { reduxForm } from 'redux-form';
 import * as paths from '../paths';
 import { PageLoading } from '../shared';
 import { fetchCertificateList } from '../courses/actions';
-import { showModal } from '../modals';
 import { addQualification } from './actions';
 import QualificationDetailForm from './QualificationDetailForm';
 
@@ -36,7 +35,7 @@ class AddQualification extends Component {
   }
 
   render() {
-    const { certificates, handleSubmit, profile, qualification, roles: { isAdmin } } = this.props;
+    const { certificates, handleSubmit, profile, roles: { isAdmin } } = this.props;
     if (!(profile && certificates)) {
       return <PageLoading />;
     }
@@ -46,7 +45,7 @@ class AddQualification extends Component {
           Add qualification
         </h1>
         <QualificationDetailForm
-          addNew={true}
+          addNew
           certificates={certificates}
           editable={isAdmin}
           onSubmit={handleSubmit(this.handleFormSubmit)}

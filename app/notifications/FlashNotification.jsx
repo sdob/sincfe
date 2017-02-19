@@ -8,12 +8,12 @@ const DEFAULT_HIDE_AFTER = 2000;
 export default function FlashNotification(props) {
   const { hideAfter, message, status, trigger } = props;
 
-  const divClass = `sinc-notification--${status ? status : 'success'}`;
+  const divClass = `sinc-notification--${status || 'success'}`;
 
   return (
     <InlineNotification
       defaultMessage={message}
-      hideAfter={hideAfter ? hideAfter : DEFAULT_HIDE_AFTER}
+      hideAfter={hideAfter || DEFAULT_HIDE_AFTER}
       triggeredBy={trigger}
       showDismiss
       renderNotification={(notification, dismiss) => (

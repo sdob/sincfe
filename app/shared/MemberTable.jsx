@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router';
 import * as sort from 'sortabular';
 import SortedTable from './SortedTable';
-import DeleteButton from './DeleteButton';
 
 // Handle state and sorting for SortableTable
 export default class NewMemberTable extends Component {
@@ -124,7 +123,6 @@ export default class NewMemberTable extends Component {
   }
 
   render() {
-
     // Add unified 'name' property to each member object
     const rows = this.props.rows.map(row => ({
       ...row,

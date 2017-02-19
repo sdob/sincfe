@@ -34,19 +34,18 @@ class AddClub extends Component {
     .then(() => browserHistory.goBack())
     .catch((error) => {
       if (error.response) {
-        const { data } = error.response;
-        throw new SubmissionError(data);
+        throw new SubmissionError(error.response.data);
       }
     });
   }
 
-  render () {
+  render() {
     const { handleSubmit, roles: { isAdmin }, submitting } = this.props;
     return (
       <div>
         <h1 className="sinc-page-header">Add club</h1>
         <ClubDetailForm
-          addNew={true}
+          addNew
           isAdmin={isAdmin}
           onSubmit={handleSubmit(this.handleFormSubmit)}
           submitting={submitting}
@@ -56,12 +55,7 @@ class AddClub extends Component {
   }
 }
 
-function mapStateToProps(state) {
-  return {
-  };
-}
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   addClub,
   fetchRegionList,
 })(form(AddClub));

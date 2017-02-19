@@ -15,7 +15,7 @@ class InstructorInput extends Component {
       250
     );
     this.onSuggestionSelected = this.onSuggestionSelected.bind(this);
-    this.resetInputState = this.resetInputState
+    this.resetInputState = this.resetInputState;
     this.state = {
       suggestions: [],
       value: '',

@@ -18,7 +18,6 @@ export default function clubsReducer(initialState = {}, action) {
       return { ...state, sending: true };
 
     // Handle 'success' events
-    case clubUpdate.success:
     case clubDetail.success:
       return { ...state, club: action.payload };
     case clubList.success:
@@ -26,7 +25,7 @@ export default function clubsReducer(initialState = {}, action) {
     case clubMemberList.success:
       return { ...state, memberList: action.payload };
     case clubUpdate.success:
-      return { ...state, update: action.payload };
+      return { ...state, club: action.payload };
 
     // Handle default
     default:

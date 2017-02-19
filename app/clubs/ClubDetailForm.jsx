@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Field } from 'redux-form';
-import { FormRow, InlineSpinner, PageLoading, SelectRow, StaticFormRow, SubmitRow } from '../shared';
+import { FormRow, PageLoading, SelectRow, SubmitRow } from '../shared';
 import * as fields from './fields';
 
 function ClubDetailForm(props) {
@@ -22,7 +21,7 @@ function ClubDetailForm(props) {
   return (
     <form className="sinc-club-detail-form" onSubmit={onSubmit}>
 
-      {isAdmin ? renderEditableNameAndRegion() : renderUneditableNameAndRegion(club)}
+      {isAdmin ? renderEditableNameAndRegion() : renderUneditableNameAndRegion()}
 
       <FormRow required field={fields.CONTACT_NAME} label="Contact name" />
       <FormRow required field={fields.CONTACT_EMAIL} label="Email address" />
@@ -48,7 +47,7 @@ function ClubDetailForm(props) {
     );
   }
 
-  function renderUneditableNameAndRegion(club) {
+  function renderUneditableNameAndRegion() {
     return (
       <div>
         <div className="form-group row">

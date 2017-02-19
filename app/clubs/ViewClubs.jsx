@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import * as sort from 'sortabular';
 import { fetchRegions } from '../regions/actions';
-import { AddLink, PageLoading, RegionFilter, SortedTable } from '../shared';
+import { AddLink, PageLoading, RegionFilter } from '../shared';
 import * as paths from '../paths';
 import { showModal } from '../modals/actions';
 import { fetchClub, fetchClubList } from './actions';
@@ -37,12 +36,6 @@ class ViewClubs extends Component {
     }
   }
 
-  getVisibleClubs() {
-    const { clubs } = this.props;
-    const { regionVisibilities } = this.state;
-    return clubs.filter(club => regionVisibilities[club.region.id]);
-  }
-
   onRegionToggle(rid, value) {
     this.setState({
       regionVisibilities: {
@@ -50,6 +43,12 @@ class ViewClubs extends Component {
         [rid]: value,
       },
     });
+  }
+
+  getVisibleClubs() {
+    const { clubs } = this.props;
+    const { regionVisibilities } = this.state;
+    return clubs.filter(club => regionVisibilities[club.region.id]);
   }
 
   handleDelete(cid) {
@@ -87,7 +86,7 @@ class ViewClubs extends Component {
         </h2>
         <ClubTable
           clubs={this.getVisibleClubs()}
-          editable={true}
+          editable
           handleDelete={this.handleDelete}
           isAdmin={isAdmin}
         />

@@ -1,13 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { reduxForm, Field } from 'redux-form';
-import Autosuggest from 'react-autosuggest';
+import React from 'react';
 
 import DeletableInstructorField from './DeletableInstructorField';
 import InstructorInput from './InstructorInput';
 
 export default function CourseInstructionListForm(props) {
-  const { className, courseInstructions, onAdd, onRemove, ...rest } = props;
+  const { courseInstructions, onAdd, onRemove, ...rest } = props;
 
   return (
     <div>

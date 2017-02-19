@@ -4,21 +4,21 @@ import { browserHistory } from 'react-router';
 
 import { deleteCourse, fetchCourseList } from '../courses/actions';
 import Modal from './Modal';
-import {hideModal } from './actions';
+import { hideModal } from './actions';
 
 function DeleteCourseModal(props) {
-  const { courseId, fetchCourseList, hideModal } = props;
+  const { courseId } = props;
   console.info(props);
   return (
     <Modal
-      confirmIsDangerous={true}
+      confirmIsDangerous
       confirmText="Delete"
       onConfirm={() => {
         // Delete the course, then reload the course list,
         // then hide the modal
         props.deleteCourse(courseId)
-        .then(fetchCourseList)
-        .then(hideModal)
+        .then(props.fetchCourseList)
+        .then(props.hideModal)
         .then(() => {
           if (props.goBack) {
             browserHistory.goBack();
@@ -36,11 +36,7 @@ function DeleteCourseModal(props) {
   );
 }
 
-function mapStateToProps(state) {
-  return {};
-}
-
-export default connect(mapStateToProps, {
+export default connect(null, {
   deleteCourse,
   fetchCourseList,
   hideModal,

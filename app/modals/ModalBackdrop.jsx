@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { hideModal } from './actions';
 
+/* For now, ignore the accessibility issue with clickable elements. */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 function ModalBackdrop(props) {
   return (
     <div
@@ -10,5 +12,6 @@ function ModalBackdrop(props) {
     />
   );
 }
+/* eslint-enable jsx-a11y/no-static-element-interactions */
 
 export default connect(null, { hideModal })(ModalBackdrop);

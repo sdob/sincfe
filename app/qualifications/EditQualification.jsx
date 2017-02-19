@@ -77,12 +77,12 @@ function mapStateToProps(state) {
   const { qualification } = state.qualifications;
   return {
     certificates,
-    initialValues: formatQualification(qualification),
+    initialValues: formatQualification(),
     profile,
     qualification,
   };
 
-  function formatQualification(qualification) {
+  function formatQualification() {
     if (qualification) {
       const formattedQualification = {
         ...qualification,

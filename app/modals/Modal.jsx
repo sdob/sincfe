@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { hideModal } from'./actions';
+import { hideModal } from './actions';
 
 function Modal(props) {
   const {
@@ -9,7 +9,6 @@ function Modal(props) {
     // confirmAction,
     confirmText,
     disableConfirmCondition,
-    hideModal,
     title,
   } = props;
 
@@ -28,7 +27,7 @@ function Modal(props) {
     <div
       className="modal show sinc-modal"
       id="myModal"
-      tabindex="-1"
+      tabIndex="-1"
       role="dialog"
       aria-labelledby="modalTitle"
       aria-hidden="true"
@@ -37,13 +36,13 @@ function Modal(props) {
       <div className="modal-dialog" role="document">
         <div className="modal-content">
           <div className="modal-header">
-            <h5>{props.title}</h5>
+            <h5>{title}</h5>
             {closeButton && (
               <button
                 type="button"
                 className="close"
                 aria-label="Close"
-                onClick={hideModal}
+                onClick={props.hideModal}
               >
                 <i className="fa fa-fw fa-times" />
               </button>
@@ -53,17 +52,20 @@ function Modal(props) {
             {props.children}
           </div>
           <div className="modal-footer">
-            <button type="button" className="btn btn-secondary"
+            <button
+              type="button"
+              className="btn btn-secondary"
               onClick={onCancel}
             >
-              {cancelText ? cancelText : 'Cancel'}
+              {cancelText || 'Cancel'}
             </button>
-            <button type="button"
+            <button
+              type="button"
               className={`btn ${confirmIsDangerous ? 'btn-danger' : 'btn-primary'}`}
               disabled={disableConfirmCondition}
               onClick={() => onConfirm()}
             >
-              {confirmText ? confirmText : 'OK'}
+              {confirmText || 'OK'}
             </button>
           </div>
         </div>

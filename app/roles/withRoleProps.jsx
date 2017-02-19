@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
 /*
@@ -18,6 +18,10 @@ export default function withRoleProps(WrappedComponent) {
       }
     } = props;
 
+    /* We didn't define this identifier (the API did) so we're not
+     * worrying about conforming to the style guide.
+     */
+    // eslint-disable-next-line camelcase
     const isAdmin = !!is_staff;
     const isDiveOfficer = !!readable_committee_positions.includes('Dive Officer');
 
@@ -26,10 +30,12 @@ export default function withRoleProps(WrappedComponent) {
       isDiveOfficer,
     };
 
-    return <WrappedComponent
-      roles={roles}
-      {...props}
-    />;
+    return (
+      <WrappedComponent
+        roles={roles}
+        {...props}
+      />
+    );
   }
 
   function mapStateToProps(state) {

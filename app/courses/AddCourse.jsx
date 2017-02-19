@@ -1,16 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
-import { Field, reduxForm } from 'redux-form';
-import Autosuggest from 'react-autosuggest';
-import debounce from 'lodash/debounce';
+import { reduxForm } from 'redux-form';
 
 import * as paths from '../paths';
-import { DateTimePicker, MemberLineItem, PageLoading, SelectRow, SubmitRow } from '../shared';
 import { fetchRegionList } from '../regions';
 import { addCourse, fetchCertificateList } from './actions';
 import { searchForMember } from '../profiles/actions';
-import * as fields from './fields';
 import validate from './validate';
 import CourseDetailForm from './CourseDetailForm';
 
@@ -18,9 +14,6 @@ const form = reduxForm({
   form: 'addCourse',
   validate,
 });
-
-const instructorInputId = 'js-autosuggest-instructor';
-const organizerInputId = 'js-autosuggest-organizer';
 
 class AddCourse extends Component {
   constructor(props, ctx) {
@@ -62,7 +55,7 @@ class AddCourse extends Component {
 
 AddCourse.contextTypes = {
   router: React.PropTypes.object.isRequired,
-}
+};
 
 function mapStateToProps(state) {
   return {

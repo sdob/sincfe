@@ -10,10 +10,10 @@ import {
 } from './types';
 
 const addClub = data => createApiAction({
-    data,
-    url: clubListUrl(),
-    method: 'post',
-    types: clubAdd,
+  data,
+  url: clubListUrl(),
+  method: 'post',
+  types: clubAdd,
 });
 
 const deleteClub = cid => createApiAction({

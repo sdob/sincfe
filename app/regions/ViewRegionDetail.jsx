@@ -4,7 +4,7 @@ import {
   MemberTable,
   PageLoading,
 } from '../shared';
-import { ClubTable } from '../clubs'
+import { ClubTable } from '../clubs';
 import { fetchRegionClubList, fetchRegionDetail, fetchRegionMemberList } from './actions';
 
 class ViewRegionDetail extends Component {
@@ -28,29 +28,29 @@ class ViewRegionDetail extends Component {
           Clubs
           {clubs === undefined ? '' : ` (${clubs.length})`}
         </h2>
-        {renderClubList(clubs)}
+        {renderClubList()}
         <h2 className="sinc-section-header">
           Members
           {members === undefined ? '' : ` (${members.length})`}
         </h2>
-        {renderMemberList(members, roles)}
+        {renderMemberList()}
       </div>
     );
 
-    function renderClubList(clubs) {
+    function renderClubList() {
       if (!clubs) {
         return <PageLoading />;
       }
       return (
         <ClubTable
           clubs={clubs}
-          editable={true}
+          editable
           showRegions={false}
         />
       );
     }
 
-    function renderMemberList(members, roles) {
+    function renderMemberList() {
       if (!members) {
         return <PageLoading />;
       }

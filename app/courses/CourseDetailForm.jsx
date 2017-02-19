@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import { Field } from 'redux-form';
 import { AutosuggestOrMember } from '../profiles';
@@ -78,7 +78,11 @@ function CourseDetailForm(props) {
           </label>
         </div>
         <div className="col-12 col-sm-6 col-md-9 col-lg-6 col-xl-3">
-          <Field name={fields.DATETIME} component={DateTimePicker} aria-describedby="aria-date-help" />
+          <Field
+            name={fields.DATETIME}
+            component={DateTimePicker}
+            aria-describedby="aria-date-help"
+          />
         </div>
         <div className="col-12 col-md-9 offset-md-3">
           <span className="help-block" id="aria-date-help">

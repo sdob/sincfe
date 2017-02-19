@@ -2,7 +2,7 @@ function makeComposableRole(role) {
   const composableRole = {
     ...role,
     // x.or(y) allows the route if profile holds role x or role y (or both)
-    or: (otherRole) => ({
+    or: otherRole => ({
       ...role,
       name: `${role.name} || ${otherRole.name}`,
       isHeldBy: profile => role.isHeldBy(profile) || otherRole.isHeldBy(profile),

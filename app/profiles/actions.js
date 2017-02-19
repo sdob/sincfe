@@ -72,7 +72,9 @@ const updateOwnProfile = user => createApiAction({
 
 function formatUserDOB(user) {
   // If we've been passed a Date object, then format it appropriately
-  // for Django; otherwise, return the string
+  // for Django; otherwise, return the string. The API requires a snake_cased
+  // variable name, so don't lint this line.
+  // eslint-disable-next-line camelcase
   const date_of_birth = (user.date_of_birth instanceof Date)
     ? date2django(user.date_of_birth)
     : user.date_of_birth;

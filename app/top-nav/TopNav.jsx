@@ -34,12 +34,12 @@ function TopNav(props) {
                 text={`${profile.first_name} ${profile.last_name}`}
                 to={paths.EDIT_PROFILE}
               />
-             )}
-           <TopNavItem to={paths.LOGOUT} icon="sign-out" text="Logout" />
-        </ul>
+            )}
+            <TopNavItem to={paths.LOGOUT} icon="sign-out" text="Logout" />
+          </ul>
+        </div>
       </div>
-    </div>
-  </nav>
+    </nav>
   );
 }
 

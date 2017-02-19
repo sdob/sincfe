@@ -12,6 +12,7 @@ import momentLocalizer from 'react-widgets/lib/localizers/moment';
 
 // Import Bootstrap JS; we don't use it directly, but we need it to be
 // here in order to avail of Bootstrap's responsive collapse behaviour.
+// eslint-disable-next-line no-unused-vars
 import bootstrap from 'bootstrap/dist/js/bootstrap';
 
 import rootReducer from './root-reducer';

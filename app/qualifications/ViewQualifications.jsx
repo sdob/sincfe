@@ -9,14 +9,13 @@ import { fetchQualifications } from './actions';
 import { fetchClubList } from '../clubs/actions';
 import { fetchCertificateList } from '../courses/actions';
 import { fetchRegions } from '../regions/actions';
-import { AddLink, CertificateSelector, DeleteButton, PageLoading, RegionFilter, SortedTable } from '../shared';
+import { AddLink, CertificateSelector, PageLoading, RegionFilter, SortedTable } from '../shared';
 
 class ViewQualifications extends Component {
   constructor(props, ctx) {
     super(props, ctx);
     this.handleRegionToggle = this.handleRegionToggle.bind(this);
     this.handleCertificateSelect = this.handleCertificateSelect.bind(this);
-    this.handleQualificationDelete = this.handleQualificationDelete.bind(this);
     this.getSortingColumns = this.getSortingColumns.bind(this);
 
     this.refreshColumnDefinitions = this.refreshColumnDefinitions.bind(this);
@@ -63,20 +62,6 @@ class ViewQualifications extends Component {
     this.refreshColumnDefinitions(nextProps.roles.isAdmin);
   }
 
-  refreshColumnDefinitions(isAdmin) {
-    const columns = columnDefinitions(
-      this.getSortingColumns.bind(this),
-      isAdmin,
-      this.handleQualificationDelete,
-    );
-    this.setState({
-      columns,
-    });
-  }
-
-  setScopeFromProps(props) {
-  }
-
   getSortingColumns() {
     return this.state.sortingColumns || {};
   }
@@ -103,6 +88,17 @@ class ViewQualifications extends Component {
     }
   }
 
+  refreshColumnDefinitions(isAdmin) {
+    const columns = columnDefinitions(
+      this.getSortingColumns.bind(this),
+      isAdmin,
+    );
+    this.setState({
+      columns,
+    });
+  }
+
+
   handleCertificateSelect(evt) {
     const { certificates } = this.props;
     const value = evt.target.value;
@@ -114,10 +110,6 @@ class ViewQualifications extends Component {
     } else {
       this.setState({ selectedCertificateId: undefined });
     }
-  }
-
-  handleQualificationDelete() {
-    // TODO: bring up a modal, etc., etc.
   }
 
   handleRegionToggle(rid, visibility) {
@@ -182,7 +174,7 @@ class ViewQualifications extends Component {
   }
 }
 
-function columnDefinitions(getSortingColumns, isAdmin, onClickToDelete) {
+function columnDefinitions(getSortingColumns) {
   const strategy = sort.strategies.byProperty;
 
   const resetable = sort.reset({

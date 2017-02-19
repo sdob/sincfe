@@ -2,7 +2,7 @@ import React from 'react';
 import { Field } from 'redux-form';
 import moment from 'moment';
 
-import { DatePicker, FormRow, SelectRow, StaticFormRow, SubmitRow } from '../shared';
+import { DatePicker, SelectRow, StaticFormRow, SubmitRow } from '../shared';
 import { AutosuggestOrMember } from '../profiles';
 import * as fields from './fields';
 
@@ -10,6 +10,7 @@ export default function QualificationDetailForm(props) {
   const {
     addNew,
     certificates,
+    date_granted,
     editable,
     onSubmit,
     qualification,
@@ -25,7 +26,7 @@ export default function QualificationDetailForm(props) {
           name="user"
           label="Member"
         />
-      ): (
+      ) : (
         <StaticFormRow
           field={fields.USER}
           label="Member"
@@ -37,8 +38,8 @@ export default function QualificationDetailForm(props) {
           field={fields.CERTIFICATE}
           label="Certificate"
           options={[
-          { label: 'Select certification', value: -1 },
-          ...certificates.map(cert => ({ label: cert.name, value: cert.id }))
+            { label: 'Select certification', value: -1 },
+            ...certificates.map(cert => ({ label: cert.name, value: cert.id })),
           ]}
         />
       ) : (
@@ -51,7 +52,8 @@ export default function QualificationDetailForm(props) {
       )}
       {editable ? (
         <div className="form-group row">
-          <label htmlFor={fields.DATE_GRANTED}
+          <label
+            htmlFor={fields.DATE_GRANTED}
             className="col-12 col-md-3 col-form-label"
           >
             Date granted

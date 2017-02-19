@@ -1,11 +1,4 @@
 import { createTypes } from '../shared';
-//import * as shared from '../shared';
-//console.info(shared);
-
-// import * as shared from '../shared';
-// console.info('shared');
-// console.info(shared);
-
 
 export const OWN_PROFILE_RECEIVED = 'OWN_PROFILE_RECEIVED';
 export const OWN_PROFILE_FETCHING = 'OWN_PROFILE_FETCHING';

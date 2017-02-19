@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Field, reduxForm } from 'redux-form';
 
-import { FormRow, PageLoading, SubmitRow, UneditableProfileHelp } from '../shared';
+import { PageLoading, SubmitRow, UneditableProfileHelp } from '../shared';
 
 import { updateOwnProfile } from './actions';
 import ContactDetails from './ContactDetails';

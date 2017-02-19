@@ -68,8 +68,6 @@ export default class ClubTable extends Component {
 
     // editable defaults to false (as does isAdmin)
     const editable = !!this.props.editable;
-    const isAdmin = !!this.props.isAdmin;
-    const { handleDelete } = this.props;
     if (editable) {
       this.state.columns.push({
         property: 'id',
@@ -90,7 +88,6 @@ export default class ClubTable extends Component {
         }
       });
     }
-
   }
 
   getSortingColumns() {

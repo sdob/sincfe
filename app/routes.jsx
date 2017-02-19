@@ -21,34 +21,39 @@ import { requireRole, roles } from './roles';
 
 // Other components; imports in alphabetical order, please
 import ActiveInstructors from './active-instructors/ActiveInstructors';
-import AddClub from './clubs/AddClub';
 import AddCourse from './courses/AddCourse';
 import AddMember from './profiles/AddMember';
 import ContactUs from './contact-us/ContactUs';
 import CourseDetail from './courses/CourseDetail';
-import ClubMemberList from './clubs/ClubMemberList';
 import ClubRenewalOrders from './renewal-orders/ClubRenewalOrders';
-import ClubQualifications from './qualifications/ClubQualifications';
 import Documents from './documents/Documents';
-import EditClub from './clubs/EditClub';
 import EditCourse from './courses/EditCourse';
 import EditMember from './profiles/EditMember';
 import EditProfile from './profiles/EditProfile';
-import EditQualification from './qualifications/EditQualification';
 import HelpPage from './help-page/HelpPage';
 import MemberQualifications from './qualifications/MemberQualifications';
 import MedicalDisclaimer from './medical-disclaimer/MedicalDisclaimer';
 import MembershipHistory from './membership-history/MembershipHistory';
 import OrganizeCourses from './courses/OrganizeCourses';
 import TeachCourses from './courses/TeachCourses';
-import ViewClubs from './clubs/ViewClubs';
 import ViewCourses from './courses/ViewCourses';
 import ViewMembers from './profiles/ViewMembers';
-import ViewQualifications from './qualifications/ViewQualifications';
 import ViewRegions from './regions/ViewRegions';
 import ViewRegionDetail from './regions/ViewRegionDetail';
 
-import { AddQualification } from './qualifications';
+import {
+  AddClub,
+  ClubMemberList,
+  EditClub,
+  ViewClubs,
+} from './clubs';
+
+import {
+  AddQualification,
+  ClubQualifications,
+  EditQualification,
+  ViewQualifications,
+} from './qualifications';
 
 // Define privileges
 const { Administrator, DiveOfficer, Member } = roles;
@@ -74,12 +79,12 @@ export default (
     <Route path={`${paths.EDIT_CLUB}/:id`} component={RequireAdminOrDiveOfficer(EditClub)} />
 
     {/* Routes that require DO privileges */}
+    <Route path={paths.CLUB_QUALIFICATIONS} component={RequireDiveOfficer(ClubQualifications)} />
+    <Route path={paths.CLUB_RENEWAL_ORDERS} component={RequireDiveOfficer(ClubRenewalOrders)} />
 
     {/* Routes that don't require admin privileges */}
     <Route path={paths.ACTIVE_INSTRUCTORS} component={RequireAuth(ActiveInstructors)} />
     <Route path={paths.ADD_COURSE} component={RequireAuth(AddCourse)} />
-    <Route path={paths.CLUB_QUALIFICATIONS} component={RequireAuth(ClubQualifications)} />
-    <Route path={paths.CLUB_RENEWAL_ORDERS} component={RequireAuth(ClubRenewalOrders)} />
     <Route path={paths.CONTACT_US} component={RequireAuth(ContactUs)} />
     <Route path={paths.DOCUMENTS} component={RequireAuth(Documents)} />
     <Route path={`${paths.EDIT_COURSE}/:id`} component={RequireAuth(EditCourse)} />

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { NotImplementedYet, PageLoading } from '../shared';
+import { PageLoading } from '../shared';
 import { fetchCoursesOrganized } from './actions';
 import CourseTable from './CourseTable';
 
@@ -41,7 +41,7 @@ function mapStateToProps(state) {
 
 function renderNoCourses() {
   return (
-    <p>You aren't listed as an organizer on any courses.</p>
+    <p>You aren&rsquot;t listed as an organizer on any courses.</p>
   );
 }
 

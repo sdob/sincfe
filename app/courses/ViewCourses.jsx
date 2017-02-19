@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router';
-import moment from 'moment';
 
 import * as paths from '../paths';
 import { CertificateSelector, PageLoading, RegionFilter } from '../shared';
@@ -40,7 +39,7 @@ class ViewCourses extends Component {
   }
 
   getVisibleCourses() {
-    const { courses, isAdmin } = this.props;
+    const { courses } = this.props;
     const { regionVisibilities, selectedCertificateId } = this.state;
     return courses.filter(isWithinVisibleRegion).filter(isSelectedCertificate);
 
@@ -91,7 +90,7 @@ class ViewCourses extends Component {
   render() {
     const { certificates, courses, roles: { isAdmin }, regions } = this.props;
     if (!courses) {
-      return <PageLoading />
+      return <PageLoading />;
     }
     return (
       <div>
