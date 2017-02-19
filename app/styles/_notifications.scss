@@ -41,6 +41,12 @@
   z-index: 2;
 }
 
+.sinc-notification--default {
+  .notification {
+    background: $brand-primary;
+  }
+}
+
 .sinc-notification--success {
   position: absolute;
   top: 0;
