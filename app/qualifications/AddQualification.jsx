@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import { reduxForm } from 'redux-form';
+import * as paths from '../paths';
 import { PageLoading } from '../shared';
 import { fetchCertificateList } from '../courses/actions';
 import { showModal } from '../modals';
