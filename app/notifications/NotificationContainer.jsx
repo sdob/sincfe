@@ -13,6 +13,11 @@ import {
   courseInstructionAdd,
   courseInstructionDelete
 } from '../courses/types';
+import {
+  qualificationAdd,
+  qualificationDelete,
+  qualificationUpdate,
+} from '../qualifications/types';
 import * as profileTypes from '../profiles/types';
 
 export default function NotificationContainer() {
@@ -57,6 +62,18 @@ export default function NotificationContainer() {
       <FlashNotification
         message="Instructor removed!"
         trigger={courseInstructionDelete.success}
+      />
+      <FlashNotification
+        message="Qualification added!"
+        trigger={qualificationAdd.success}
+      />
+      <FlashNotification
+        message="Qualification deleted!"
+        trigger={qualificationDelete.success}
+      />
+      <FlashNotification
+        message="Qualification updated!"
+        trigger={qualificationUpdate.success}
       />
     </div>
   );
